@@ -1,0 +1,118 @@
+---
+interface Props {
+    number: string;
+    title: string;
+    description: string;
+    color: "cyan" | "purple" | "blue" | "fuchsia" | "teal";
+    align?: "left" | "right";
+}
+
+const { number, title, description, color, align = "left" } = Astro.props;
+const isRight = align === "right";
+
+// Colores RGB para estilos inline
+const colorMap = {
+    cyan: { rgb: "34, 211, 238", text: "text-cyan-400", dot: "bg-cyan-400" },
+    purple: {
+        rgb: "168, 85, 247",
+        text: "text-purple-500",
+        dot: "bg-purple-500",
+    },
+    blue: { rgb: "59, 130, 246", text: "text-blue-500", dot: "bg-blue-500" },
+    fuchsia: {
+        rgb: "217, 70, 239",
+        text: "text-fuchsia-500",
+        dot: "bg-fuchsia-500",
+    },
+    teal: { rgb: "45, 212, 191", text: "text-teal-500", dot: "bg-teal-400" },
+};
+
+const currentColor = colorMap[color];
+const uniqueId = `process-card-${number.toLowerCase()}`;
+---
+
+<div
+    class="relative flex flex-col md:flex-row items-center justify-between mb-16 md:mb-24 w-full group"
+>
+    <div
+        class={`w-full md:w-5/12 ${isRight ? "md:block hidden" : `order-2 md:order-1`} perspective-[1000px]`}
+    >
+        {
+            !isRight && (
+                <div
+                    class={`glass-card ${uniqueId} p-6 rounded-xl relative border-2 transition-all duration-500 group-hover:rotate-y-2 transform-style-3d hover:-translate-y-2`}
+                    style={`border-color: rgba(${currentColor.rgb}, 0.3);`}
+                >
+                    <div
+                        class={`${currentColor.text} text-sm font-bold mb-1 text-right`}
+                    >
+                        {number}
+                    </div>
+                    <h3 class="text-xl font-bold text-white mb-2 text-right">
+                        {title}
+                    </h3>
+                    <p class="text-gray-400 text-xs leading-relaxed text-right">
+                        {description}
+                    </p>
+                </div>
+            )
+        }
+    </div>
+
+    <div
+        class={`absolute left-1/2 -translate-x-1/2 flex items-center justify-center size-12 rounded-full bg-[#030014] border-2 z-10 ${isRight ? "" : "order-1 md:order-2"} mb-4 md:mb-0 transition-all duration-300 group-hover:scale-125`}
+        style={`border-color: rgba(${currentColor.rgb}, 0.5); box-shadow: 0 0 20px rgba(${currentColor.rgb}, 0.4);`}
+    >
+        <div
+            class={`size-4 ${currentColor.dot} rounded-full animate-ping-slow`}
+        >
+        </div>
+    </div>
+
+    <div
+        class={`w-full md:w-5/12 ${isRight ? "" : "order-3 md:order-3 md:block hidden"} perspective-[1000px]`}
+    >
+        {
+            isRight && (
+                <div
+                    class={`glass-card ${uniqueId} p-6 rounded-xl relative border-2 transition-all duration-500 group-hover:rotate-y-2 transform-style-3d hover:-translate-y-2`}
+                    style={`border-color: rgba(${currentColor.rgb}, 0.3);`}
+                >
+                    <div class={`${currentColor.text} text-sm font-bold mb-1`}>
+                        {number}
+                    </div>
+                    <h3 class="text-xl font-bold text-white mb-2">{title}</h3>
+                    <p class="text-gray-400 text-xs leading-relaxed">
+                        {description}
+                    </p>
+                </div>
+            )
+        }
+    </div>
+</div>
+
+<style define:vars={{ rgb: currentColor.rgb }}>
+    .perspective-1000px {
+        perspective: 1000px;
+    }
+
+    .transform-style-3d {
+        transform-style: preserve-3d;
+    }
+
+    .rotate-y-2 {
+        transform: rotateY(2deg);
+    }
+
+    /* Estilos específicos para esta card usando el ID único */
+    .glass-card:is(
+            .process-card-01,
+            .process-card-02,
+            .process-card-03,
+            .process-card-04,
+            .process-card-05
+        ):hover {
+        border-color: rgb(var(--rgb)) !important;
+        box-shadow: 0 0 20px rgba(var(--rgb), 0.5) !important;
+    }
+</style>

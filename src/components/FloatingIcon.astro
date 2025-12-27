@@ -1,0 +1,62 @@
+---
+interface Props {
+    icon: string;
+    color: string;
+    delay?: number;
+    position: { x: number; y: number };
+    size?: "sm" | "md" | "lg";
+}
+
+const { icon, color, delay = 0, position, size = "md" } = Astro.props;
+
+const sizeClasses = {
+    sm: "w-16 h-16",
+    md: "w-20 h-20",
+    lg: "w-24 h-24",
+};
+
+const iconSizes = {
+    sm: "text-3xl",
+    md: "text-4xl",
+    lg: "text-5xl",
+};
+---
+
+<div
+    class={`absolute ${sizeClasses[size]} bg-white rounded-2xl shadow-lg flex items-center justify-center animate-float-orbit`}
+    style={`
+        left: ${position.x}%;
+        top: ${position.y}%;
+        animation-delay: ${delay}s;
+        box-shadow: 0 8px 32px rgba(0, 0, 0, 0.1), 0 0 0 1px rgba(6, 182, 212, 0.2);
+    `}
+>
+    <span
+        class={`material-symbols-outlined ${iconSizes[size]}`}
+        style={`color: ${color};`}
+    >
+        {icon}
+    </span>
+</div>
+
+<style>
+    @keyframes float-orbit {
+        0%,
+        100% {
+            transform: translate(0, 0) scale(1);
+        }
+        25% {
+            transform: translate(10px, -15px) scale(1.05);
+        }
+        50% {
+            transform: translate(-5px, -25px) scale(1);
+        }
+        75% {
+            transform: translate(-15px, -10px) scale(0.95);
+        }
+    }
+
+    .animate-float-orbit {
+        animation: float-orbit 8s ease-in-out infinite;
+    }
+</style>

@@ -1,0 +1,55 @@
+---
+// Header/Navigation component
+---
+
+<nav class="fixed top-0 z-50 w-full glass-nav transition-all duration-300">
+    <div class="max-w-7xl mx-auto px-6 h-20 flex items-center justify-between">
+        <div class="flex items-center gap-2 group cursor-pointer">
+            <div class="relative">
+                <div
+                    class="absolute inset-0 bg-cyan-500/50 blur-lg rounded-full opacity-0 group-hover:opacity-100 transition-opacity duration-300"
+                >
+                </div>
+                <span
+                    class="material-symbols-outlined text-transparent bg-clip-text bg-gradient-to-r from-cyan-400 to-fuchsia-500 text-4xl relative z-10 group-hover:rotate-12 transition-transform duration-500"
+                    >smart_toy</span
+                >
+            </div>
+            <span
+                class="font-bold text-xl tracking-tight group-hover:text-cyan-200 transition-colors"
+                >Responya</span
+            >
+        </div>
+        <button
+            class="md:hidden text-white hover:text-cyan-400 transition-colors"
+        >
+            <span class="material-symbols-outlined">menu</span>
+        </button>
+        <div
+            class="hidden md:flex items-center gap-8 text-sm font-medium text-gray-400"
+        >
+            <a
+                class="hover:text-white transition-colors hover:shadow-[0_1px_0_0_currentColor]"
+                href="#services">Servicios</a
+            >
+            <a
+                class="hover:text-white transition-colors hover:shadow-[0_1px_0_0_currentColor]"
+                href="#about">Nosotros</a
+            >
+            <a
+                class="hover:text-white transition-colors hover:shadow-[0_1px_0_0_currentColor]"
+                href="#process">Proceso</a
+            >
+            <a
+                class="px-5 py-2 rounded-full bg-white/5 hover:bg-white/10 border border-white/10 text-white transition-all hover:scale-105 hover:border-cyan-500/50 hover:shadow-neon-cyan"
+                href="#contact">Contacto</a
+            >
+        </div>
+    </div>
+</nav>
+
+<style>
+    .shadow-neon-cyan {
+        box-shadow: 0 0 20px rgba(34, 211, 238, 0.3);
+    }
+</style>

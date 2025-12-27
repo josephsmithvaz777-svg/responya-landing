@@ -1,0 +1,109 @@
+---
+interface Props {
+	title: string;
+	description?: string;
+}
+
+const {
+	title,
+	description = "Desarrollamos soluciones de software a medida potenciadas por Inteligencia Artificial",
+} = Astro.props;
+---
+
+<!doctype html>
+<html lang="es" class="dark">
+	<head>
+		<meta charset="UTF-8" />
+		<meta name="description" content={description} />
+		<meta name="viewport" content="width=device-width" />
+		<link rel="icon" type="image/svg+xml" href="/favicon.svg" />
+		<meta name="generator" content={Astro.generator} />
+		<title>{title}</title>
+
+		<!-- Google Fonts -->
+		<link rel="preconnect" href="https://fonts.googleapis.com" />
+		<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+		<link
+			href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800;900&display=swap"
+			rel="stylesheet"
+		/>
+		<link
+			href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&display=swap"
+			rel="stylesheet"
+		/>
+	</head>
+	<body
+		class="bg-[#030014] text-white overflow-x-hidden w-full min-h-screen flex flex-col selection:bg-cyan-500/30"
+	>
+		<!-- Background Effects - Fixed para que siempre estén visibles -->
+		<div class="fixed inset-0 z-0 pointer-events-none">
+			<div class="stars absolute inset-0"></div>
+			<div
+				class="absolute top-0 -left-20 w-96 h-96 bg-purple-600/20 rounded-full mix-blend-screen filter blur-[100px] animate-blob"
+			>
+			</div>
+			<div
+				class="absolute top-0 -right-20 w-96 h-96 bg-cyan-600/20 rounded-full mix-blend-screen filter blur-[100px] animate-blob animation-delay-2000"
+			>
+			</div>
+			<div
+				class="absolute -bottom-40 left-20 w-96 h-96 bg-pink-600/20 rounded-full mix-blend-screen filter blur-[100px] animate-blob animation-delay-4000"
+			>
+			</div>
+		</div>
+
+		<slot />
+
+		<script is:inline>
+			// Esperar a que el DOM esté completamente cargado
+			document.addEventListener("DOMContentLoaded", function () {
+				// Parallax Effect for Background Elements
+				document.addEventListener("mousemove", function (e) {
+					const x = e.clientX / window.innerWidth;
+					const y = e.clientY / window.innerHeight;
+					const blobs = document.querySelectorAll(".animate-blob");
+					blobs.forEach(function (blob, index) {
+						const speed = (index + 1) * 20;
+						blob.style.transform =
+							"translate(" +
+							x * speed +
+							"px, " +
+							y * speed +
+							"px)";
+					});
+					const grid = document.querySelector(".bg-tech-grid");
+					if (grid) {
+						grid.style.backgroundPosition =
+							x * 10 + "px " + y * 10 + "px";
+					}
+				});
+
+				// Intersection Observer for scroll animations
+				const observerOptions = {
+					threshold: 0.1,
+					rootMargin: "0px 0px -50px 0px",
+				};
+
+				const observer = new IntersectionObserver(function (entries) {
+					entries.forEach(function (entry) {
+						if (entry.isIntersecting) {
+							entry.target.classList.add("visible");
+						}
+					});
+				}, observerOptions);
+
+				// Observar todos los elementos con la clase animate-on-scroll
+				const elements =
+					document.querySelectorAll(".animate-on-scroll");
+				console.log(
+					"Observing " +
+						elements.length +
+						" elements with animate-on-scroll",
+				);
+				elements.forEach(function (el) {
+					observer.observe(el);
+				});
+			});
+		</script>
+	</body>
+</html>

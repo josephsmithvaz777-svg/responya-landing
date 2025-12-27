@@ -1,0 +1,91 @@
+---
+interface Props {
+    title: string;
+    description: string;
+    icon: string;
+    color?: "blue" | "fuchsia" | "indigo" | "purple";
+    delay?: string;
+}
+
+const { title, description, icon, color = "blue", delay = "0s" } = Astro.props;
+
+// Clases específicas por color para que Tailwind las detecte
+const colorClasses = {
+    blue: {
+        card: "neon-blue",
+        bg: "bg-blue-500/20",
+        iconBg: "bg-blue-500/10",
+        iconBorder: "border-blue-500/20",
+        iconText: "text-blue-400",
+        iconHoverBg: "group-hover:bg-blue-500/20",
+        iconHoverBorder: "group-hover:border-blue-500/40",
+        titleHover: "group-hover:text-blue-300",
+        glow: "bg-blue-500/20",
+    },
+    fuchsia: {
+        card: "neon-fuchsia",
+        bg: "bg-fuchsia-500/20",
+        iconBg: "bg-fuchsia-500/10",
+        iconBorder: "border-fuchsia-500/20",
+        iconText: "text-fuchsia-400",
+        iconHoverBg: "group-hover:bg-fuchsia-500/20",
+        iconHoverBorder: "group-hover:border-fuchsia-500/40",
+        titleHover: "group-hover:text-fuchsia-300",
+        glow: "bg-fuchsia-500/20",
+    },
+    indigo: {
+        card: "neon-indigo",
+        bg: "bg-indigo-500/20",
+        iconBg: "bg-indigo-500/10",
+        iconBorder: "border-indigo-500/20",
+        iconText: "text-indigo-400",
+        iconHoverBg: "group-hover:bg-indigo-500/20",
+        iconHoverBorder: "group-hover:border-indigo-500/40",
+        titleHover: "group-hover:text-indigo-300",
+        glow: "bg-indigo-500/20",
+    },
+    purple: {
+        card: "neon-purple",
+        bg: "bg-purple-500/20",
+        iconBg: "bg-purple-500/10",
+        iconBorder: "border-purple-500/20",
+        iconText: "text-purple-400",
+        iconHoverBg: "group-hover:bg-purple-500/20",
+        iconHoverBorder: "group-hover:border-purple-500/40",
+        titleHover: "group-hover:text-purple-300",
+        glow: "bg-purple-500/20",
+    },
+};
+
+const classes = colorClasses[color];
+---
+
+<div
+    class={`glass-card ${classes.card} p-8 rounded-xl relative group overflow-hidden animate-on-scroll`}
+    style={`animation-delay: ${delay};`}
+>
+    <div class="card-shimmer"></div>
+    <div class="glow-effect"></div>
+    <div
+        class={`absolute -right-10 -bottom-10 w-24 h-24 ${classes.glow} blur-xl rounded-full group-hover:scale-150 transition-transform duration-500`}
+    >
+    </div>
+
+    <div
+        class={`size-14 ${classes.iconBg} rounded-xl border ${classes.iconBorder} flex items-center justify-center mb-6 ${classes.iconText} ${classes.iconHoverBg} ${classes.iconHoverBorder} transition-all duration-300 group-hover:rotate-6 shadow-[0_0_15px_rgba(59,130,246,0.2)]`}
+    >
+        <span class="material-symbols-outlined">{icon}</span>
+    </div>
+
+    <h3
+        class={`text-lg font-bold text-white mb-3 ${classes.titleHover} transition-colors`}
+    >
+        {title}
+    </h3>
+
+    <p
+        class="text-gray-400 text-sm leading-relaxed group-hover:text-white/80 transition-colors"
+    >
+        {description}
+    </p>
+</div>

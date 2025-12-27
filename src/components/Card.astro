@@ -1,0 +1,141 @@
+---
+interface Props {
+    title: string;
+    description: string;
+    icon: string;
+    color?: "purple" | "cyan" | "pink" | "blue" | "fuchsia" | "indigo";
+    delay?: string;
+}
+
+const { title, description, icon, color = "cyan", delay = "0s" } = Astro.props;
+
+// Clases específicas por color para que Tailwind las detecte
+const colorClasses = {
+    purple: {
+        card: "neon-purple",
+        gradient: "from-purple-500/5",
+        glow: "bg-purple-500/20",
+        shadow: "shadow-purple-500/5",
+        shadowHover: "group-hover:shadow-neon-purple",
+        border: "group-hover:border-purple-500/50",
+        iconText: "text-purple-400",
+        titleHover: "group-hover:text-purple-300",
+    },
+    cyan: {
+        card: "neon-cyan",
+        gradient: "from-cyan-500/5",
+        glow: "bg-cyan-500/20",
+        shadow: "shadow-cyan-500/5",
+        shadowHover: "group-hover:shadow-neon-cyan",
+        border: "group-hover:border-cyan-500/50",
+        iconText: "text-cyan-400",
+        titleHover: "group-hover:text-cyan-300",
+    },
+    pink: {
+        card: "neon-pink",
+        gradient: "from-pink-500/5",
+        glow: "bg-pink-500/20",
+        shadow: "shadow-pink-500/5",
+        shadowHover: "group-hover:shadow-neon-pink",
+        border: "group-hover:border-pink-500/50",
+        iconText: "text-pink-400",
+        titleHover: "group-hover:text-pink-300",
+    },
+    blue: {
+        card: "neon-blue",
+        gradient: "from-blue-500/5",
+        glow: "bg-blue-500/20",
+        shadow: "shadow-blue-500/5",
+        shadowHover: "group-hover:shadow-neon-blue",
+        border: "group-hover:border-blue-500/50",
+        iconText: "text-blue-400",
+        titleHover: "group-hover:text-blue-300",
+    },
+    fuchsia: {
+        card: "neon-fuchsia",
+        gradient: "from-fuchsia-500/5",
+        glow: "bg-fuchsia-500/20",
+        shadow: "shadow-fuchsia-500/5",
+        shadowHover: "group-hover:shadow-neon-fuchsia",
+        border: "group-hover:border-fuchsia-500/50",
+        iconText: "text-fuchsia-400",
+        titleHover: "group-hover:text-fuchsia-300",
+    },
+    indigo: {
+        card: "neon-indigo",
+        gradient: "from-indigo-500/5",
+        glow: "bg-indigo-500/20",
+        shadow: "shadow-indigo-500/5",
+        shadowHover: "group-hover:shadow-neon-indigo",
+        border: "group-hover:border-indigo-500/50",
+        iconText: "text-indigo-400",
+        titleHover: "group-hover:text-indigo-300",
+    },
+};
+
+const classes = colorClasses[color];
+---
+
+<div
+    class={`glass-card ${classes.card} p-8 rounded-2xl flex flex-col items-center text-center relative group overflow-hidden animate-on-scroll`}
+    style={`animation-delay: ${delay};`}
+>
+    <div class="card-shimmer"></div>
+    <div class="glow-effect"></div>
+    <div
+        class={`absolute inset-0 bg-gradient-to-b ${classes.gradient} to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-500`}
+    >
+    </div>
+    <div
+        class={`absolute -top-10 -right-10 w-40 h-40 ${classes.glow} blur-3xl rounded-full animate-glow-pulse`}
+    >
+    </div>
+
+    <div
+        class={`size-16 rounded-full bg-[#1a1a2e] border border-white/5 flex items-center justify-center mb-6 shadow-lg ${classes.shadow} ${classes.shadowHover} ${classes.border} transition-all duration-300 group-hover:scale-110 relative z-10 animate-card-float`}
+    >
+        <span
+            class={`material-symbols-outlined ${classes.iconText} text-3xl transition-colors group-hover:rotate-[360deg] duration-700 ease-in-out`}
+        >
+            {icon}
+        </span>
+    </div>
+
+    <h3
+        class={`text-xl font-bold text-white mb-3 relative z-10 ${classes.titleHover} transition-colors`}
+    >
+        {title}
+    </h3>
+
+    <p
+        class="text-gray-400 text-sm leading-relaxed relative z-10 group-hover:text-gray-300 transition-colors"
+    >
+        {description}
+    </p>
+</div>
+
+<style>
+    .shadow-neon-purple {
+        box-shadow: 0 0 20px rgba(168, 85, 247, 0.3);
+    }
+
+    .shadow-neon-cyan {
+        box-shadow: 0 0 20px rgba(34, 211, 238, 0.3);
+    }
+
+    .shadow-neon-pink {
+        box-shadow: 0 0 20px rgba(236, 72, 153, 0.3);
+    }
+
+    .shadow-neon-blue {
+        box-shadow: 0 0 20px rgba(59, 130, 246, 0.3);
+    }
+
+    .shadow-neon-fuchsia {
+        box-shadow: 0 0 20px rgba(217, 70, 239, 0.3);
+    }
+
+    .shadow-neon-indigo {
+        box-shadow: 0 0 20px rgba(99, 102, 241, 0.3);
+    }
+</style>

@@ -1,0 +1,204 @@
+---
+// Hero section component
+---
+
+<section
+    class="w-full relative flex flex-col items-center justify-center pt-20 pb-32 px-4 overflow-hidden min-h-[90vh]"
+>
+    <div
+        class="absolute inset-0 bg-tech-grid bg-[size:50px_50px] opacity-20 bg-fixed pointer-events-none perspective-[1000px] [transform:rotateX(20deg)_scale(1.2)] origin-top"
+    >
+    </div>
+    <div
+        class="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[600px] h-[600px] bg-gradient-radial from-purple-900/30 to-transparent rounded-full blur-[80px] -z-10 animate-pulse-slow"
+    >
+    </div>
+
+    <div
+        class="max-w-4xl mx-auto text-center z-10 flex flex-col items-center gap-6 relative"
+    >
+        <div class="mb-4 relative group animate-float">
+            <div
+                class="absolute inset-0 bg-gradient-to-r from-cyan-500 to-fuchsia-500 blur-2xl opacity-20 group-hover:opacity-40 transition-opacity duration-500 rounded-full"
+            >
+            </div>
+            <div
+                class="relative z-10 p-4 rounded-2xl bg-white/5 border border-white/10 backdrop-blur-sm group-hover:border-cyan-500/30 transition-colors duration-300"
+            >
+                <span
+                    class="material-symbols-outlined text-transparent bg-clip-text bg-gradient-to-br from-cyan-400 to-fuchsia-600 text-7xl transform group-hover:scale-110 transition-transform duration-500 group-hover:rotate-[360deg] ease-in-out"
+                    >change_history</span
+                >
+            </div>
+        </div>
+
+        <h1
+            class="text-4xl md:text-6xl lg:text-7xl font-bold leading-tight tracking-tight drop-shadow-lg"
+        >
+            Transformamos <span
+                class="text-gradient hover:brightness-125 transition-all cursor-default relative inline-block hover:scale-105 duration-300"
+                >ideas</span
+            > en <br />
+            <span
+                class="text-gradient hover:brightness-125 transition-all cursor-default relative inline-block hover:scale-105 duration-300"
+                >innovación</span
+            > con IA
+        </h1>
+
+        <p
+            class="text-gray-400 text-lg max-w-2xl mx-auto leading-relaxed backdrop-blur-sm bg-black/10 p-2 rounded-lg"
+        >
+            Desarrollamos soluciones de software a medida potenciadas por
+            Inteligencia Artificial para resolver tus problemas más complejos.
+        </p>
+
+        <div class="mt-4 mb-12 relative group">
+            <div
+                class="absolute -inset-1 bg-gradient-to-r from-pink-500 to-orange-400 rounded-full blur opacity-25 group-hover:opacity-75 transition duration-1000 group-hover:duration-200 animate-pulse"
+            >
+            </div>
+            <a
+                class="relative inline-flex items-center justify-center px-8 py-3 rounded-full bg-[#0a0a16] border border-orange-500/50 text-white font-bold text-sm uppercase tracking-wide hover:scale-105 transition-transform duration-300 overflow-hidden"
+                href="#video"
+            >
+                <div
+                    class="absolute top-0 left-0 w-full h-full bg-white/5 skew-x-[-20deg] translate-x-[-150%] group-hover:translate-x-[150%] transition-transform duration-700"
+                >
+                </div>
+                <span
+                    class="text-transparent bg-clip-text bg-gradient-to-r from-pink-500 to-orange-400 flex items-center gap-2"
+                >
+                    Ver Demo <span
+                        class="material-symbols-outlined text-base animate-bounce"
+                        >play_circle</span
+                    >
+                </span>
+            </a>
+        </div>
+
+        <div
+            class="w-full max-w-3xl aspect-video rounded-2xl border border-white/10 bg-[#0a0a12]/80 relative overflow-hidden group shadow-2xl shadow-purple-900/10 hover:shadow-neon-purple transition-all duration-500 flex items-center justify-center backdrop-blur-md"
+        >
+            <div
+                class="absolute inset-0 bg-tech-grid bg-[size:30px_30px] opacity-10 group-hover:opacity-20 transition-opacity duration-700 [transform:perspective(500px)_rotateX(10deg)]"
+            >
+            </div>
+            <div
+                class="absolute inset-0 flex items-center justify-center bg-black/40 group-hover:bg-black/20 transition-all z-10 backdrop-blur-[1px] group-hover:backdrop-blur-none"
+            >
+                <div
+                    class="size-24 rounded-full bg-surface-card border border-white/10 flex items-center justify-center backdrop-blur-md group-hover:scale-110 group-hover:border-cyan-500/50 transition-all duration-300 cursor-pointer shadow-lg relative overflow-hidden"
+                >
+                    <div
+                        class="absolute inset-0 bg-gradient-to-br from-cyan-500/10 to-fuchsia-500/10 opacity-0 group-hover:opacity-100 transition-opacity duration-300"
+                    >
+                    </div>
+                    <span
+                        class="material-symbols-outlined text-cyan-400 text-5xl fill-current ml-1 group-hover:text-white transition-colors relative z-10"
+                        >play_arrow</span
+                    >
+                </div>
+            </div>
+
+            <!-- Corner decorations -->
+            <div
+                class="absolute top-4 left-4 w-4 h-4 border-t-2 border-l-2 border-cyan-500/30 group-hover:border-cyan-400 transition-colors duration-300 group-hover:w-6 group-hover:h-6"
+            >
+            </div>
+            <div
+                class="absolute top-4 right-4 w-4 h-4 border-t-2 border-r-2 border-fuchsia-500/30 group-hover:border-fuchsia-400 transition-colors duration-300 group-hover:w-6 group-hover:h-6"
+            >
+            </div>
+            <div
+                class="absolute bottom-4 left-4 w-4 h-4 border-b-2 border-l-2 border-fuchsia-500/30 group-hover:border-fuchsia-400 transition-colors duration-300 group-hover:w-6 group-hover:h-6"
+            >
+            </div>
+            <div
+                class="absolute bottom-4 right-4 w-4 h-4 border-b-2 border-r-2 border-cyan-500/30 group-hover:border-cyan-400 transition-colors duration-300 group-hover:w-6 group-hover:h-6"
+            >
+            </div>
+
+            <div
+                class="z-0 flex flex-col items-center justify-center transition-all duration-500 group-hover:translate-y-2"
+            >
+                <h3
+                    class="text-2xl font-bold text-white mb-1 tracking-widest group-hover:text-cyan-300 transition-colors"
+                >
+                    RESPONYA OS
+                </h3>
+                <p
+                    class="text-xs text-gray-500 uppercase tracking-[0.3em] group-hover:text-cyan-500/70"
+                >
+                    System Online
+                </p>
+            </div>
+        </div>
+
+        <div class="mt-12 text-gray-500 text-sm mb-6 flex items-center gap-2">
+            <span
+                class="h-px w-8 bg-gray-800 group-hover:w-16 transition-all duration-500"
+            ></span>
+            Descubre cómo potenciamos tu negocio
+            <span
+                class="h-px w-8 bg-gray-800 group-hover:w-16 transition-all duration-500"
+            ></span>
+        </div>
+
+        <a
+            class="group inline-flex items-center gap-3 px-8 py-4 rounded-full bg-gradient-to-r from-purple-600 to-fuchsia-600 text-white font-bold shadow-lg shadow-purple-600/20 hover:shadow-neon-purple transition-all hover:-translate-y-1 relative overflow-hidden"
+            href="#contact"
+        >
+            <div
+                class="absolute inset-0 bg-white/20 translate-y-full group-hover:translate-y-0 transition-transform duration-300"
+            >
+            </div>
+            <span
+                class="material-symbols-outlined group-hover:rotate-45 transition-transform duration-300 relative z-10"
+                >rocket_launch</span
+            >
+            <span class="relative z-10">Iniciar Proyecto</span>
+        </a>
+    </div>
+</section>
+
+<style>
+    .bg-tech-grid {
+        background-image:
+            linear-gradient(rgba(255, 255, 255, 0.03) 1px, transparent 1px),
+            linear-gradient(
+                90deg,
+                rgba(255, 255, 255, 0.03) 1px,
+                transparent 1px
+            );
+    }
+
+    .bg-gradient-radial {
+        background-image: radial-gradient(var(--tw-gradient-stops));
+    }
+
+    .bg-surface-card {
+        background-color: #0a0a16;
+    }
+
+    .shadow-neon-purple {
+        box-shadow: 0 0 20px rgba(217, 70, 239, 0.3);
+    }
+
+    @keyframes float {
+        0%,
+        100% {
+            transform: translateY(0);
+        }
+        50% {
+            transform: translateY(-20px);
+        }
+    }
+
+    .animate-float {
+        animation: float 6s ease-in-out infinite;
+    }
+
+    .animate-pulse-slow {
+        animation: pulse 4s cubic-bezier(0.4, 0, 0.6, 1) infinite;
+    }
+</style>
