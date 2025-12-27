@@ -1,170 +1,177 @@
-# 🚀 Responya - Sitio Web con Astro.js
+# 🚀 Responya - Soluciones de IA
 
-Sitio web profesional de Responya convertido a **Astro.js** con componentes reutilizables, optimización automática y efectos visuales premium.
+Sitio web moderno y animado para Responya, desarrollado con **Astro.js** y **Tailwind CSS**. Presenta soluciones de Inteligencia Artificial y desarrollo tecnológico con un diseño premium y efectos visuales impresionantes.
+
+![Hero Section](./screenshots/hero.png)
 
 ## ✨ Características
 
-- ⚡ **Ultra rápido** - Astro genera HTML estático optimizado
-- 🎨 **Diseño moderno** - Efectos glass morphism y bordes neón
-- 📦 **Componentes reutilizables** - Arquitectura modular y mantenible
-- 🎭 **Animaciones suaves** - Transiciones y efectos visuales premium
-- 📱 **Responsive** - Diseño adaptable a todos los dispositivos
-- 🎯 **SEO optimizado** - Meta tags y estructura semántica
-- 🔧 **Tailwind CSS** - Estilos utilitarios con configuración personalizada
+- 🎨 **Diseño Moderno**: Interfaz premium con efectos glassmorphism y bordes neón
+- 🌟 **Animaciones Fluidas**: Partículas de fondo, efectos parallax y transiciones suaves
+- 📱 **Totalmente Responsive**: Optimizado para todos los dispositivos
+- ⚡ **Alto Rendimiento**: Construido con Astro para máxima velocidad
+- 🎭 **Efectos Visuales**: Iconos flotantes, líneas animadas y gradientes dinámicos
+- 🔄 **Smooth Scroll**: Navegación suave entre secciones
 
-## 🛠️ Tecnologías
+## 📸 Capturas de Pantalla
 
-- **Astro 5.16** - Framework web moderno
-- **Tailwind CSS 4** - Framework CSS utilitario
-- **TypeScript** - Tipado estático opcional
-- **Google Fonts** - Inter + Material Symbols
+### Sección Sobre Nosotros
+![About Section](./screenshots/about.png)
 
-## 📁 Estructura del Proyecto
+### Servicios
+![Services Section](./screenshots/services.png)
+
+### Nuestro Proceso
+![Process Section](./screenshots/process.png)
+
+### Integraciones
+![Integrations Section](./screenshots/integrations.png)
+
+### Contacto
+![Contact Section](./screenshots/contact.png)
+
+## 🛠️ Tecnologías Utilizadas
+
+- **[Astro](https://astro.build/)** - Framework web moderno
+- **[Tailwind CSS](https://tailwindcss.com/)** - Framework de CSS utility-first
+- **[Google Fonts](https://fonts.google.com/)** - Tipografía Inter
+- **[Material Symbols](https://fonts.google.com/icons)** - Iconos
+
+## 📦 Estructura del Proyecto
 
 ```
 responya-astro/
 ├── src/
 │   ├── components/
-│   │   ├── Header.astro          # Navegación principal
-│   │   ├── Hero.astro             # Sección hero con video
-│   │   ├── Card.astro             # Card reutilizable (About)
-│   │   ├── ServiceCard.astro      # Card de servicios
-│   │   └── Footer.astro           # Pie de página
+│   │   ├── Card.astro              # Cards de "Sobre Nosotros"
+│   │   ├── FloatingIcon.astro      # Iconos flotantes de integraciones
+│   │   ├── Footer.astro            # Footer con redes sociales
+│   │   ├── Header.astro            # Navegación principal
+│   │   ├── Hero.astro              # Sección hero con video
+│   │   ├── ProcessStep.astro       # Pasos del proceso
+│   │   └── ServiceCard.astro       # Cards de servicios
 │   ├── layouts/
-│   │   └── Layout.astro           # Layout principal
+│   │   └── Layout.astro            # Layout principal con efectos de fondo
 │   ├── pages/
-│   │   └── index.astro            # Página principal
+│   │   └── index.astro             # Página principal
 │   └── styles/
-│       └── global.css             # Estilos globales
-├── public/                        # Archivos estáticos
-├── tailwind.config.mjs            # Configuración Tailwind
-├── astro.config.mjs               # Configuración Astro
+│       └── global.css              # Estilos globales y animaciones
+├── public/                         # Archivos estáticos
+├── screenshots/                    # Capturas de pantalla
+├── astro.config.mjs               # Configuración de Astro
+├── tailwind.config.mjs            # Configuración de Tailwind
 └── package.json
 ```
 
-## 🚀 Comandos
+## 🚀 Inicio Rápido
 
+### Prerrequisitos
+
+- Node.js 18+ 
+- npm o pnpm
+
+### Instalación
+
+1. Clona el repositorio:
 ```bash
-# Instalar dependencias
+git clone https://github.com/josephsmithvaz777-svg/responya-landing.git
+cd responya-landing
+```
+
+2. Instala las dependencias:
+```bash
 npm install
+```
 
-# Iniciar servidor de desarrollo
+3. Inicia el servidor de desarrollo:
+```bash
 npm run dev
-
-# Construir para producción
-npm run build
-
-# Previsualizar build de producción
-npm run preview
 ```
 
-## 🎨 Componentes
+4. Abre tu navegador en `http://localhost:4321`
 
-### Card Component
-```astro
-<Card 
-  title="Título"
-  icon="icon_name"
-  color="purple|cyan|pink|blue|fuchsia|indigo"
-  delay="0.2s"
-  description="Descripción..."
-/>
-```
+## 📜 Scripts Disponibles
 
-### ServiceCard Component
-```astro
-<ServiceCard 
-  title="Servicio"
-  icon="icon_name"
-  color="blue|fuchsia|indigo|purple"
-  delay="0.1s"
-  description="Descripción..."
-/>
-```
-
-## 🎯 Efectos Visuales
-
-- **Bordes Neón**: 6 colores personalizables (purple, cyan, pink, blue, fuchsia, indigo)
-- **Glass Morphism**: Efecto de cristal con blur
-- **Shimmer Effect**: Brillo que atraviesa las cards al hover
-- **Glow Pulse**: Resplandor pulsante de fondo
-- **Parallax**: Movimiento de elementos con el mouse
-- **Scroll Animations**: Animaciones al hacer scroll
-
-## 📊 Rendimiento
-
-| Métrica | HTML Original | Astro.js |
-|---------|---------------|----------|
-| Tamaño inicial | ~45KB | ~20KB |
-| JavaScript | ~300KB (CDN) | ~50KB |
-| Tiempo de carga | ~1.5s | ~0.5s |
-| SEO Score | Bueno | Excelente |
-
-## 🌐 Deploy
-
-### Vercel (Recomendado)
 ```bash
-npm install -g vercel
-vercel
+npm run dev          # Inicia el servidor de desarrollo
+npm run build        # Construye el proyecto para producción
+npm run preview      # Previsualiza la build de producción
+npm run astro        # Ejecuta comandos de Astro CLI
 ```
 
-### Netlify
-```bash
-npm run build
-# Sube la carpeta dist/
-```
+## 🎨 Secciones del Sitio
 
-### Cloudflare Pages
-```bash
-npm run build
-# Conecta tu repositorio Git
-```
+1. **Hero** - Presentación principal con video y CTA
+2. **Sobre Nosotros** - Valores y propuesta de valor
+3. **Servicios** - 4 servicios principales con iconos
+4. **Proceso** - Timeline de 5 pasos del proceso de trabajo
+5. **Integraciones** - Gráfico animado de herramientas compatibles
+6. **Contacto** - CTA con botón de WhatsApp
+7. **Footer** - Redes sociales y enlaces legales
 
-## 🎨 Personalización
-
-### Colores
-Edita `tailwind.config.mjs`:
-```js
-colors: {
-  'primary': '#d946ef',
-  'secondary': '#06b6d4',
-  // ...
-}
-```
+## 🎯 Características Técnicas
 
 ### Animaciones
-Edita `src/styles/global.css`:
-```css
-@keyframes custom-animation {
-  /* ... */
-}
-```
+- Partículas de fondo (estrellas) con animación continua
+- Blobs de colores con efecto parallax
+- Cards con efectos hover y bordes neón
+- Iconos flotantes con movimiento orbital
+- Líneas de conexión animadas con gradientes
+- Smooth scroll entre secciones
 
-## 📝 Notas
+### Optimizaciones
+- Componentes reutilizables de Astro
+- CSS modular con Tailwind
+- Lazy loading de imágenes
+- Código optimizado para producción
+- SEO-friendly con meta tags
 
-- El servidor de desarrollo corre en `http://localhost:4321`
-- Los cambios se reflejan automáticamente (HMR)
-- Los estilos están en `src/styles/global.css`
-- Las fuentes se cargan desde Google Fonts
+## 🌐 Despliegue
 
-## 🤝 Contribuir
+### Vercel (Recomendado)
 
-1. Fork el proyecto
-2. Crea una rama (`git checkout -b feature/nueva-funcionalidad`)
-3. Commit tus cambios (`git commit -am 'Agrega nueva funcionalidad'`)
-4. Push a la rama (`git push origin feature/nueva-funcionalidad`)
-5. Abre un Pull Request
+1. Conecta tu repositorio de GitHub a Vercel
+2. Vercel detectará automáticamente Astro
+3. Deploy automático en cada push
+
+### Netlify
+
+1. Conecta tu repositorio a Netlify
+2. Build command: `npm run build`
+3. Publish directory: `dist`
+
+### Otros Servicios
+
+El proyecto es compatible con cualquier servicio que soporte sitios estáticos:
+- GitHub Pages
+- Cloudflare Pages
+- AWS S3 + CloudFront
+
+## 👨‍💻 Autor
+
+**Joseph Vazquez**
+- GitHub: [@josephsmithvaz777-svg](https://github.com/josephsmithvaz777-svg)
 
 ## 📄 Licencia
 
-© 2024 Responya by Joseph Vazquez. Todos los derechos reservados.
+Este proyecto es propiedad de Responya AI. Todos los derechos reservados © 2026.
 
-## 🆘 Soporte
+## 🤝 Contribuciones
 
-Para soporte, contacta a través de:
-- WhatsApp: [Enlace en el sitio]
+Las contribuciones son bienvenidas. Por favor:
+
+1. Fork el proyecto
+2. Crea una rama para tu feature (`git checkout -b feature/AmazingFeature`)
+3. Commit tus cambios (`git commit -m 'Add some AmazingFeature'`)
+4. Push a la rama (`git push origin feature/AmazingFeature`)
+5. Abre un Pull Request
+
+## 📞 Contacto
+
+Para consultas sobre el proyecto:
 - Email: info@responya.com
+- Website: [responya.com](https://responya.com)
 
 ---
 
-**Desarrollado con ❤️ usando Astro.js**
+⭐ Si te gusta este proyecto, no olvides darle una estrella en GitHub!
