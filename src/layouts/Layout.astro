@@ -57,6 +57,75 @@ const {
 		<script is:inline>
 			// Esperar a que el DOM esté completamente cargado
 			document.addEventListener("DOMContentLoaded", function () {
+				// Smooth Scroll for all anchor links with custom easing
+				document
+					.querySelectorAll('a[href^="#"]')
+					.forEach(function (anchor) {
+						anchor.addEventListener("click", function (e) {
+							const href = this.getAttribute("href");
+
+							// Si es solo "#", ir al top
+							if (href === "#") {
+								e.preventDefault();
+								smoothScrollTo(0, 1200);
+								return;
+							}
+
+							// Para otros enlaces con hash
+							const targetId = href.substring(1);
+							const targetElement =
+								document.getElementById(targetId);
+
+							if (targetElement) {
+								e.preventDefault();
+
+								// Calcular la posición con offset para el header fijo
+								const headerOffset = 80; // Altura del header
+								const elementPosition =
+									targetElement.getBoundingClientRect().top;
+								const offsetPosition =
+									elementPosition +
+									window.pageYOffset -
+									headerOffset;
+
+								// Usar scroll suave personalizado
+								smoothScrollTo(offsetPosition, 1200);
+
+								// Actualizar la URL sin hacer scroll
+								history.pushState(null, null, href);
+							}
+						});
+					});
+
+				// Función de scroll suave personalizada con easing
+				function smoothScrollTo(targetPosition, duration) {
+					const startPosition = window.pageYOffset;
+					const distance = targetPosition - startPosition;
+					let startTime = null;
+
+					// Función de easing para un movimiento más suave (easeInOutCubic)
+					function easeInOutCubic(t) {
+						return t < 0.5
+							? 4 * t * t * t
+							: 1 - Math.pow(-2 * t + 2, 3) / 2;
+					}
+
+					function animation(currentTime) {
+						if (startTime === null) startTime = currentTime;
+						const timeElapsed = currentTime - startTime;
+						const progress = Math.min(timeElapsed / duration, 1);
+						const ease = easeInOutCubic(progress);
+
+						window.scrollTo(0, startPosition + distance * ease);
+
+						if (timeElapsed < duration) {
+							requestAnimationFrame(animation);
+						}
+					}
+
+					requestAnimationFrame(animation);
+				}
+
 				// Parallax Effect for Background Elements
 				document.addEventListener("mousemove", function (e) {
 					const x = e.clientX / window.innerWidth;

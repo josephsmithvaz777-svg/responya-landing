@@ -1,7 +1,7 @@
 @import 'tailwindcss';
 
 html {
-    scroll-behavior: smooth;
+    scroll-padding-top: 80px; /* Offset para el header fijo */
 }
 
 body {
