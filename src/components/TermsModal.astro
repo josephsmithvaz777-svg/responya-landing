@@ -1,0 +1,222 @@
+---
+// Terms of Service Modal Component
+---
+
+<div
+    id="terms-modal"
+    class="fixed inset-0 bg-black/80 backdrop-blur-sm z-50 hidden items-center justify-center p-4"
+>
+    <div
+        class="bg-gradient-to-br from-gray-900 via-gray-800 to-gray-900 rounded-2xl max-w-3xl w-full max-h-[85vh] overflow-hidden border border-purple-500/20 shadow-2xl shadow-purple-500/10"
+    >
+        <!-- Header -->
+        <div
+            class="bg-gradient-to-r from-purple-600/20 to-cyan-600/20 p-6 border-b border-purple-500/20"
+        >
+            <div class="flex items-center justify-between">
+                <h2
+                    class="text-2xl font-bold text-white flex items-center gap-3"
+                >
+                    <span
+                        class="material-symbols-outlined text-purple-400 text-3xl"
+                        >gavel</span
+                    >
+                    Términos y Condiciones
+                </h2>
+                <button
+                    id="close-terms"
+                    class="text-gray-400 hover:text-white transition-colors p-2 hover:bg-white/10 rounded-lg"
+                >
+                    <span class="material-symbols-outlined">close</span>
+                </button>
+            </div>
+        </div>
+
+        <!-- Content -->
+        <div
+            class="p-6 overflow-y-auto max-h-[calc(85vh-120px)] custom-scrollbar"
+        >
+            <div class="space-y-6 text-gray-300">
+                <section>
+                    <h3 class="text-xl font-semibold text-purple-400 mb-3">
+                        1. Aceptación de Términos
+                    </h3>
+                    <p class="leading-relaxed">
+                        Al acceder y utilizar los servicios de SCAL-IA, aceptas
+                        estar sujeto a estos términos y condiciones. Si no estás
+                        de acuerdo con alguna parte de estos términos, no debes
+                        utilizar nuestros servicios.
+                    </p>
+                </section>
+
+                <section>
+                    <h3 class="text-xl font-semibold text-purple-400 mb-3">
+                        2. Servicios Ofrecidos
+                    </h3>
+                    <p class="leading-relaxed mb-2">
+                        SCAL-IA proporciona soluciones de Inteligencia
+                        Artificial y desarrollo tecnológico, incluyendo:
+                    </p>
+                    <ul class="list-disc list-inside space-y-2 ml-4">
+                        <li>Desarrollo de sistemas de IA personalizados</li>
+                        <li>Consultoría en transformación digital</li>
+                        <li>Automatización de procesos empresariales</li>
+                        <li>Análisis de datos e inteligencia de negocios</li>
+                    </ul>
+                </section>
+
+                <section>
+                    <h3 class="text-xl font-semibold text-purple-400 mb-3">
+                        3. Uso Aceptable
+                    </h3>
+                    <p class="leading-relaxed mb-2">Te comprometes a:</p>
+                    <ul class="list-disc list-inside space-y-2 ml-4">
+                        <li>
+                            Utilizar nuestros servicios únicamente para fines
+                            legales
+                        </li>
+                        <li>
+                            No interferir con el funcionamiento de nuestros
+                            sistemas
+                        </li>
+                        <li>
+                            No intentar acceder a áreas restringidas sin
+                            autorización
+                        </li>
+                        <li>Respetar los derechos de propiedad intelectual</li>
+                    </ul>
+                </section>
+
+                <section>
+                    <h3 class="text-xl font-semibold text-purple-400 mb-3">
+                        4. Propiedad Intelectual
+                    </h3>
+                    <p class="leading-relaxed">
+                        Todo el contenido, diseño, código y tecnología
+                        utilizados en nuestros servicios son propiedad de
+                        SCAL-IA o sus licenciantes. Está prohibida la
+                        reproducción, distribución o modificación sin
+                        autorización expresa.
+                    </p>
+                </section>
+
+                <section>
+                    <h3 class="text-xl font-semibold text-purple-400 mb-3">
+                        5. Limitación de Responsabilidad
+                    </h3>
+                    <p class="leading-relaxed">
+                        SCAL-IA no será responsable por daños indirectos,
+                        incidentales, especiales o consecuentes que resulten del
+                        uso o la imposibilidad de usar nuestros servicios,
+                        incluso si hemos sido advertidos de la posibilidad de
+                        tales daños.
+                    </p>
+                </section>
+
+                <section>
+                    <h3 class="text-xl font-semibold text-purple-400 mb-3">
+                        6. Confidencialidad
+                    </h3>
+                    <p class="leading-relaxed">
+                        Nos comprometemos a mantener la confidencialidad de la
+                        información que nos proporciones en el curso de nuestra
+                        relación comercial, excepto cuando la divulgación sea
+                        requerida por ley.
+                    </p>
+                </section>
+
+                <section>
+                    <h3 class="text-xl font-semibold text-purple-400 mb-3">
+                        7. Modificaciones
+                    </h3>
+                    <p class="leading-relaxed">
+                        Nos reservamos el derecho de modificar estos términos en
+                        cualquier momento. Las modificaciones entrarán en vigor
+                        inmediatamente después de su publicación en nuestro
+                        sitio web.
+                    </p>
+                </section>
+
+                <section>
+                    <h3 class="text-xl font-semibold text-purple-400 mb-3">
+                        8. Ley Aplicable
+                    </h3>
+                    <p class="leading-relaxed">
+                        Estos términos se regirán e interpretarán de acuerdo con
+                        las leyes aplicables, sin dar efecto a ningún principio
+                        de conflictos de leyes.
+                    </p>
+                </section>
+
+                <section>
+                    <h3 class="text-xl font-semibold text-purple-400 mb-3">
+                        9. Contacto
+                    </h3>
+                    <p class="leading-relaxed">
+                        Para preguntas sobre estos términos, contáctanos en:
+                        <a
+                            href="mailto:info@scaliasolutions.site"
+                            class="text-purple-400 hover:text-purple-300 underline"
+                            >info@scaliasolutions.site</a
+                        >
+                    </p>
+                </section>
+
+                <section class="pt-4 border-t border-gray-700">
+                    <p class="text-sm text-gray-500">
+                        Última actualización: Enero 2026
+                    </p>
+                </section>
+            </div>
+        </div>
+    </div>
+</div>
+
+<style>
+    .custom-scrollbar::-webkit-scrollbar {
+        width: 8px;
+    }
+
+    .custom-scrollbar::-webkit-scrollbar-track {
+        background: rgba(0, 0, 0, 0.2);
+        border-radius: 4px;
+    }
+
+    .custom-scrollbar::-webkit-scrollbar-thumb {
+        background: linear-gradient(180deg, #8b5cf6, #06b6d4);
+        border-radius: 4px;
+    }
+
+    .custom-scrollbar::-webkit-scrollbar-thumb:hover {
+        background: linear-gradient(180deg, #7c3aed, #0891b2);
+    }
+</style>
+
+<script>
+    const termsModal = document.getElementById("terms-modal");
+    const closeTerms = document.getElementById("close-terms");
+    const openTermsLinks = document.querySelectorAll('[data-modal="terms"]');
+
+    openTermsLinks.forEach((link) => {
+        link.addEventListener("click", (e) => {
+            e.preventDefault();
+            termsModal?.classList.remove("hidden");
+            termsModal?.classList.add("flex");
+            document.body.style.overflow = "hidden";
+        });
+    });
+
+    closeTerms?.addEventListener("click", () => {
+        termsModal?.classList.add("hidden");
+        termsModal?.classList.remove("flex");
+        document.body.style.overflow = "auto";
+    });
+
+    termsModal?.addEventListener("click", (e) => {
+        if (e.target === termsModal) {
+            termsModal.classList.add("hidden");
+            termsModal.classList.remove("flex");
+            document.body.style.overflow = "auto";
+        }
+    });
+</script>

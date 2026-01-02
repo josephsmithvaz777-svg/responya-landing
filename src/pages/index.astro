@@ -7,6 +7,8 @@ import ServiceCard from "../components/ServiceCard.astro";
 import ProcessStep from "../components/ProcessStep.astro";
 import FloatingIcon from "../components/FloatingIcon.astro";
 import Footer from "../components/Footer.astro";
+import PrivacyModal from "../components/PrivacyModal.astro";
+import TermsModal from "../components/TermsModal.astro";
 import "../styles/global.css";
 ---
 
@@ -768,6 +770,10 @@ import "../styles/global.css";
 	</main>
 
 	<Footer />
+
+	<!-- Modals -->
+	<PrivacyModal />
+	<TermsModal />
 </Layout>
 
 <style>

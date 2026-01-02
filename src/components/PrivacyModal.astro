@@ -1,0 +1,193 @@
+---
+// Privacy Policy Modal Component
+---
+
+<div
+    id="privacy-modal"
+    class="fixed inset-0 bg-black/80 backdrop-blur-sm z-50 hidden items-center justify-center p-4"
+>
+    <div
+        class="bg-gradient-to-br from-gray-900 via-gray-800 to-gray-900 rounded-2xl max-w-3xl w-full max-h-[85vh] overflow-hidden border border-cyan-500/20 shadow-2xl shadow-cyan-500/10"
+    >
+        <!-- Header -->
+        <div
+            class="bg-gradient-to-r from-cyan-600/20 to-purple-600/20 p-6 border-b border-cyan-500/20"
+        >
+            <div class="flex items-center justify-between">
+                <h2
+                    class="text-2xl font-bold text-white flex items-center gap-3"
+                >
+                    <span
+                        class="material-symbols-outlined text-cyan-400 text-3xl"
+                        >shield</span
+                    >
+                    Política de Privacidad
+                </h2>
+                <button
+                    id="close-privacy"
+                    class="text-gray-400 hover:text-white transition-colors p-2 hover:bg-white/10 rounded-lg"
+                >
+                    <span class="material-symbols-outlined">close</span>
+                </button>
+            </div>
+        </div>
+
+        <!-- Content -->
+        <div
+            class="p-6 overflow-y-auto max-h-[calc(85vh-120px)] custom-scrollbar"
+        >
+            <div class="space-y-6 text-gray-300">
+                <section>
+                    <h3 class="text-xl font-semibold text-cyan-400 mb-3">
+                        1. Información que Recopilamos
+                    </h3>
+                    <p class="leading-relaxed">
+                        En SCAL-IA, recopilamos información que nos proporcionas
+                        directamente cuando te comunicas con nosotros,
+                        incluyendo nombre, correo electrónico y cualquier otra
+                        información que decidas compartir.
+                    </p>
+                </section>
+
+                <section>
+                    <h3 class="text-xl font-semibold text-cyan-400 mb-3">
+                        2. Uso de la Información
+                    </h3>
+                    <p class="leading-relaxed mb-2">
+                        Utilizamos la información recopilada para:
+                    </p>
+                    <ul class="list-disc list-inside space-y-2 ml-4">
+                        <li>Responder a tus consultas y solicitudes</li>
+                        <li>Mejorar nuestros servicios y soluciones de IA</li>
+                        <li>
+                            Enviarte información relevante sobre nuestros
+                            productos
+                        </li>
+                        <li>Cumplir con obligaciones legales</li>
+                    </ul>
+                </section>
+
+                <section>
+                    <h3 class="text-xl font-semibold text-cyan-400 mb-3">
+                        3. Protección de Datos
+                    </h3>
+                    <p class="leading-relaxed">
+                        Implementamos medidas de seguridad técnicas y
+                        organizativas apropiadas para proteger tu información
+                        personal contra acceso no autorizado, alteración,
+                        divulgación o destrucción.
+                    </p>
+                </section>
+
+                <section>
+                    <h3 class="text-xl font-semibold text-cyan-400 mb-3">
+                        4. Compartir Información
+                    </h3>
+                    <p class="leading-relaxed">
+                        No vendemos, intercambiamos ni transferimos tu
+                        información personal a terceros sin tu consentimiento,
+                        excepto cuando sea necesario para proporcionar nuestros
+                        servicios o cumplir con la ley.
+                    </p>
+                </section>
+
+                <section>
+                    <h3 class="text-xl font-semibold text-cyan-400 mb-3">
+                        5. Cookies y Tecnologías Similares
+                    </h3>
+                    <p class="leading-relaxed">
+                        Utilizamos cookies y tecnologías similares para mejorar
+                        tu experiencia en nuestro sitio web, analizar el tráfico
+                        y personalizar el contenido.
+                    </p>
+                </section>
+
+                <section>
+                    <h3 class="text-xl font-semibold text-cyan-400 mb-3">
+                        6. Tus Derechos
+                    </h3>
+                    <p class="leading-relaxed mb-2">Tienes derecho a:</p>
+                    <ul class="list-disc list-inside space-y-2 ml-4">
+                        <li>Acceder a tu información personal</li>
+                        <li>Rectificar datos inexactos</li>
+                        <li>Solicitar la eliminación de tus datos</li>
+                        <li>Oponerte al procesamiento de tus datos</li>
+                        <li>Solicitar la portabilidad de tus datos</li>
+                    </ul>
+                </section>
+
+                <section>
+                    <h3 class="text-xl font-semibold text-cyan-400 mb-3">
+                        7. Contacto
+                    </h3>
+                    <p class="leading-relaxed">
+                        Para cualquier consulta sobre esta política de
+                        privacidad, contáctanos en:
+                        <a
+                            href="mailto:info@scaliasolutions.site"
+                            class="text-cyan-400 hover:text-cyan-300 underline"
+                            >info@scaliasolutions.site</a
+                        >
+                    </p>
+                </section>
+
+                <section class="pt-4 border-t border-gray-700">
+                    <p class="text-sm text-gray-500">
+                        Última actualización: Enero 2026
+                    </p>
+                </section>
+            </div>
+        </div>
+    </div>
+</div>
+
+<style>
+    .custom-scrollbar::-webkit-scrollbar {
+        width: 8px;
+    }
+
+    .custom-scrollbar::-webkit-scrollbar-track {
+        background: rgba(0, 0, 0, 0.2);
+        border-radius: 4px;
+    }
+
+    .custom-scrollbar::-webkit-scrollbar-thumb {
+        background: linear-gradient(180deg, #06b6d4, #8b5cf6);
+        border-radius: 4px;
+    }
+
+    .custom-scrollbar::-webkit-scrollbar-thumb:hover {
+        background: linear-gradient(180deg, #0891b2, #7c3aed);
+    }
+</style>
+
+<script>
+    const privacyModal = document.getElementById("privacy-modal");
+    const closePrivacy = document.getElementById("close-privacy");
+    const openPrivacyLinks = document.querySelectorAll(
+        '[data-modal="privacy"]',
+    );
+
+    openPrivacyLinks.forEach((link) => {
+        link.addEventListener("click", (e) => {
+            e.preventDefault();
+            privacyModal?.classList.remove("hidden");
+            privacyModal?.classList.add("flex");
+            document.body.style.overflow = "hidden";
+        });
+    });
+
+    closePrivacy?.addEventListener("click", () => {
+        privacyModal?.classList.add("hidden");
+        privacyModal?.classList.remove("flex");
+        document.body.style.overflow = "auto";
+    });
+
+    privacyModal?.addEventListener("click", (e) => {
+        if (e.target === privacyModal) {
+            privacyModal.classList.add("hidden");
+            privacyModal.classList.remove("flex");
+            document.body.style.overflow = "auto";
+        }
+    });
+</script>
