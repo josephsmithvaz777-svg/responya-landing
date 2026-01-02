@@ -125,7 +125,7 @@
                 <h3
                     class="text-2xl font-bold text-white mb-1 tracking-widest group-hover:text-cyan-300 transition-colors"
                 >
-                    RESPONYA OS
+                    SCAL-IA OS
                 </h3>
                 <p
                     class="text-xs text-gray-500 uppercase tracking-[0.3em] group-hover:text-cyan-500/70"
@@ -146,15 +146,17 @@
         </div>
 
         <a
-            id="start-project-btn"
-            class="group inline-flex items-center gap-3 px-8 py-4 rounded-full bg-gradient-to-r from-purple-600 to-fuchsia-600 text-white font-bold shadow-lg shadow-purple-600/20 hover:shadow-neon-purple transition-all hover:-translate-y-1 relative overflow-hidden cursor-pointer"
+            class="group inline-flex items-center gap-3 px-8 py-4 rounded-full bg-gradient-to-r from-purple-600 to-fuchsia-600 text-white font-bold shadow-lg shadow-purple-600/20 hover:shadow-neon-purple transition-all hover:-translate-y-1 relative overflow-hidden"
             href="#contact"
         >
             <div
                 class="absolute inset-0 bg-white/20 translate-y-full group-hover:translate-y-0 transition-transform duration-300"
             >
             </div>
-            <div id="rocket-lottie" class="w-6 h-6 relative z-10"></div>
+            <span
+                class="material-symbols-outlined group-hover:rotate-45 transition-transform duration-300 relative z-10"
+                >rocket_launch</span
+            >
             <span class="relative z-10">Iniciar Proyecto</span>
         </a>
     </div>
@@ -201,38 +203,3 @@
         animation: pulse 4s cubic-bezier(0.4, 0, 0.6, 1) infinite;
     }
 </style>
-
-<script>
-    import { DotLottie } from "@lottiefiles/dotlottie-web";
-
-    // Initialize Lottie animation when DOM is ready
-    document.addEventListener("DOMContentLoaded", () => {
-        const container = document.getElementById("rocket-lottie");
-        const button = document.getElementById("start-project-btn");
-
-        if (container) {
-            // Create Lottie instance
-            const lottie = new DotLottie({
-                canvas: (() => {
-                    const canvas = document.createElement("canvas");
-                    container.appendChild(canvas);
-                    return canvas;
-                })(),
-                src: "/responya-landing/rocket-loader.lottie",
-                loop: false,
-                autoplay: false,
-            });
-
-            // Play animation on hover
-            if (button) {
-                button.addEventListener("mouseenter", () => {
-                    lottie.play();
-                });
-
-                button.addEventListener("mouseleave", () => {
-                    lottie.stop();
-                });
-            }
-        }
-    });
-</script>

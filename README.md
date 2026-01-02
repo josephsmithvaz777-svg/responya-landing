@@ -1,6 +1,6 @@
-# 🚀 Responya - Soluciones de IA
+# 🚀 SCAL-IA - Soluciones de IA
 
-Sitio web moderno y animado para Responya, desarrollado con **Astro.js** y **Tailwind CSS**. Presenta soluciones de Inteligencia Artificial y desarrollo tecnológico con un diseño premium y efectos visuales impresionantes.
+Sitio web moderno y animado para SCAL-IA, desarrollado con **Astro.js** y **Tailwind CSS**. Presenta soluciones de Inteligencia Artificial y desarrollo tecnológico con un diseño premium y efectos visuales impresionantes.
 
 ![Hero Section](./screenshots/hero.png)
 
@@ -154,7 +154,7 @@ El proyecto es compatible con cualquier servicio que soporte sitios estáticos:
 
 ## 📄 Licencia
 
-Este proyecto es propiedad de Responya AI. Todos los derechos reservados © 2026.
+Este proyecto es propiedad de SCAL-IA. Todos los derechos reservados © 2026.
 
 ## 🤝 Contribuciones
 
@@ -169,8 +169,8 @@ Las contribuciones son bienvenidas. Por favor:
 ## 📞 Contacto
 
 Para consultas sobre el proyecto:
-- Email: info@responya.com
-- Website: [responya.com](https://responya.com)
+- Email: info@scaliasolutions.site
+- Website: [scaliasolutions.site](https://scaliasolutions.site)
 
 ---
 
