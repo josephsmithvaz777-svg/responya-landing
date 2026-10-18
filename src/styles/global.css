@@ -351,3 +351,85 @@ body {
 .animate-card-float {
     animation: card-float 3s ease-in-out infinite;
 }
+/* ==========================================================
+ * Piezas compartidas de las secciones de producto
+ * (Diseño a medida, Web y ecommerce, ERP)
+ * ========================================================== */
+.sc-eyebrow {
+    display: inline-flex;
+    align-items: center;
+    gap: 0.5rem;
+    font-size: 0.75rem;
+    font-weight: 700;
+    letter-spacing: 0.2em;
+    text-transform: uppercase;
+    color: var(--color-neon-400);
+}
+.sc-eyebrow::before {
+    content: '';
+    width: 0.5rem;
+    height: 0.5rem;
+    border-radius: 999px;
+    background: var(--color-neon-500);
+    box-shadow: 0 0 10px rgba(var(--scalia-glow-cyan), 0.9);
+}
+.sc-glass {
+    position: relative;
+    border-radius: 16px;
+    background: linear-gradient(160deg, rgba(14, 22, 44, 0.62), rgba(6, 10, 26, 0.48));
+    backdrop-filter: blur(14px) saturate(140%);
+    -webkit-backdrop-filter: blur(14px) saturate(140%);
+    box-shadow:
+        0 0 0 1px rgba(255, 255, 255, 0.03) inset,
+        0 10px 40px -12px rgba(var(--scalia-glow-blue), 0.35),
+        0 0 28px -8px rgba(var(--scalia-glow-cyan), 0.22);
+}
+.sc-glass::before {
+    content: '';
+    position: absolute;
+    inset: 0;
+    border-radius: inherit;
+    padding: 1px;
+    background: linear-gradient(135deg, rgba(23, 203, 218, 0.8), rgba(36, 94, 245, 0.22) 45%, rgba(255, 255, 255, 0.07) 70%, rgba(36, 94, 245, 0.65));
+    -webkit-mask: linear-gradient(#000 0 0) content-box, linear-gradient(#000 0 0);
+    -webkit-mask-composite: xor;
+    mask-composite: exclude;
+    pointer-events: none;
+}
+.sc-icon-chip {
+    flex: none;
+    width: 2.25rem;
+    height: 2.25rem;
+    display: grid;
+    place-items: center;
+    border-radius: 0.65rem;
+    color: #fff;
+    font-size: 1.15rem !important;
+    background: linear-gradient(135deg, rgba(23, 203, 218, 0.32), rgba(36, 94, 245, 0.32));
+    box-shadow: 0 0 0 1px rgba(95, 232, 255, 0.32) inset, 0 0 16px rgba(var(--scalia-glow-cyan), 0.28);
+}
+.sc-feature-title {
+    font-size: 1rem;
+    font-weight: 700;
+    color: #fff;
+    line-height: 1.3;
+}
+.sc-feature-desc {
+    margin-top: 0.25rem;
+    font-size: 0.875rem;
+    line-height: 1.55;
+    color: rgba(203, 213, 225, 0.85);
+}
+.sc-demo-chip {
+    position: absolute;
+    z-index: 5;
+    font-size: 10px;
+    font-weight: 600;
+    letter-spacing: 0.12em;
+    text-transform: uppercase;
+    color: var(--color-ice);
+    padding: 4px 10px;
+    border-radius: 999px;
+    background: rgba(3, 8, 23, 0.75);
+    border: 1px solid rgba(95, 232, 255, 0.3);
+}

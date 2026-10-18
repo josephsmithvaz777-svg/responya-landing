@@ -10,6 +10,9 @@ import Footer from "../components/Footer.astro";
 import PrivacyModal from "../components/PrivacyModal.astro";
 import TermsModal from "../components/TermsModal.astro";
 import CRMSection from "../components/CRMSection.astro";
+import DisenoMedidaSection from "../components/DisenoMedidaSection.astro";
+import WebEcommerceSection from "../components/WebEcommerceSection.astro";
+import ERPSection from "../components/ERPSection.astro";
 import "../styles/global.css";
 ---
 
@@ -161,8 +164,14 @@ import "../styles/global.css";
 			</div>
 		</section>
 
+		<!-- Soluciones: diseño a medida, web y ecommerce, CRM y ERP -->
+		<DisenoMedidaSection />
+		<WebEcommerceSection />
+
 		<!-- CRM Section -->
 		<CRMSection />
+
+		<ERPSection />
 
 		<!-- Process Section -->
 		<section class="w-full py-24 px-4 relative" id="process">
