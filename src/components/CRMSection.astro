@@ -243,9 +243,9 @@
 	.crm-mockup-wrapper {
 		position: relative;
 		width: 100%;
-		max-width: 900px;
+		max-width: 750px;
 		margin: 0 auto;
-		z-index: 5;
+		z-index: 1;
 	}
 
 	.crm-mockup {
@@ -578,6 +578,7 @@
 		position: absolute;
 		inset: 0;
 		pointer-events: none;
+		z-index: 10;
 	}
 
 	.bubble {
@@ -585,6 +586,7 @@
 		opacity: 0;
 		transform: scale(0.5);
 		pointer-events: none;
+		z-index: 10;
 	}
 
 	.bubble-inner {
@@ -666,13 +668,13 @@
 		max-width: 120px;
 	}
 
-	/* Posicionamiento desktop de burbujas */
-	.bubble-1 { top: 5%; left: 8%; }
-	.bubble-2 { top: 15%; right: 5%; }
-	.bubble-3 { top: 50%; left: 2%; }
-	.bubble-4 { top: 50%; right: 0%; }
-	.bubble-5 { bottom: 15%; left: 10%; }
-	.bubble-6 { bottom: 10%; right: 8%; }
+	/* Posicionamiento desktop de burbujas - ajustado para mockup más pequeño */
+	.bubble-1 { top: 8%; left: 5%; }
+	.bubble-2 { top: 8%; right: 5%; }
+	.bubble-3 { top: 45%; left: 0%; }
+	.bubble-4 { top: 45%; right: 0%; }
+	.bubble-5 { bottom: 8%; left: 8%; }
+	.bubble-6 { bottom: 8%; right: 8%; }
 
 	/* === Responsive === */
 	@media (max-width: 1024px) {
@@ -746,26 +748,32 @@
 			max-width: 90px;
 		}
 
-		/* Reposicionar burbujas en tablet */
-		.bubble-1 { top: 5%; left: 5%; }
+		/* Reposicionar burbujas en tablet - siguen flotando */
+		.bubble-1 { top: 5%; left: 3%; }
 		.bubble-2 { top: 10%; right: 3%; }
-		.bubble-3 { top: 45%; left: 0%; }
-		.bubble-4 { top: 45%; right: -2%; }
+		.bubble-3 { top: 45%; left: -1%; }
+		.bubble-4 { top: 45%; right: -1%; }
 		.bubble-5 { bottom: 10%; left: 5%; }
 		.bubble-6 { bottom: 8%; right: 5%; }
 	}
 
-	@media (max-width: 768px) {
+	@media (max-width: 640px) {
 		.crm-section {
-			padding: 60px 16px;
+			padding: 60px 12px;
 		}
 
 		.crm-container {
 			min-height: auto;
+			padding: 0 4px;
 		}
 
 		.crm-mockup-wrapper {
 			max-width: 100%;
+			padding: 0 4px;
+		}
+
+		.crm-mockup {
+			border-radius: 12px;
 		}
 
 		.dashboard-content {
@@ -795,11 +803,15 @@
 
 		.nav-item {
 			flex-direction: column;
-			gap: 4px;
-			padding: 8px 4px;
-			font-size: 10px;
+			gap: 3px;
+			padding: 6px 2px;
+			font-size: 9px;
 			flex: 1;
 			text-align: center;
+		}
+
+		.nav-item .material-symbols-outlined {
+			font-size: 14px;
 		}
 
 		.nav-item span:last-child {
@@ -807,7 +819,7 @@
 		}
 
 		.dashboard-main {
-			padding: 16px;
+			padding: 12px 8px;
 		}
 
 		.stats-grid {
@@ -816,13 +828,14 @@
 		}
 
 		.stat-card {
-			padding: 12px;
+			padding: 10px;
 		}
 
 		.inbox-header {
 			flex-direction: column;
-			gap: 12px;
+			gap: 10px;
 			align-items: flex-start;
+			padding: 12px 12px;
 		}
 
 		.inbox-filters {
@@ -832,6 +845,12 @@
 
 		.filter-btn {
 			flex: 1;
+			font-size: 10px;
+			padding: 5px 8px;
+		}
+
+		.inbox-item {
+			padding: 10px 12px;
 		}
 
 		.browser-url {
@@ -881,34 +900,57 @@
 		}
 
 		.dashboard-main {
-			padding: 12px;
+			padding: 10px 6px;
 		}
 
 		.stat-icon {
 			width: 28px;
 			height: 28px;
+			font-size: 16px;
+		}
+
+		.stat-label {
+			font-size: 9px;
 		}
 
 		.stat-value {
-			font-size: 18px;
+			font-size: 16px;
+		}
+
+		.stat-trend {
+			font-size: 9px;
 		}
 
 		.inbox-item {
-			padding: 10px 12px;
-			gap: 10px;
+			padding: 8px 10px;
+			gap: 8px;
 		}
 
 		.contact-avatar {
-			width: 32px;
-			height: 32px;
+			width: 30px;
+			height: 30px;
+			font-size: 11px;
 		}
 
 		.contact-name {
-			font-size: 12px;
+			font-size: 11px;
 		}
 
 		.contact-message {
-			font-size: 11px;
+			font-size: 10px;
+		}
+
+		.contact-time {
+			font-size: 9px;
+		}
+
+		.contact-status {
+			font-size: 8px;
+			padding: 2px 6px;
+		}
+
+		.inbox-header h3 {
+			font-size: 12px;
 		}
 
 		.bubble-inner {
@@ -960,11 +1002,11 @@
 		});
 
 		// Animación secuencial de burbujas
-		const isMobile = window.innerWidth < 768;
+		const isMobile = window.innerWidth < 640;
 		const bubbles = gsap.utils.toArray('.bubble');
 
 		if (!isMobile) {
-			// Desktop/tablet: animar burbujas con scroll alrededor del mockup
+			// Desktop/tablet (≥640px): animar burbujas con scroll alrededor del mockup
 			bubbles.forEach((bubble, index) => {
 				gsap.to(bubble, {
 					scrollTrigger: {
@@ -981,7 +1023,7 @@
 				});
 			});
 		} else {
-			// Mobile: animar burbujas secuencialmente en el grid
+			// Mobile (<640px): animar burbujas secuencialmente en el grid
 			bubbles.forEach((bubble, index) => {
 				gsap.to(bubble, {
 					scrollTrigger: {
