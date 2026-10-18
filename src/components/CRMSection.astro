@@ -1,14 +1,79 @@
 ---
-// Sección CRM con mockup de dashboard y burbujas 3D glossy animadas por scroll
+// Sección CRM: recreación en HTML/CSS de la bandeja de WACRM (el CRM de WhatsApp de Scalia)
+// con tarjetas de vidrio y líneas de señalización que se revelan una a una al hacer scroll.
+
+const features = [
+	{
+		n: 1,
+		icon: 'auto_awesome',
+		title: 'Inteligencia artificial',
+		desc: 'Redacta respuestas y contesta sola con tu base de conocimiento.',
+		pos: 'p-l3 p-b2',
+	},
+	{
+		n: 2,
+		icon: 'forum',
+		title: 'Bandeja compartida',
+		desc: 'Todo tu equipo atiende un mismo número de WhatsApp.',
+		pos: 'p-l1 p-t1',
+	},
+	{
+		n: 3,
+		icon: 'assignment_ind',
+		title: 'Asignación por agente',
+		desc: 'Cada chat con su responsable, estado y notas internas.',
+		pos: 'p-r1 p-t2',
+	},
+	{
+		n: 4,
+		icon: 'sell',
+		title: 'Etiquetas y contactos',
+		desc: 'Segmenta clientes con etiquetas y campos personalizados.',
+		pos: 'p-r2 p-t3',
+	},
+	{
+		n: 5,
+		icon: 'view_kanban',
+		title: 'Embudos de venta',
+		desc: 'Deals ligados a cada conversación, de nuevo lead a ganado.',
+		pos: 'p-r3 p-b3',
+	},
+	{
+		n: 6,
+		icon: 'bolt',
+		title: 'Automatizaciones',
+		desc: 'Flujos sin código por palabra clave, horario o contacto nuevo.',
+		pos: 'p-l2 p-b1',
+	},
+];
+
+const nav = [
+	{ icon: 'space_dashboard', label: 'Panel' },
+	{ icon: 'chat', label: 'Bandeja', active: true },
+	{ icon: 'group', label: 'Contactos' },
+	{ icon: 'checklist', label: 'Tareas' },
+	{ icon: 'account_tree', label: 'Embudos' },
+	{ icon: 'calculate', label: 'Cotizador' },
+	{ icon: 'campaign', label: 'Difusiones' },
+	{ icon: 'bolt', label: 'Automatizaciones', target: 6 },
+	{ icon: 'schema', label: 'Flujos', beta: true },
+	{ icon: 'smart_toy', label: 'Agentes IA' },
+];
+
+const convs = [
+	{ i: 'MF', name: 'María Fernández', msg: 'Sí, por favor. Somos 3 sucursales.', time: '2 min', unread: 2, tag: '#f59e0b', active: true, c: 'linear-gradient(135deg,#17cbda,#245ef5)' },
+	{ i: 'CQ', name: 'Carlos Quispe', msg: 'Perfecto, envíame la cotización', time: '14 min', unread: 1, tag: '#22c55e', c: '#7c5cff' },
+	{ i: 'LT', name: 'Lucía Torres', msg: 'Gracias, quedo atenta 🙌', time: '1 h', tag: '#17cbda', c: '#e0527a' },
+	{ i: 'IS', name: 'Inmobiliaria Sur', msg: 'Diego: ¿Cuándo es la visita?', time: '3 h', group: true, c: '#0ea5a4' },
+	{ i: 'DR', name: 'Diego Ramos', msg: '¿Atienden los sábados?', time: 'Ayer', tag: '#a78bfa', c: '#d97706' },
+	{ i: 'PA', name: 'Paola Arias', msg: 'Listo, ya hice el pago ✅', time: 'Ayer', c: '#2563eb' },
+];
 ---
 
 <section class="crm-section w-full py-24 px-4 relative overflow-hidden" id="crm" translate="no">
 	<div class="max-w-7xl mx-auto relative z-10">
-		<!-- Header -->
-		<div class="text-center mb-16">
-			<div
-				class="text-cyan-500 text-xs font-bold uppercase tracking-[0.2em] mb-4 flex items-center gap-2 justify-center"
-			>
+		<div class="text-center mb-14 md:mb-16">
+			<div class="text-cyan-500 text-xs font-bold uppercase tracking-[0.2em] mb-4 flex items-center gap-2 justify-center">
 				<span class="w-2 h-2 rounded-full bg-cyan-500 animate-ping-slow"></span>
 				CRM para WhatsApp
 			</div>
@@ -16,965 +81,791 @@
 				Gestiona tus conversaciones <span class="text-gradient-scalia">con inteligencia</span>
 			</h2>
 			<p class="text-gray-400 text-lg max-w-2xl mx-auto">
-				Un CRM completo diseñado para equipos de ventas que trabajan con WhatsApp
+				Una bandeja compartida para todo tu equipo, con IA, embudos de venta y automatizaciones.
 			</p>
 		</div>
 
-		<!-- Container principal con mockup y burbujas -->
-		<div class="crm-container relative">
-			<!-- CRM Dashboard Mockup -->
-			<div class="crm-mockup-wrapper" id="crm-mockup">
-				<div class="crm-mockup">
-					<!-- Browser chrome -->
-					<div class="browser-chrome">
-						<div class="browser-dots">
-							<span></span>
-							<span></span>
-							<span></span>
+		<div class="crm-stage" id="crm-stage">
+			<div class="crm-grid">
+				<!-- Mockup de WACRM -->
+				<div class="crm-mock-wrap" id="crm-mock-wrap">
+					<div class="crm-mock" id="crm-mock" aria-hidden="true">
+						<div class="m-chrome">
+							<div class="m-dots"><span></span><span></span><span></span></div>
+							<div class="m-url"><span class="material-symbols-outlined">lock</span>app.scaliasolutions.site/inbox</div>
 						</div>
-						<div class="browser-url">app.scaliasolutions.site/crm</div>
-					</div>
+						<div class="m-app">
+							<!-- Sidebar -->
+							<aside class="m-side">
+								<div class="m-brand">
+									<div class="m-logo"><span class="material-symbols-outlined">chat</span></div>
+									<span>Scalia CRM</span>
+								</div>
+								<ul class="m-nav">
+									{nav.map((item) => (
+										<li class:list={['m-nav-item', { 'is-active': item.active }]} data-crm-target={item.target}>
+											<span class="material-symbols-outlined">{item.icon}</span>
+											<span class="m-nav-label">{item.label}</span>
+											{item.beta && <span class="m-beta">Beta</span>}
+										</li>
+									))}
+								</ul>
+								<div class="m-sep"></div>
+								<div class="m-nav-item"><span class="material-symbols-outlined">settings</span><span class="m-nav-label">Configuración</span></div>
+								<div class="m-user">
+									<div class="m-av" style="background:#334155">AS</div>
+									<div>
+										<div class="m-user-name">Andrea Salas</div>
+										<div class="m-user-mail">ventas@scalia.pe</div>
+									</div>
+								</div>
+							</aside>
 
-					<!-- Dashboard content -->
-					<div class="dashboard-content">
-						<!-- Sidebar -->
-						<div class="dashboard-sidebar">
-							<div class="sidebar-logo">
-								<div class="logo-circle"></div>
-								<span>Scalia CRM</span>
-							</div>
-							<nav class="sidebar-nav">
-								<div class="nav-item active">
-									<span class="material-symbols-outlined">inbox</span>
-									<span>Bandeja</span>
+							<!-- Lista de conversaciones -->
+							<div class="m-list" data-crm-target="2">
+								<div class="m-search"><span class="material-symbols-outlined">search</span>Buscar conversaciones…</div>
+								<div class="m-filters">
+									<span class="is-on">Todas</span><span>No leídas <b>3</b></span><span>Abiertas</span><span>Pendientes</span>
 								</div>
-								<div class="nav-item">
-									<span class="material-symbols-outlined">contacts</span>
-									<span>Contactos</span>
-								</div>
-								<div class="nav-item">
-									<span class="material-symbols-outlined">insights</span>
-									<span>Pipeline</span>
-								</div>
-								<div class="nav-item">
-									<span class="material-symbols-outlined">bar_chart</span>
-									<span>Reportes</span>
-								</div>
-							</nav>
-						</div>
-
-						<!-- Main area -->
-						<div class="dashboard-main">
-							<!-- Stats cards -->
-							<div class="stats-grid">
-								<div class="stat-card stat-card-purple">
-									<div class="stat-icon">
-										<span class="material-symbols-outlined">chat</span>
-									</div>
-									<div class="stat-content">
-										<div class="stat-label">Conversaciones</div>
-										<div class="stat-value">324</div>
-										<div class="stat-trend positive">+12%</div>
-									</div>
-								</div>
-								<div class="stat-card stat-card-cyan">
-									<div class="stat-icon">
-										<span class="material-symbols-outlined">trending_up</span>
-									</div>
-									<div class="stat-content">
-										<div class="stat-label">Conversiones</div>
-										<div class="stat-value">87</div>
-										<div class="stat-trend positive">+8%</div>
-									</div>
-								</div>
-								<div class="stat-card stat-card-pink">
-									<div class="stat-icon">
-										<span class="material-symbols-outlined">schedule</span>
-									</div>
-									<div class="stat-content">
-										<div class="stat-label">Tiempo respuesta</div>
-										<div class="stat-value">2.4m</div>
-										<div class="stat-trend negative">-15%</div>
-									</div>
+								<div class="m-convs">
+									{convs.map((c) => (
+										<div class:list={['m-conv', { 'is-active': c.active }]}>
+											<div class="m-av" style={`background:${c.c}`}>{c.i}</div>
+											<div class="m-conv-body">
+												<div class="m-conv-top">
+													<span class="m-conv-name">{c.name}</span>
+													<span class="m-conv-time">{c.time}</span>
+												</div>
+												<div class="m-conv-bottom">
+													<span class="m-conv-msg">{c.msg}</span>
+													{c.unread && <span class="m-badge">{c.unread}</span>}
+												</div>
+												<div class="m-conv-tags">
+													{c.tag && <span class="m-tdot" style={`background:${c.tag}`}></span>}
+													{c.group && <span class="m-chip-xs">Grupo</span>}
+												</div>
+											</div>
+										</div>
+									))}
 								</div>
 							</div>
 
-							<!-- Inbox/Pipeline -->
-							<div class="inbox-section">
-								<div class="inbox-header">
-									<h3>Bandeja Compartida</h3>
-									<div class="inbox-filters">
-										<button class="filter-btn active">Todos</button>
-										<button class="filter-btn">Sin asignar</button>
-										<button class="filter-btn">Urgentes</button>
+							<!-- Conversación -->
+							<div class="m-thread">
+								<div class="m-thread-head">
+									<div class="m-av" style="background:linear-gradient(135deg,#17cbda,#245ef5)">MF</div>
+									<div class="m-th-info">
+										<div class="m-th-name">María Fernández</div>
+										<div class="m-th-phone">+51 987 654 321 · <span class="m-timer">23 h restantes</span></div>
+									</div>
+									<div class="m-th-actions">
+										<span class="m-status"><i></i>Abierta</span>
+										<span class="m-assign" data-crm-target="3"><span class="m-av m-av-xs" style="background:#e0527a">LT</span>Lucía T.<span class="material-symbols-outlined">expand_more</span></span>
 									</div>
 								</div>
-								<div class="inbox-list">
-									<div class="inbox-item">
-										<div class="contact-avatar">JM</div>
-										<div class="contact-info">
-											<div class="contact-name">Juan Martínez</div>
-											<div class="contact-message">Hola, me interesa el servicio de...</div>
-										</div>
-										<div class="contact-meta">
-											<div class="contact-time">hace 5m</div>
-											<div class="contact-status hot">🔥 Caliente</div>
-										</div>
+								<div class="m-ai-banner">
+									<span class="material-symbols-outlined">smart_toy</span>
+									<span>El asistente IA está respondiendo automáticamente</span>
+									<span class="m-ai-btn">Tomar control</span>
+								</div>
+								<div class="m-msgs">
+									<div class="m-day">Hoy</div>
+									<div class="m-msg in">Hola, vi su anuncio en Instagram. ¿Tienen planes para restaurantes?<span class="m-meta">10:42</span></div>
+									<div class="m-msg out" data-crm-target="1">
+										<span class="m-ai-chip"><span class="material-symbols-outlined">auto_awesome</span>IA</span>
+										¡Hola María! Sí, el plan Negocio incluye bandeja compartida y respuestas automáticas desde S/ 149 al mes. ¿Te envío la cotización?
+										<span class="m-meta">10:42 <span class="material-symbols-outlined">done_all</span></span>
 									</div>
-									<div class="inbox-item">
-										<div class="contact-avatar bg-cyan-500">AL</div>
-										<div class="contact-info">
-											<div class="contact-name">Ana López</div>
-											<div class="contact-message">¿Cuándo podemos agendar una llamada?</div>
-										</div>
-										<div class="contact-meta">
-											<div class="contact-time">hace 12m</div>
-											<div class="contact-status warm">⚡ Caliente</div>
-										</div>
-									</div>
-									<div class="inbox-item">
-										<div class="contact-avatar bg-pink-500">CR</div>
-										<div class="contact-info">
-											<div class="contact-name">Carlos Rojas</div>
-											<div class="contact-message">Gracias por la información</div>
-										</div>
-										<div class="contact-meta">
-											<div class="contact-time">hace 1h</div>
-											<div class="contact-status">💬 Activo</div>
-										</div>
-									</div>
-									<div class="inbox-item opacity-60">
-										<div class="contact-avatar bg-purple-500">MG</div>
-										<div class="contact-info">
-											<div class="contact-name">María García</div>
-											<div class="contact-message">Perfecto, quedamos así</div>
-										</div>
-										<div class="contact-meta">
-											<div class="contact-time">hace 3h</div>
-											<div class="contact-status">✓ Cerrado</div>
-										</div>
-									</div>
+									<div class="m-msg in">Sí, por favor. Somos 3 sucursales.<span class="m-meta">10:44</span></div>
+								</div>
+								<div class="m-composer">
+									<span class="material-symbols-outlined m-c-ico">add</span>
+									<span class="m-input">Escribe un mensaje…</span>
+									<span class="m-spark"><span class="material-symbols-outlined">auto_awesome</span></span>
+									<span class="m-send">Enviar</span>
 								</div>
 							</div>
+
+							<!-- Panel de contacto -->
+							<aside class="m-contact">
+								<div class="m-ct-title">Info del contacto</div>
+								<div class="m-ct-card">
+									<div class="m-av m-av-lg" style="background:linear-gradient(135deg,#17cbda,#245ef5)">MF</div>
+									<div class="m-ct-name">María Fernández</div>
+									<div class="m-ct-phone">+51 987 654 321</div>
+								</div>
+								<div class="m-block" data-crm-target="4">
+									<div class="m-block-h">Etiquetas</div>
+									<div class="m-tags">
+										<span><i style="background:#f59e0b"></i>Lead caliente</span>
+										<span><i style="background:#17cbda"></i>Restaurante</span>
+										<span><i style="background:#a78bfa"></i>Lima</span>
+										<span class="m-add">+ Agregar</span>
+									</div>
+								</div>
+								<div class="m-block" data-crm-target="5">
+									<div class="m-block-h">Deals</div>
+									<div class="m-deal">
+										<div class="m-deal-t">Plan Negocio · 3 sucursales</div>
+										<div class="m-deal-v">S/ 447 <small>/ mes</small></div>
+										<div class="m-deal-stage"><i></i>Ventas · Propuesta enviada</div>
+										<div class="m-deal-bar"><span></span></div>
+									</div>
+								</div>
+								<div class="m-block">
+									<div class="m-block-h">Notas</div>
+									<div class="m-note">Pidió una demo para el jueves.</div>
+								</div>
+								<div class="m-block">
+									<div class="m-block-h">Tareas</div>
+									<div class="m-task"><span class="material-symbols-outlined">event</span>Llamar jue 10:00</div>
+								</div>
+							</aside>
 						</div>
 					</div>
 				</div>
+
+				<!-- Tarjetas de vidrio -->
+				{features.map((f) => (
+					<article class:list={['crm-card', f.pos]} data-card={f.n}>
+						<div class="crm-card-head">
+							<span class="crm-card-num">{String(f.n).padStart(2, '0')}</span>
+							<span class="crm-card-ico material-symbols-outlined" aria-hidden="true">{f.icon}</span>
+						</div>
+						<h3 class="crm-type crm-card-title">
+							<span class="sr-only">{f.title}</span>
+							<span class="crm-ghost" aria-hidden="true">{f.title}</span>
+							<span class="crm-typed" aria-hidden="true" data-text={f.title}>{f.title}</span>
+						</h3>
+						<p class="crm-type crm-card-desc">
+							<span class="sr-only">{f.desc}</span>
+							<span class="crm-ghost" aria-hidden="true">{f.desc}</span>
+							<span class="crm-typed" aria-hidden="true" data-text={f.desc}>{f.desc}</span>
+						</p>
+					</article>
+				))}
 			</div>
 
-			<!-- Burbujas 3D Glossy -->
-			<div class="crm-bubbles">
-				<div class="bubble bubble-1" data-feature="Inteligencia artificial">
-					<div class="bubble-inner">
-						<div class="bubble-glass"></div>
-						<div class="bubble-highlight"></div>
-						<div class="bubble-glow"></div>
-						<span class="bubble-text">Inteligencia artificial</span>
-					</div>
-				</div>
+			<!-- Líneas de señalización -->
+			<svg class="crm-lines" id="crm-lines" aria-hidden="true">
+				<defs>
+					<filter id="crm-line-glow" x="-20%" y="-20%" width="140%" height="140%">
+						<feGaussianBlur stdDeviation="2" result="b"></feGaussianBlur>
+						<feMerge><feMergeNode in="b"></feMergeNode><feMergeNode in="SourceGraphic"></feMergeNode></feMerge>
+					</filter>
+				</defs>
+				{features.map((f) => (
+					<g data-line={f.n}>
+						<path class="crm-line" d=""></path>
+						<circle class="crm-line-end" r="3" cx="-10" cy="-10"></circle>
+					</g>
+				))}
+			</svg>
 
-				<div class="bubble bubble-2" data-feature="Automatizaciones">
-					<div class="bubble-inner">
-						<div class="bubble-glass"></div>
-						<div class="bubble-highlight"></div>
-						<div class="bubble-glow"></div>
-						<span class="bubble-text">Automatizaciones</span>
-					</div>
-				</div>
-
-				<div class="bubble bubble-3" data-feature="Embudo de ventas">
-					<div class="bubble-inner">
-						<div class="bubble-glass"></div>
-						<div class="bubble-highlight"></div>
-						<div class="bubble-glow"></div>
-						<span class="bubble-text">Embudo de ventas</span>
-					</div>
-				</div>
-
-				<div class="bubble bubble-4" data-feature="Bandeja compartida">
-					<div class="bubble-inner">
-						<div class="bubble-glass"></div>
-						<div class="bubble-highlight"></div>
-						<div class="bubble-glow"></div>
-						<span class="bubble-text">Bandeja compartida</span>
-					</div>
-				</div>
-
-				<div class="bubble bubble-5" data-feature="Reportes en tiempo real">
-					<div class="bubble-inner">
-						<div class="bubble-glass"></div>
-						<div class="bubble-highlight"></div>
-						<div class="bubble-glow"></div>
-						<span class="bubble-text">Reportes en tiempo real</span>
-					</div>
-				</div>
-
-				<div class="bubble bubble-6" data-feature="Etiquetado inteligente">
-					<div class="bubble-inner">
-						<div class="bubble-glass"></div>
-						<div class="bubble-highlight"></div>
-						<div class="bubble-glow"></div>
-						<span class="bubble-text">Etiquetado inteligente</span>
-					</div>
-				</div>
+			<!-- Puntos sobre la interfaz -->
+			<div class="crm-dots" aria-hidden="true">
+				{features.map((f) => (
+					<span class="crm-dot" data-dot={f.n}><span class="crm-dot-ring"></span><span class="crm-dot-core">{f.n}</span></span>
+				))}
 			</div>
 		</div>
 	</div>
-
-	<!-- Background effects -->
-	<div class="absolute top-1/4 left-0 w-96 h-96 bg-[#245ef5]/10 rounded-full blur-[120px] pointer-events-none"></div>
-	<div class="absolute bottom-1/4 right-0 w-96 h-96 bg-[#17cbda]/10 rounded-full blur-[120px] pointer-events-none"></div>
 </section>
 
 <style>
-	.crm-section {
-		min-height: 100vh;
-		display: flex;
-		align-items: center;
-	}
-
-	.crm-container {
-		display: grid;
-		place-items: center;
-		min-height: 600px;
+	/* ---------- Escenario y grilla ---------- */
+	.crm-stage {
 		position: relative;
 	}
-
-	/* === CRM Mockup === */
-	.crm-mockup-wrapper {
+	.crm-grid {
+		display: grid;
+		gap: 16px;
+		grid-template-columns: 1fr;
+		grid-template-areas: 'm';
+	}
+	.crm-mock-wrap {
+		grid-area: m;
 		position: relative;
 		width: 100%;
-		max-width: 750px;
-		margin: 0 auto;
 		z-index: 1;
 	}
+	@media (min-width: 640px) {
+		.crm-grid {
+			grid-template-columns: repeat(3, minmax(0, 1fr));
+			grid-template-areas:
+				't1 t2 t3'
+				'm m m'
+				'b1 b2 b3';
+			row-gap: 56px;
+			column-gap: 16px;
+		}
+		.p-t1 { grid-area: t1; }
+		.p-t2 { grid-area: t2; }
+		.p-t3 { grid-area: t3; }
+		.p-b1 { grid-area: b1; }
+		.p-b2 { grid-area: b2; }
+		.p-b3 { grid-area: b3; }
+	}
+	@media (min-width: 1024px) {
+		.crm-grid {
+			grid-template-columns: minmax(190px, 232px) minmax(0, 1fr) minmax(190px, 232px);
+			grid-template-rows: repeat(3, auto);
+			grid-template-areas:
+				'l1 m r1'
+				'l2 m r2'
+				'l3 m r3';
+			column-gap: 48px;
+			row-gap: 16px;
+			align-items: center;
+		}
+		.crm-mock-wrap { align-self: center; }
+		.p-l1 { grid-area: l1; }
+		.p-l2 { grid-area: l2; }
+		.p-l3 { grid-area: l3; }
+		.p-r1 { grid-area: r1; }
+		.p-r2 { grid-area: r2; }
+		.p-r3 { grid-area: r3; }
+	}
 
-	.crm-mockup {
-		background: rgba(10, 10, 22, 0.8);
+	/* ---------- Tarjetas de vidrio ---------- */
+	.crm-card {
+		position: relative;
+		z-index: 3;
+		padding: 16px 18px 18px;
 		border-radius: 16px;
-		border: 2px solid rgba(255, 255, 255, 0.1);
-		overflow: hidden;
-		box-shadow: 
-			0 20px 60px rgba(0, 0, 0, 0.5),
-			0 0 1px rgba(255, 255, 255, 0.2) inset;
-		backdrop-filter: blur(20px);
+		background: linear-gradient(160deg, rgba(14, 22, 44, 0.62), rgba(6, 10, 26, 0.48));
+		backdrop-filter: blur(14px) saturate(140%);
+		-webkit-backdrop-filter: blur(14px) saturate(140%);
+		box-shadow:
+			0 0 0 1px rgba(255, 255, 255, 0.03) inset,
+			0 10px 40px -12px rgba(36, 94, 245, 0.35),
+			0 0 28px -8px rgba(23, 203, 218, 0.25);
 	}
-
-	.browser-chrome {
-		height: 40px;
-		background: rgba(20, 20, 35, 0.9);
-		border-bottom: 1px solid rgba(255, 255, 255, 0.05);
+	.crm-card::before {
+		content: '';
+		position: absolute;
+		inset: 0;
+		border-radius: inherit;
+		padding: 1px;
+		background: linear-gradient(135deg, rgba(23, 203, 218, 0.85), rgba(36, 94, 245, 0.25) 45%, rgba(255, 255, 255, 0.08) 70%, rgba(36, 94, 245, 0.7));
+		-webkit-mask: linear-gradient(#000 0 0) content-box, linear-gradient(#000 0 0);
+		-webkit-mask-composite: xor;
+		mask-composite: exclude;
+		pointer-events: none;
+	}
+	.crm-card-head {
 		display: flex;
 		align-items: center;
-		padding: 0 16px;
-		gap: 12px;
-	}
-
-	.browser-dots {
-		display: flex;
-		gap: 6px;
-	}
-
-	.browser-dots span {
-		width: 10px;
-		height: 10px;
-		border-radius: 50%;
-		background: rgba(255, 255, 255, 0.2);
-	}
-
-	.browser-dots span:nth-child(1) { background: #ff5f56; }
-	.browser-dots span:nth-child(2) { background: #ffbd2e; }
-	.browser-dots span:nth-child(3) { background: #27c93f; }
-
-	.browser-url {
-		flex: 1;
-		background: rgba(0, 0, 0, 0.3);
-		border-radius: 6px;
-		padding: 6px 12px;
-		font-size: 11px;
-		color: rgba(255, 255, 255, 0.5);
-		font-family: 'SF Mono', 'Monaco', monospace;
-	}
-
-	.dashboard-content {
-		display: flex;
-		height: 500px;
-		background: rgba(5, 5, 17, 0.95);
-	}
-
-	.dashboard-sidebar {
-		width: 200px;
-		background: rgba(10, 10, 22, 0.8);
-		border-right: 1px solid rgba(255, 255, 255, 0.05);
-		padding: 20px 12px;
-		display: flex;
-		flex-direction: column;
-		gap: 20px;
-	}
-
-	.sidebar-logo {
-		display: flex;
-		align-items: center;
-		gap: 10px;
-		font-weight: 600;
-		font-size: 14px;
-		color: white;
-	}
-
-	.logo-circle {
-		width: 28px;
-		height: 28px;
-		border-radius: 8px;
-		background: linear-gradient(135deg, #17cbda, #245ef5);
-	}
-
-	.sidebar-nav {
-		display: flex;
-		flex-direction: column;
-		gap: 4px;
-	}
-
-	.nav-item {
-		display: flex;
-		align-items: center;
-		gap: 10px;
-		padding: 10px 12px;
-		border-radius: 8px;
-		font-size: 13px;
-		color: rgba(255, 255, 255, 0.6);
-		cursor: pointer;
-		transition: all 0.2s;
-	}
-
-	.nav-item:hover {
-		background: rgba(255, 255, 255, 0.05);
-		color: white;
-	}
-
-	.nav-item.active {
-		background: rgba(23, 203, 218, 0.2);
-		color: #17cbda;
-	}
-
-	.nav-item .material-symbols-outlined {
-		font-size: 18px;
-	}
-
-	.dashboard-main {
-		flex: 1;
-		padding: 24px;
-		overflow-y: auto;
-		display: flex;
-		flex-direction: column;
-		gap: 20px;
-	}
-
-	.stats-grid {
-		display: grid;
-		grid-template-columns: repeat(3, 1fr);
-		gap: 16px;
-	}
-
-	.stat-card {
-		background: rgba(255, 255, 255, 0.03);
-		border: 1px solid rgba(255, 255, 255, 0.08);
-		border-radius: 12px;
-		padding: 16px;
-		display: flex;
-		gap: 12px;
-		align-items: flex-start;
-	}
-
-	.stat-icon {
-		width: 40px;
-		height: 40px;
-		border-radius: 10px;
-		display: flex;
-		align-items: center;
-		justify-content: center;
-		font-size: 20px;
-	}
-
-	.stat-card-purple .stat-icon {
-		background: rgba(23, 203, 218, 0.2);
-		color: #17cbda;
-	}
-
-	.stat-card-cyan .stat-icon {
-		background: rgba(36, 94, 245, 0.2);
-		color: #245ef5;
-	}
-
-	.stat-card-pink .stat-icon {
-		background: rgba(23, 203, 218, 0.15);
-		color: #17cbda;
-	}
-
-	.stat-content {
-		flex: 1;
-	}
-
-	.stat-label {
-		font-size: 11px;
-		color: rgba(255, 255, 255, 0.5);
-		text-transform: uppercase;
-		letter-spacing: 0.05em;
-		margin-bottom: 4px;
-	}
-
-	.stat-value {
-		font-size: 24px;
-		font-weight: 700;
-		color: white;
-		line-height: 1;
-		margin-bottom: 4px;
-	}
-
-	.stat-trend {
-		font-size: 11px;
-		font-weight: 600;
-	}
-
-	.stat-trend.positive {
-		color: #27c93f;
-	}
-
-	.stat-trend.negative {
-		color: #ff5f56;
-	}
-
-	.inbox-section {
-		background: rgba(255, 255, 255, 0.02);
-		border: 1px solid rgba(255, 255, 255, 0.05);
-		border-radius: 12px;
-		overflow: hidden;
-	}
-
-	.inbox-header {
-		padding: 16px 20px;
-		border-bottom: 1px solid rgba(255, 255, 255, 0.05);
-		display: flex;
 		justify-content: space-between;
-		align-items: center;
+		margin-bottom: 10px;
 	}
-
-	.inbox-header h3 {
-		font-size: 14px;
-		font-weight: 600;
-		color: white;
-	}
-
-	.inbox-filters {
-		display: flex;
-		gap: 6px;
-	}
-
-	.filter-btn {
-		padding: 6px 12px;
+	.crm-card-num {
 		font-size: 11px;
-		border-radius: 6px;
-		background: rgba(255, 255, 255, 0.05);
-		color: rgba(255, 255, 255, 0.6);
-		border: none;
-		cursor: pointer;
-		transition: all 0.2s;
+		font-weight: 700;
+		letter-spacing: 0.18em;
+		color: #5fe3ee;
+		font-variant-numeric: tabular-nums;
 	}
-
-	.filter-btn:hover {
-		background: rgba(255, 255, 255, 0.1);
-		color: white;
+	.crm-card-ico {
+		font-size: 18px;
+		width: 30px;
+		height: 30px;
+		display: grid;
+		place-items: center;
+		border-radius: 9px;
+		color: #fff;
+		background: linear-gradient(135deg, rgba(23, 203, 218, 0.35), rgba(36, 94, 245, 0.35));
+		box-shadow: 0 0 0 1px rgba(95, 227, 238, 0.35) inset, 0 0 16px rgba(23, 203, 218, 0.3);
 	}
-
-	.filter-btn.active {
-		background: rgba(23, 203, 218, 0.3);
-		color: #17cbda;
+	.crm-card-title {
+		font-size: 16px;
+		font-weight: 700;
+		line-height: 1.25;
+		color: #fff;
+		margin-bottom: 6px;
 	}
-
-	.inbox-list {
-		display: flex;
-		flex-direction: column;
-	}
-
-	.inbox-item {
-		display: flex;
-		gap: 12px;
-		padding: 14px 20px;
-		border-bottom: 1px solid rgba(255, 255, 255, 0.03);
-		align-items: center;
-		transition: background 0.2s;
-		cursor: pointer;
-	}
-
-	.inbox-item:hover {
-		background: rgba(255, 255, 255, 0.03);
-	}
-
-	.contact-avatar {
-		width: 40px;
-		height: 40px;
-		border-radius: 50%;
-		background: linear-gradient(135deg, #17cbda, #245ef5);
-		display: flex;
-		align-items: center;
-		justify-content: center;
+	.crm-card-desc {
 		font-size: 13px;
-		font-weight: 600;
-		color: white;
-		flex-shrink: 0;
+		line-height: 1.5;
+		color: rgba(203, 213, 225, 0.82);
+	}
+	.crm-type {
+		position: relative;
+	}
+	.crm-ghost {
+		visibility: hidden;
+	}
+	.crm-typed {
+		position: absolute;
+		inset: 0;
+	}
+	.crm-typed.is-typing::after {
+		content: '';
+		display: inline-block;
+		width: 2px;
+		height: 1.05em;
+		margin-left: 2px;
+		vertical-align: -0.15em;
+		background: #5fe3ee;
+		box-shadow: 0 0 8px #17cbda;
+		animation: crm-caret 0.7s steps(1) infinite;
+	}
+	@keyframes crm-caret {
+		50% { opacity: 0; }
 	}
 
-	.contact-info {
-		flex: 1;
-		min-width: 0;
+	/* ---------- Líneas y puntos ---------- */
+	.crm-lines {
+		position: absolute;
+		inset: 0;
+		width: 100%;
+		height: 100%;
+		overflow: visible;
+		pointer-events: none;
+		z-index: 2;
 	}
-
-	.contact-name {
-		font-size: 13px;
-		font-weight: 600;
-		color: white;
-		margin-bottom: 2px;
+	.crm-line {
+		fill: none;
+		stroke: #3fd6e6;
+		stroke-width: 1.4;
+		stroke-linecap: round;
+		stroke-linejoin: round;
+		filter: url(#crm-line-glow);
+		opacity: 0.9;
 	}
-
-	.contact-message {
-		font-size: 12px;
-		color: rgba(255, 255, 255, 0.5);
-		white-space: nowrap;
-		overflow: hidden;
-		text-overflow: ellipsis;
+	.crm-line-end {
+		fill: #5fe3ee;
+		filter: url(#crm-line-glow);
 	}
-
-	.contact-meta {
-		display: flex;
-		flex-direction: column;
-		align-items: flex-end;
-		gap: 4px;
+	.crm-dots {
+		position: absolute;
+		inset: 0;
+		pointer-events: none;
+		z-index: 4;
 	}
-
-	.contact-time {
-		font-size: 11px;
-		color: rgba(255, 255, 255, 0.4);
+	.crm-dot {
+		position: absolute;
+		left: 0;
+		top: 0;
+		width: 18px;
+		height: 18px;
+		margin: -9px 0 0 -9px;
 	}
-
-	.contact-status {
+	.crm-dot-core {
+		position: absolute;
+		inset: 0;
+		display: grid;
+		place-items: center;
+		border-radius: 999px;
 		font-size: 10px;
-		padding: 3px 8px;
-		border-radius: 10px;
-		background: rgba(255, 255, 255, 0.05);
-		color: rgba(255, 255, 255, 0.7);
-		white-space: nowrap;
+		font-weight: 800;
+		color: #031018;
+		background: linear-gradient(135deg, #5fe3ee, #17cbda 45%, #245ef5);
+		box-shadow: 0 0 0 2px rgba(3, 0, 20, 0.65), 0 0 14px rgba(23, 203, 218, 0.9);
 	}
-
-	.contact-status.hot {
-		background: rgba(255, 95, 86, 0.2);
-		color: #ff5f56;
-	}
-
-	.contact-status.warm {
-		background: rgba(255, 189, 46, 0.2);
-		color: #ffbd2e;
-	}
-
-	/* === Burbujas 3D Glossy === */
-	.crm-bubbles {
+	.crm-dot-ring {
 		position: absolute;
-		inset: 0;
-		pointer-events: none;
-		z-index: 10;
-	}
-
-	.bubble {
-		position: absolute;
+		inset: -7px;
+		border-radius: 999px;
+		border: 1.5px solid rgba(95, 227, 238, 0.85);
 		opacity: 0;
-		transform: scale(0.5);
-		pointer-events: none;
-		z-index: 10;
+	}
+	.crm-dot.is-live .crm-dot-ring {
+		animation: crm-pulse 1.6s ease-out infinite;
+	}
+	@keyframes crm-pulse {
+		0% { transform: scale(0.5); opacity: 0.9; }
+		100% { transform: scale(1.9); opacity: 0; }
+	}
+	@media (max-width: 639px) {
+		.crm-lines { display: none; }
 	}
 
-	.bubble-inner {
-		position: relative;
-		width: 160px;
-		height: 160px;
+	/* ---------- Mockup WACRM (diseñado a 1000 × 640 y escalado) ---------- */
+	.crm-mock {
+		--bg: #0b0d12;
+		--card: #14161c;
+		--card2: #191b22;
+		--muted: #1e2028;
+		--border: #292c35;
+		--fg: #f4f5f7;
+		--mfg: #949aa6;
+		--p: #17cbda;
+		--p2: #245ef5;
+		width: 1000px;
+		height: 640px;
+		transform-origin: 0 0;
+		border-radius: 14px;
+		overflow: hidden;
+		background: var(--bg);
+		color: var(--fg);
+		font-family: Inter, system-ui, sans-serif;
+		font-size: 12px;
+		box-shadow:
+			0 0 0 1px rgba(255, 255, 255, 0.08),
+			0 30px 80px -20px rgba(36, 94, 245, 0.45),
+			0 0 60px -10px rgba(23, 203, 218, 0.25);
+		position: absolute;
+		left: 0;
+		top: 0;
+	}
+	.crm-mock .material-symbols-outlined {
+		font-size: 15px;
+		font-variation-settings: 'wght' 300;
+		line-height: 1;
+	}
+	.m-chrome {
+		height: 34px;
+		display: flex;
+		align-items: center;
+		gap: 14px;
+		padding: 0 14px;
+		background: #101218;
+		border-bottom: 1px solid var(--border);
+	}
+	.m-dots { display: flex; gap: 6px; }
+	.m-dots span { width: 10px; height: 10px; border-radius: 50%; background: #2c2f38; }
+	.m-dots span:first-child { background: #ff5f57; }
+	.m-dots span:nth-child(2) { background: #febc2e; }
+	.m-dots span:nth-child(3) { background: #28c840; }
+	.m-url {
+		flex: 1;
+		max-width: 420px;
+		margin: 0 auto;
 		display: flex;
 		align-items: center;
 		justify-content: center;
-		padding: 20px;
+		gap: 6px;
+		height: 22px;
+		border-radius: 6px;
+		background: #181a21;
+		color: var(--mfg);
+		font-size: 11px;
 	}
-
-	/* Cristal base con gradiente iridiscente */
-	.bubble-glass {
-		position: absolute;
-		inset: 0;
-		border-radius: 50%;
-		background: 
-			radial-gradient(circle at 30% 30%, rgba(255, 255, 255, 0.4), transparent 50%),
-			radial-gradient(circle at 70% 70%, rgba(36, 94, 245, 0.3), transparent 50%),
-			linear-gradient(135deg, 
-				rgba(23, 203, 218, 0.3), 
-				rgba(36, 94, 245, 0.25), 
-				rgba(23, 203, 218, 0.2)
-			);
-		backdrop-filter: blur(20px);
-		border: 2px solid rgba(255, 255, 255, 0.2);
-		box-shadow: 
-			inset 0 0 30px rgba(255, 255, 255, 0.1),
-			0 8px 32px rgba(0, 0, 0, 0.3);
+	.m-url .material-symbols-outlined { font-size: 12px; }
+	.m-app {
+		display: grid;
+		grid-template-columns: 170px 262px 1fr 214px;
+		height: calc(100% - 34px);
 	}
-
-	/* Highlight especular (brillo superior) */
-	.bubble-highlight {
-		position: absolute;
-		top: 10%;
-		left: 15%;
-		width: 45%;
-		height: 45%;
-		border-radius: 50%;
-		background: radial-gradient(circle at 30% 30%, 
-			rgba(255, 255, 255, 0.8), 
-			rgba(255, 255, 255, 0.3) 40%, 
-			transparent 70%
-		);
-		filter: blur(8px);
-		transform: rotate(-15deg);
+	/* Sidebar */
+	.m-side {
+		display: flex;
+		flex-direction: column;
+		background: var(--card);
+		border-right: 1px solid var(--border);
+		padding-bottom: 8px;
 	}
-
-	/* Glow exterior */
-	.bubble-glow {
-		position: absolute;
-		inset: -20px;
-		border-radius: 50%;
-		background: radial-gradient(circle, 
-			rgba(23, 203, 218, 0.5), 
-			rgba(36, 94, 245, 0.4) 40%, 
-			transparent 70%
-		);
-		filter: blur(20px);
-		opacity: 0.6;
-		animation: glow-pulse 3s ease-in-out infinite;
-	}
-
-	@keyframes glow-pulse {
-		0%, 100% { opacity: 0.4; transform: scale(1); }
-		50% { opacity: 0.8; transform: scale(1.05); }
-	}
-
-	.bubble-text {
-		position: relative;
-		z-index: 10;
-		color: white;
-		font-size: 13px;
+	.m-brand {
+		height: 46px;
+		display: flex;
+		align-items: center;
+		gap: 8px;
+		padding: 0 12px;
+		border-bottom: 1px solid var(--border);
 		font-weight: 600;
-		text-align: center;
-		text-shadow: 0 2px 8px rgba(0, 0, 0, 0.5);
-		line-height: 1.3;
-		max-width: 120px;
+		font-size: 12.5px;
 	}
-
-	/* Posicionamiento desktop de burbujas - ajustado para mockup más pequeño */
-	.bubble-1 { top: 8%; left: 5%; }
-	.bubble-2 { top: 8%; right: 5%; }
-	.bubble-3 { top: 45%; left: 0%; }
-	.bubble-4 { top: 45%; right: 0%; }
-	.bubble-5 { bottom: 8%; left: 8%; }
-	.bubble-6 { bottom: 8%; right: 8%; }
-
-	/* === Responsive === */
-	@media (max-width: 1024px) {
-		.dashboard-content {
-			height: 450px;
-		}
-
-		.dashboard-sidebar {
-			width: 160px;
-			padding: 16px 8px;
-		}
-
-		.sidebar-logo {
-			font-size: 12px;
-		}
-
-		.logo-circle {
-			width: 24px;
-			height: 24px;
-		}
-
-		.nav-item {
-			font-size: 12px;
-			padding: 8px 10px;
-		}
-
-		.nav-item .material-symbols-outlined {
-			font-size: 16px;
-		}
-
-		.dashboard-main {
-			padding: 16px;
-		}
-
-		.stats-grid {
-			gap: 12px;
-		}
-
-		.stat-card {
-			padding: 12px;
-		}
-
-		.stat-icon {
-			width: 32px;
-			height: 32px;
-			font-size: 16px;
-		}
-
-		.stat-value {
-			font-size: 20px;
-		}
-
-		.inbox-item {
-			padding: 12px 16px;
-		}
-
-		.contact-avatar {
-			width: 36px;
-			height: 36px;
-			font-size: 12px;
-		}
-
-		/* Burbujas más pequeñas en tablet */
-		.bubble-inner {
-			width: 120px;
-			height: 120px;
-		}
-
-		.bubble-text {
-			font-size: 11px;
-			max-width: 90px;
-		}
-
-		/* Reposicionar burbujas en tablet - siguen flotando */
-		.bubble-1 { top: 5%; left: 3%; }
-		.bubble-2 { top: 10%; right: 3%; }
-		.bubble-3 { top: 45%; left: -1%; }
-		.bubble-4 { top: 45%; right: -1%; }
-		.bubble-5 { bottom: 10%; left: 5%; }
-		.bubble-6 { bottom: 8%; right: 5%; }
+	.m-logo {
+		width: 26px;
+		height: 26px;
+		border-radius: 8px;
+		display: grid;
+		place-items: center;
+		background: linear-gradient(135deg, var(--p), var(--p2));
+		color: #fff;
 	}
-
-	@media (max-width: 640px) {
-		.crm-section {
-			padding: 60px 12px;
-		}
-
-		.crm-container {
-			min-height: auto;
-			padding: 0 4px;
-		}
-
-		.crm-mockup-wrapper {
-			max-width: 100%;
-			padding: 0 4px;
-		}
-
-		.crm-mockup {
-			border-radius: 12px;
-		}
-
-		.dashboard-content {
-			flex-direction: column;
-			height: auto;
-		}
-
-		.dashboard-sidebar {
-			width: 100%;
-			flex-direction: row;
-			justify-content: space-around;
-			border-right: none;
-			border-bottom: 1px solid rgba(255, 255, 255, 0.05);
-			padding: 12px;
-		}
-
-		.sidebar-logo {
-			display: none;
-		}
-
-		.sidebar-nav {
-			flex-direction: row;
-			gap: 2px;
-			width: 100%;
-			justify-content: space-around;
-		}
-
-		.nav-item {
-			flex-direction: column;
-			gap: 3px;
-			padding: 6px 2px;
-			font-size: 9px;
-			flex: 1;
-			text-align: center;
-		}
-
-		.nav-item .material-symbols-outlined {
-			font-size: 14px;
-		}
-
-		.nav-item span:last-child {
-			display: block;
-		}
-
-		.dashboard-main {
-			padding: 12px 8px;
-		}
-
-		.stats-grid {
-			grid-template-columns: 1fr;
-			gap: 10px;
-		}
-
-		.stat-card {
-			padding: 10px;
-		}
-
-		.inbox-header {
-			flex-direction: column;
-			gap: 10px;
-			align-items: flex-start;
-			padding: 12px 12px;
-		}
-
-		.inbox-filters {
-			width: 100%;
-			justify-content: space-between;
-		}
-
-		.filter-btn {
-			flex: 1;
-			font-size: 10px;
-			padding: 5px 8px;
-		}
-
-		.inbox-item {
-			padding: 10px 12px;
-		}
-
-		.browser-url {
-			font-size: 9px;
-			padding: 4px 8px;
-		}
-
-		/* Burbujas en mobile: más pequeñas y alrededor/debajo del mockup */
-		.crm-bubbles {
-			position: relative;
-			margin-top: 40px;
-			display: grid;
-			grid-template-columns: repeat(2, 1fr);
-			gap: 20px;
-			padding: 0 20px;
-		}
-
-		.bubble {
-			position: static;
-			margin: 0 auto;
-		}
-
-		.bubble-inner {
-			width: 140px;
-			height: 140px;
-		}
-
-		.bubble-text {
-			font-size: 12px;
-			max-width: 100px;
-		}
+	.m-nav { list-style: none; margin: 0; padding: 10px 8px 0; display: flex; flex-direction: column; gap: 2px; }
+	.m-side > .m-nav-item { margin: 0 8px; }
+	.m-nav-item {
+		display: flex;
+		align-items: center;
+		gap: 9px;
+		height: 29px;
+		padding: 0 10px;
+		border-radius: 8px;
+		color: var(--mfg);
+		font-weight: 500;
+		font-size: 11.5px;
+		transition: background 0.4s, color 0.4s, box-shadow 0.4s;
 	}
-
-	@media (max-width: 480px) {
-		.browser-chrome {
-			height: 32px;
-			padding: 0 12px;
-		}
-
-		.browser-dots span {
-			width: 8px;
-			height: 8px;
-		}
-
-		.browser-url {
-			font-size: 8px;
-		}
-
-		.dashboard-main {
-			padding: 10px 6px;
-		}
-
-		.stat-icon {
-			width: 28px;
-			height: 28px;
-			font-size: 16px;
-		}
-
-		.stat-label {
-			font-size: 9px;
-		}
-
-		.stat-value {
-			font-size: 16px;
-		}
-
-		.stat-trend {
-			font-size: 9px;
-		}
-
-		.inbox-item {
-			padding: 8px 10px;
-			gap: 8px;
-		}
-
-		.contact-avatar {
-			width: 30px;
-			height: 30px;
-			font-size: 11px;
-		}
-
-		.contact-name {
-			font-size: 11px;
-		}
-
-		.contact-message {
-			font-size: 10px;
-		}
-
-		.contact-time {
-			font-size: 9px;
-		}
-
-		.contact-status {
-			font-size: 8px;
-			padding: 2px 6px;
-		}
-
-		.inbox-header h3 {
-			font-size: 12px;
-		}
-
-		.bubble-inner {
-			width: 120px;
-			height: 120px;
-		}
-
-		.bubble-text {
-			font-size: 11px;
-			max-width: 85px;
-		}
+	.m-nav-item.is-active { background: rgba(23, 203, 218, 0.12); color: #5fe3ee; }
+	.m-nav-label { flex: 1; white-space: nowrap; }
+	.m-beta {
+		font-size: 7.5px;
+		font-weight: 700;
+		letter-spacing: 0.08em;
+		text-transform: uppercase;
+		padding: 2px 5px;
+		border-radius: 999px;
+		color: #fcd34d;
+		border: 1px solid rgba(245, 158, 11, 0.4);
+		background: rgba(245, 158, 11, 0.1);
 	}
-
-	/* Respeto a prefers-reduced-motion */
-	@media (prefers-reduced-motion: reduce) {
-		.bubble-glow {
-			animation: none;
-		}
-
-		.crm-mockup,
-		.bubble {
-			transition: none;
-		}
+	.m-sep { margin: 10px 14px; border-top: 1px solid var(--border); }
+	.m-user {
+		margin-top: auto;
+		display: flex;
+		align-items: center;
+		gap: 8px;
+		padding: 10px 12px 0;
+		border-top: 1px solid var(--border);
 	}
+	.m-user-name { font-size: 11px; font-weight: 500; }
+	.m-user-mail { font-size: 9.5px; color: var(--mfg); }
+	.m-av {
+		flex: none;
+		width: 30px;
+		height: 30px;
+		border-radius: 999px;
+		display: grid;
+		place-items: center;
+		color: #fff;
+		font-size: 10px;
+		font-weight: 700;
+	}
+	.m-av-xs { width: 16px; height: 16px; font-size: 7px; }
+	.m-av-lg { width: 46px; height: 46px; font-size: 14px; }
+	/* Lista */
+	.m-list { display: flex; flex-direction: column; background: var(--card); border-right: 1px solid var(--border); min-width: 0; transition: box-shadow 0.4s; }
+	.m-search {
+		margin: 10px 10px 8px;
+		height: 30px;
+		display: flex;
+		align-items: center;
+		gap: 7px;
+		padding: 0 10px;
+		border-radius: 8px;
+		background: var(--muted);
+		color: var(--mfg);
+		font-size: 11px;
+	}
+	.m-filters { display: flex; gap: 5px; padding: 0 10px 8px; border-bottom: 1px solid var(--border); }
+	.m-filters span {
+		padding: 4px 8px;
+		border-radius: 999px;
+		font-size: 10px;
+		font-weight: 500;
+		color: var(--mfg);
+		background: var(--muted);
+		white-space: nowrap;
+	}
+	.m-filters span.is-on { color: #fff; background: linear-gradient(135deg, var(--p), var(--p2)); }
+	.m-filters b { margin-left: 2px; color: #5fe3ee; }
+	.m-convs { flex: 1; overflow: hidden; }
+	.m-conv {
+		display: flex;
+		gap: 9px;
+		padding: 10px 12px;
+		border-bottom: 1px solid rgba(41, 44, 53, 0.6);
+	}
+	.m-conv.is-active { background: var(--muted); box-shadow: inset 2px 0 0 var(--p); }
+	.m-conv-body { flex: 1; min-width: 0; }
+	.m-conv-top, .m-conv-bottom { display: flex; align-items: center; justify-content: space-between; gap: 6px; }
+	.m-conv-name { font-weight: 600; font-size: 11.5px; white-space: nowrap; overflow: hidden; text-overflow: ellipsis; }
+	.m-conv-time { font-size: 9.5px; color: var(--mfg); white-space: nowrap; }
+	.m-conv-msg { font-size: 10.5px; color: var(--mfg); white-space: nowrap; overflow: hidden; text-overflow: ellipsis; margin-top: 2px; }
+	.m-badge {
+		flex: none;
+		min-width: 15px;
+		height: 15px;
+		padding: 0 4px;
+		border-radius: 999px;
+		display: grid;
+		place-items: center;
+		font-size: 9px;
+		font-weight: 700;
+		color: #fff;
+		background: linear-gradient(135deg, var(--p), var(--p2));
+	}
+	.m-conv-tags { display: flex; align-items: center; gap: 4px; margin-top: 4px; min-height: 6px; }
+	.m-tdot { width: 6px; height: 6px; border-radius: 99px; }
+	.m-chip-xs { font-size: 8.5px; padding: 1px 6px; border-radius: 99px; background: var(--muted); color: var(--mfg); }
+	/* Conversación */
+	.m-thread { display: flex; flex-direction: column; min-width: 0; background: var(--bg); }
+	.m-thread-head {
+		height: 54px;
+		display: flex;
+		align-items: center;
+		gap: 9px;
+		padding: 0 12px;
+		border-bottom: 1px solid var(--border);
+		background: var(--card);
+	}
+	.m-th-info { flex: 1; min-width: 0; }
+	.m-th-name { font-weight: 600; font-size: 12.5px; }
+	.m-th-phone { font-size: 9.5px; color: var(--mfg); white-space: nowrap; }
+	.m-timer { color: #4ade80; }
+	.m-th-actions { display: flex; align-items: center; gap: 6px; }
+	.m-status, .m-assign {
+		display: inline-flex;
+		align-items: center;
+		gap: 5px;
+		height: 24px;
+		padding: 0 8px;
+		border-radius: 7px;
+		border: 1px solid var(--border);
+		background: var(--muted);
+		font-size: 10px;
+		font-weight: 500;
+		white-space: nowrap;
+		transition: box-shadow 0.4s, border-color 0.4s;
+	}
+	.m-status i { width: 6px; height: 6px; border-radius: 9px; background: #22c55e; }
+	.m-assign .material-symbols-outlined { font-size: 13px; color: var(--mfg); }
+	.m-ai-banner {
+		display: flex;
+		align-items: center;
+		gap: 7px;
+		margin: 10px 12px 0;
+		padding: 7px 10px;
+		border-radius: 9px;
+		font-size: 10px;
+		color: #b9f3f8;
+		border: 1px solid rgba(23, 203, 218, 0.3);
+		background: rgba(23, 203, 218, 0.08);
+	}
+	.m-ai-banner span:nth-child(2) { flex: 1; }
+	.m-ai-btn {
+		padding: 3px 8px;
+		border-radius: 6px;
+		background: rgba(255, 255, 255, 0.06);
+		border: 1px solid var(--border);
+		color: var(--fg);
+		white-space: nowrap;
+	}
+	.m-msgs { flex: 1; display: flex; flex-direction: column; gap: 9px; padding: 12px 14px; overflow: hidden; }
+	.m-day {
+		align-self: center;
+		font-size: 9px;
+		color: var(--mfg);
+		padding: 2px 9px;
+		border-radius: 99px;
+		background: var(--muted);
+	}
+	.m-msg {
+		position: relative;
+		max-width: 78%;
+		padding: 8px 11px 16px;
+		border-radius: 14px;
+		font-size: 11px;
+		line-height: 1.45;
+		transition: box-shadow 0.4s;
+	}
+	.m-msg.in { align-self: flex-start; background: var(--muted); border-bottom-left-radius: 5px; }
+	.m-msg.out {
+		align-self: flex-end;
+		color: #fff;
+		background: linear-gradient(135deg, #12a9c4, #245ef5);
+		border-bottom-right-radius: 5px;
+	}
+	.m-meta {
+		position: absolute;
+		right: 9px;
+		bottom: 4px;
+		display: inline-flex;
+		align-items: center;
+		gap: 3px;
+		font-size: 8.5px;
+		opacity: 0.7;
+	}
+	.m-meta .material-symbols-outlined { font-size: 11px !important; }
+	.m-ai-chip {
+		display: inline-flex;
+		align-items: center;
+		gap: 2px;
+		margin-right: 4px;
+		padding: 1px 5px;
+		border-radius: 99px;
+		font-size: 8px;
+		font-weight: 700;
+		letter-spacing: 0.06em;
+		background: rgba(255, 255, 255, 0.2);
+		vertical-align: 1px;
+	}
+	.m-ai-chip .material-symbols-outlined { font-size: 9px !important; }
+	.m-composer {
+		display: flex;
+		align-items: center;
+		gap: 8px;
+		margin: 0 12px 12px;
+		padding: 6px 6px 6px 10px;
+		border-radius: 11px;
+		border: 1px solid var(--border);
+		background: var(--card);
+	}
+	.m-c-ico { color: var(--mfg); }
+	.m-input { flex: 1; color: var(--mfg); font-size: 11px; }
+	.m-spark {
+		width: 26px;
+		height: 26px;
+		border-radius: 8px;
+		display: grid;
+		place-items: center;
+		color: #5fe3ee;
+		background: rgba(23, 203, 218, 0.12);
+	}
+	.m-send {
+		height: 26px;
+		padding: 0 12px;
+		border-radius: 8px;
+		display: grid;
+		place-items: center;
+		font-size: 10.5px;
+		font-weight: 600;
+		color: #fff;
+		background: linear-gradient(135deg, var(--p), var(--p2));
+	}
+	/* Panel de contacto */
+	.m-contact {
+		background: var(--card);
+		border-left: 1px solid var(--border);
+		padding: 12px;
+		display: flex;
+		flex-direction: column;
+		gap: 10px;
+		overflow: hidden;
+	}
+	.m-ct-title { font-size: 11.5px; font-weight: 600; }
+	.m-ct-card { display: flex; flex-direction: column; align-items: center; gap: 3px; padding: 4px 0 6px; }
+	.m-ct-name { font-weight: 600; font-size: 12px; margin-top: 4px; }
+	.m-ct-phone { font-size: 10px; color: var(--mfg); }
+	.m-block {
+		border-top: 1px solid var(--border);
+		padding-top: 9px;
+		border-radius: 4px;
+		transition: box-shadow 0.4s, background 0.4s;
+	}
+	.m-block-h { font-size: 9.5px; font-weight: 600; text-transform: uppercase; letter-spacing: 0.08em; color: var(--mfg); margin-bottom: 7px; }
+	.m-tags { display: flex; flex-wrap: wrap; gap: 5px; }
+	.m-tags span {
+		display: inline-flex;
+		align-items: center;
+		gap: 4px;
+		padding: 3px 8px;
+		border-radius: 99px;
+		font-size: 9.5px;
+		background: var(--muted);
+	}
+	.m-tags i { width: 6px; height: 6px; border-radius: 9px; }
+	.m-tags .m-add { color: #5fe3ee; background: transparent; border: 1px dashed rgba(23, 203, 218, 0.4); }
+	.m-deal { padding: 9px; border-radius: 9px; background: var(--card2); border: 1px solid var(--border); }
+	.m-deal-t { font-size: 10.5px; font-weight: 600; }
+	.m-deal-v { font-size: 14px; font-weight: 700; margin: 3px 0 5px; }
+	.m-deal-v small { font-size: 9px; font-weight: 500; color: var(--mfg); }
+	.m-deal-stage { display: flex; align-items: center; gap: 5px; font-size: 9.5px; color: var(--mfg); }
+	.m-deal-stage i { width: 6px; height: 6px; border-radius: 9px; background: #5fe3ee; }
+	.m-deal-bar { height: 4px; margin-top: 7px; border-radius: 9px; background: var(--muted); overflow: hidden; }
+	.m-deal-bar span { display: block; height: 100%; width: 66%; background: linear-gradient(90deg, var(--p), var(--p2)); }
+	.m-note { font-size: 10px; color: #cbd0d8; padding: 7px 8px; border-radius: 7px; background: rgba(245, 158, 11, 0.08); border: 1px solid rgba(245, 158, 11, 0.2); }
+	.m-task { display: flex; align-items: center; gap: 6px; font-size: 10px; color: #cbd0d8; }
+	.m-task .material-symbols-outlined { color: #5fe3ee; font-size: 13px; }
+
+	/* Resaltado del objetivo activo */
+	.crm-mock [data-crm-target].is-target {
+		box-shadow: 0 0 0 1.5px rgba(95, 227, 238, 0.9), 0 0 22px rgba(23, 203, 218, 0.45);
+	}
+	.crm-mock .m-list.is-target { box-shadow: inset 0 0 0 1.5px rgba(95, 227, 238, 0.8), inset 0 0 30px rgba(23, 203, 218, 0.12); }
 </style>
 
 <script>
@@ -983,65 +874,223 @@
 
 	gsap.registerPlugin(ScrollTrigger);
 
-	// Check for reduced motion preference
-	const prefersReducedMotion = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+	const stage = document.getElementById('crm-stage') as HTMLElement | null;
+	const wrap = document.getElementById('crm-mock-wrap') as HTMLElement | null;
+	const mock = document.getElementById('crm-mock') as HTMLElement | null;
 
-	if (!prefersReducedMotion) {
-		// Animación del mockup (fade in + scale)
-		gsap.from('#crm-mockup', {
-			scrollTrigger: {
-				trigger: '#crm-mockup',
-				start: 'top 80%',
-				end: 'top 40%',
-				toggleActions: 'play none none reverse',
-			},
-			opacity: 0,
-			scale: 0.9,
-			duration: 0.8,
-			ease: 'power2.out',
-		});
+	if (stage && wrap && mock) {
+		const reduce = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+		const N = 6;
+		const BASE_W = 1000;
+		const BASE_H = 640;
+		const revealed = new Set<number>();
+		const q = <T extends Element>(sel: string) => stage.querySelector(sel) as T;
 
-		// Animación secuencial de burbujas
-		const isMobile = window.innerWidth < 640;
-		const bubbles = gsap.utils.toArray('.bubble');
+		const cards = Array.from({ length: N }, (_, i) => q<HTMLElement>(`[data-card="${i + 1}"]`));
+		const paths = Array.from({ length: N }, (_, i) => q<SVGPathElement>(`[data-line="${i + 1}"] path`));
+		const ends = Array.from({ length: N }, (_, i) => q<SVGCircleElement>(`[data-line="${i + 1}"] circle`));
+		const dots = Array.from({ length: N }, (_, i) => q<HTMLElement>(`[data-dot="${i + 1}"]`));
+		const targets = Array.from({ length: N }, (_, i) => mock.querySelector(`[data-crm-target="${i + 1}"]`) as HTMLElement);
 
-		if (!isMobile) {
-			// Desktop/tablet (≥640px): animar burbujas con scroll alrededor del mockup
-			bubbles.forEach((bubble, index) => {
-				gsap.to(bubble, {
-					scrollTrigger: {
-						trigger: '.crm-container',
-						start: 'top 60%',
-						end: 'bottom 20%',
-						toggleActions: 'play none none reverse',
-					},
-					opacity: 1,
-					scale: 1,
-					duration: 0.6,
-					delay: index * 0.15,
-					ease: 'back.out(1.7)',
-				});
-			});
+		const mode = () => (window.innerWidth >= 1024 ? 'desktop' : window.innerWidth >= 640 ? 'tablet' : 'mobile');
+
+		// Escala el mockup (diseñado a 1000 × 640) al ancho disponible
+		function scaleMock() {
+			const s = wrap!.clientWidth / BASE_W;
+			mock!.style.transform = `scale(${s})`;
+			wrap!.style.height = `${BASE_H * s}px`;
+		}
+
+		// Calcula posiciones de puntos y líneas
+		function layout() {
+			scaleMock();
+			const sr = stage!.getBoundingClientRect();
+			const m = mode();
+			for (let i = 0; i < N; i++) {
+				const tr = targets[i].getBoundingClientRect();
+				const cr = cards[i].getBoundingClientRect();
+				// punto objetivo: en el borde del elemento que mira hacia su tarjeta,
+				// así el punto no tapa el contenido de la interfaz
+				const cardLeft = cr.left + cr.width / 2 < sr.left + sr.width / 2;
+				const cardAbove = cr.top + cr.height / 2 < tr.top + tr.height / 2;
+				const yFrac = i === 1 ? 0.3 : 0.5;
+				let tx = tr.left + tr.width / 2 - sr.left;
+				let ty = tr.top + tr.height * yFrac - sr.top;
+				if (m === 'desktop') {
+					tx = (cardLeft ? tr.left : tr.right) - sr.left;
+				} else if (m === 'tablet') {
+					ty = (cardAbove ? tr.top : tr.bottom) - sr.top;
+					if (i === 1) tx = tr.left + tr.width * 0.5 - sr.left;
+				} else {
+					tx = tr.left - sr.left;
+					if (i === 2 || i === 3 || i === 4) tx = tr.right - sr.left;
+				}
+				dots[i].style.transform = `translate(${tx}px, ${ty}px)`;
+
+				const p = paths[i];
+				let d = '';
+				let ax = 0;
+				let ay = 0;
+				if (m === 'desktop') {
+					const leftSide = cr.left + cr.width / 2 < sr.left + sr.width / 2;
+					ax = (leftSide ? cr.right : cr.left) - sr.left;
+					ay = cr.top + cr.height / 2 - sr.top;
+					const kx = ax + (leftSide ? 26 : -26);
+					d = `M ${ax} ${ay} H ${kx} L ${tx} ${ty}`;
+				} else if (m === 'tablet') {
+					const top = cr.top + cr.height / 2 < tr.top + tr.height / 2;
+					ax = cr.left + cr.width / 2 - sr.left;
+					ay = (top ? cr.bottom : cr.top) - sr.top;
+					const ky = ay + (top ? 22 : -22);
+					d = `M ${ax} ${ay} V ${ky} L ${tx} ${ty}`;
+				}
+				p.setAttribute('d', d);
+				ends[i].setAttribute('cx', String(ax));
+				ends[i].setAttribute('cy', String(ay));
+				if (d) {
+					const len = p.getTotalLength();
+					p.style.strokeDasharray = `${len}`;
+					p.style.strokeDashoffset = revealed.has(i) ? '0' : `${len}`;
+					p.dataset.len = String(len);
+				}
+			}
+		}
+
+		const typedEls = (i: number) => Array.from(cards[i].querySelectorAll<HTMLElement>('.crm-typed'));
+
+		function showAllStatic() {
+			for (let i = 0; i < N; i++) {
+				revealed.add(i);
+				gsap.set([cards[i], dots[i], ends[i]], { autoAlpha: 1 });
+				typedEls(i).forEach((el) => (el.textContent = el.dataset.text || ''));
+			}
+			layout();
+		}
+
+		if (reduce) {
+			showAllStatic();
+			window.addEventListener('resize', layout);
+			document.fonts?.ready.then(layout);
 		} else {
-			// Mobile (<640px): animar burbujas secuencialmente en el grid
-			bubbles.forEach((bubble, index) => {
-				gsap.to(bubble, {
-					scrollTrigger: {
-						trigger: '.crm-bubbles',
-						start: 'top 85%',
-						toggleActions: 'play none none reverse',
+			// Estado inicial
+			for (let i = 0; i < N; i++) {
+				gsap.set([cards[i], dots[i], ends[i]], { autoAlpha: 0 });
+				typedEls(i).forEach((el) => (el.textContent = ''));
+			}
+			layout();
+
+			const queue: number[] = [];
+			let playing = false;
+			let current = -1;
+
+			function typeTween(el: HTMLElement, perChar: number) {
+				const text = el.dataset.text || '';
+				const o = { n: 0 };
+				return gsap.to(o, {
+					n: text.length,
+					duration: Math.max(0.25, text.length * perChar),
+					ease: 'none',
+					onStart: () => el.classList.add('is-typing'),
+					onUpdate: () => {
+						el.textContent = text.slice(0, Math.round(o.n));
 					},
-					opacity: 1,
-					scale: 1,
-					duration: 0.5,
-					delay: index * 0.12,
-					ease: 'back.out(1.7)',
+					onComplete: () => {
+						el.textContent = text;
+						el.classList.remove('is-typing');
+					},
 				});
+			}
+
+			function step(i: number, fast: boolean) {
+				const k = fast ? 0.4 : 1;
+				const m = mode();
+				const tl = gsap.timeline({ onComplete: run });
+				if (current >= 0) {
+					targets[current].classList.remove('is-target');
+					dots[current].classList.remove('is-live');
+				}
+				current = i;
+				revealed.add(i);
+				tl.call(() => {
+					targets[i].classList.add('is-target');
+					dots[i].classList.add('is-live');
+				});
+				tl.fromTo(dots[i], { autoAlpha: 0, scale: 0.2 }, { autoAlpha: 1, scale: 1, duration: 0.35 * k, ease: 'back.out(2.5)' });
+				if (m !== 'mobile') {
+					const len = Number(paths[i].dataset.len || 0);
+					tl.fromTo(paths[i], { strokeDashoffset: len }, { strokeDashoffset: 0, duration: 0.5 * k, ease: 'power2.inOut' }, '+=0.1');
+					tl.to(ends[i], { autoAlpha: 1, duration: 0.15 }, '-=0.1');
+				}
+				const from: gsap.TweenVars = { autoAlpha: 0, filter: 'blur(6px)' };
+				if (m === 'desktop') {
+					const leftSide = cards[i].getBoundingClientRect().left < window.innerWidth / 2;
+					from.x = leftSide ? -18 : 18;
+				} else from.y = 16;
+				tl.fromTo(cards[i], from, { autoAlpha: 1, x: 0, y: 0, filter: 'blur(0px)', duration: 0.4 * k, ease: 'power3.out', clearProps: 'filter' }, '-=0.05');
+				const [title, desc] = typedEls(i);
+				tl.add(typeTween(title, 0.028 * k));
+				tl.add(typeTween(desc, 0.014 * k), '+=0.05');
+				tl.to({}, { duration: 0.15 * k });
+				return tl;
+			}
+
+			function run() {
+				const next = queue.shift();
+				if (next === undefined) {
+					playing = false;
+					return;
+				}
+				playing = true;
+				step(next, queue.length > 0);
+			}
+
+			function enqueue(i: number) {
+				if (revealed.has(i) || queue.includes(i)) return;
+				queue.push(i);
+				if (!playing) run();
+			}
+
+			const mm = gsap.matchMedia();
+			mm.add('(min-width: 640px)', () => {
+				// Escenario fijo: se revela una función por tramo de scroll
+				const st = ScrollTrigger.create({
+					trigger: stage,
+					start: 'center center',
+					end: () => `+=${N * 260}`,
+					pin: true,
+					anticipatePin: 1,
+					onUpdate: (self) => {
+						const upto = Math.min(N, Math.floor(self.progress * (N + 0.5)) + 1);
+						for (let i = 0; i < upto; i++) enqueue(i);
+					},
+					onRefresh: layout,
+				});
+				return () => st.kill();
+			});
+			mm.add('(max-width: 639px)', () => {
+				const sts = cards.map((card, i) =>
+					ScrollTrigger.create({
+						trigger: card,
+						start: 'top 88%',
+						onEnter: () => {
+							for (let j = 0; j <= i; j++) enqueue(j);
+						},
+					}),
+				);
+				// Los puntos numerados se ven siempre en móvil
+				gsap.set(dots, { autoAlpha: 1 });
+				return () => sts.forEach((s) => s.kill());
+			});
+
+			let raf = 0;
+			window.addEventListener('resize', () => {
+				cancelAnimationFrame(raf);
+				raf = requestAnimationFrame(layout);
+			});
+			document.fonts?.ready.then(() => {
+				layout();
+				ScrollTrigger.refresh();
 			});
 		}
-	} else {
-		// Sin animaciones si prefers-reduced-motion
-		gsap.set('.bubble', { opacity: 1, scale: 1 });
-		gsap.set('#crm-mockup', { opacity: 1, scale: 1 });
 	}
 </script>
