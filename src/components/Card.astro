@@ -13,13 +13,13 @@ const { title, description, icon, color = "cyan", delay = "0s" } = Astro.props;
 const colorClasses = {
     purple: {
         card: "neon-purple",
-        gradient: "from-purple-500/5",
-        glow: "bg-purple-500/20",
-        shadow: "shadow-purple-500/5",
+        gradient: "from-nebula-500/5",
+        glow: "bg-nebula-500/20",
+        shadow: "shadow-nebula-500/5",
         shadowHover: "group-hover:shadow-neon-purple",
-        border: "group-hover:border-purple-500/50",
-        iconText: "text-purple-400",
-        titleHover: "group-hover:text-purple-300",
+        border: "group-hover:border-nebula-500/50",
+        iconText: "text-nebula-400",
+        titleHover: "group-hover:text-nebula-300",
     },
     cyan: {
         card: "neon-cyan",
@@ -33,13 +33,13 @@ const colorClasses = {
     },
     pink: {
         card: "neon-pink",
-        gradient: "from-pink-500/5",
-        glow: "bg-pink-500/20",
-        shadow: "shadow-pink-500/5",
+        gradient: "from-aurora-500/5",
+        glow: "bg-aurora-500/20",
+        shadow: "shadow-aurora-500/5",
         shadowHover: "group-hover:shadow-neon-pink",
-        border: "group-hover:border-pink-500/50",
-        iconText: "text-pink-400",
-        titleHover: "group-hover:text-pink-300",
+        border: "group-hover:border-aurora-500/50",
+        iconText: "text-aurora-400",
+        titleHover: "group-hover:text-aurora-300",
     },
     blue: {
         card: "neon-blue",
@@ -53,13 +53,13 @@ const colorClasses = {
     },
     fuchsia: {
         card: "neon-fuchsia",
-        gradient: "from-fuchsia-500/5",
-        glow: "bg-fuchsia-500/20",
-        shadow: "shadow-fuchsia-500/5",
+        gradient: "from-neon-500/5",
+        glow: "bg-neon-500/20",
+        shadow: "shadow-neon-500/5",
         shadowHover: "group-hover:shadow-neon-fuchsia",
-        border: "group-hover:border-fuchsia-500/50",
-        iconText: "text-fuchsia-400",
-        titleHover: "group-hover:text-fuchsia-300",
+        border: "group-hover:border-neon-500/50",
+        iconText: "text-neon-400",
+        titleHover: "group-hover:text-neon-300",
     },
     indigo: {
         card: "neon-indigo",
@@ -92,7 +92,7 @@ const classes = colorClasses[color];
     </div>
 
     <div
-        class={`size-16 rounded-full bg-[#1a1a2e] border border-white/5 flex items-center justify-center mb-6 shadow-lg ${classes.shadow} ${classes.shadowHover} ${classes.border} transition-all duration-300 group-hover:scale-110 relative z-10 animate-card-float`}
+        class={`size-16 rounded-full bg-night-700 border border-white/5 flex items-center justify-center mb-6 shadow-lg ${classes.shadow} ${classes.shadowHover} ${classes.border} transition-all duration-300 group-hover:scale-110 relative z-10 animate-card-float`}
     >
         <span
             class={`material-symbols-outlined ${classes.iconText} text-3xl transition-colors group-hover:rotate-[360deg] duration-700 ease-in-out`}
@@ -116,26 +116,26 @@ const classes = colorClasses[color];
 
 <style>
     .shadow-neon-purple {
-        box-shadow: 0 0 20px rgba(168, 85, 247, 0.3);
+        box-shadow: 0 0 20px rgba(90, 60, 230, 0.3);
     }
 
     .shadow-neon-cyan {
-        box-shadow: 0 0 20px rgba(34, 211, 238, 0.3);
+        box-shadow: 0 0 20px rgba(23, 203, 218, 0.3);
     }
 
     .shadow-neon-pink {
-        box-shadow: 0 0 20px rgba(236, 72, 153, 0.3);
+        box-shadow: 0 0 20px rgba(31, 191, 174, 0.3);
     }
 
     .shadow-neon-blue {
-        box-shadow: 0 0 20px rgba(59, 130, 246, 0.3);
+        box-shadow: 0 0 20px rgba(36, 94, 245, 0.3);
     }
 
     .shadow-neon-fuchsia {
-        box-shadow: 0 0 20px rgba(217, 70, 239, 0.3);
+        box-shadow: 0 0 20px rgba(23, 203, 218, 0.3);
     }
 
     .shadow-neon-indigo {
-        box-shadow: 0 0 20px rgba(99, 102, 241, 0.3);
+        box-shadow: 0 0 20px rgba(106, 92, 240, 0.3);
     }
 </style>

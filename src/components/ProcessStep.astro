@@ -12,19 +12,19 @@ const isRight = align === "right";
 
 // Colores RGB para estilos inline
 const colorMap = {
-    cyan: { rgb: "34, 211, 238", text: "text-cyan-400", dot: "bg-cyan-400" },
+    cyan: { rgb: "23, 203, 218", text: "text-cyan-400", dot: "bg-cyan-400" },
     purple: {
-        rgb: "168, 85, 247",
-        text: "text-purple-500",
-        dot: "bg-purple-500",
+        rgb: "90, 60, 230",
+        text: "text-nebula-500",
+        dot: "bg-nebula-500",
     },
-    blue: { rgb: "59, 130, 246", text: "text-blue-500", dot: "bg-blue-500" },
+    blue: { rgb: "36, 94, 245", text: "text-blue-500", dot: "bg-blue-500" },
     fuchsia: {
-        rgb: "217, 70, 239",
-        text: "text-fuchsia-500",
-        dot: "bg-fuchsia-500",
+        rgb: "23, 203, 218",
+        text: "text-neon-500",
+        dot: "bg-neon-500",
     },
-    teal: { rgb: "45, 212, 191", text: "text-teal-500", dot: "bg-teal-400" },
+    teal: { rgb: "31, 191, 174", text: "text-teal-500", dot: "bg-teal-400" },
 };
 
 const currentColor = colorMap[color];
@@ -60,7 +60,7 @@ const uniqueId = `process-card-${number.toLowerCase()}`;
     </div>
 
     <div
-        class={`absolute left-1/2 -translate-x-1/2 flex items-center justify-center size-12 rounded-full bg-[#030014] border-2 z-10 ${isRight ? "" : "order-1 md:order-2"} mb-4 md:mb-0 transition-all duration-300 group-hover:scale-125`}
+        class={`absolute left-1/2 -translate-x-1/2 flex items-center justify-center size-12 rounded-full bg-night-900 border-2 z-10 ${isRight ? "" : "order-1 md:order-2"} mb-4 md:mb-0 transition-all duration-300 group-hover:scale-125`}
         style={`border-color: rgba(${currentColor.rgb}, 0.5); box-shadow: 0 0 20px rgba(${currentColor.rgb}, 0.4);`}
     >
         <div
