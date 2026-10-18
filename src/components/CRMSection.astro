@@ -2,7 +2,7 @@
 // Sección CRM con mockup de dashboard y burbujas 3D glossy animadas por scroll
 ---
 
-<section class="crm-section w-full py-24 px-4 relative overflow-hidden" id="crm">
+<section class="crm-section w-full py-24 px-4 relative overflow-hidden" id="crm" translate="no">
 	<div class="max-w-7xl mx-auto relative z-10">
 		<!-- Header -->
 		<div class="text-center mb-16">
@@ -13,7 +13,7 @@
 				CRM para WhatsApp
 			</div>
 			<h2 class="text-3xl md:text-5xl font-bold mb-6">
-				Gestiona tus conversaciones <span class="text-gradient-purple">con inteligencia</span>
+				Gestiona tus conversaciones <span class="text-gradient-scalia">con inteligencia</span>
 			</h2>
 			<p class="text-gray-400 text-lg max-w-2xl mx-auto">
 				Un CRM completo diseñado para equipos de ventas que trabajan con WhatsApp
@@ -221,8 +221,8 @@
 	</div>
 
 	<!-- Background effects -->
-	<div class="absolute top-1/4 left-0 w-96 h-96 bg-purple-600/10 rounded-full blur-[120px] pointer-events-none"></div>
-	<div class="absolute bottom-1/4 right-0 w-96 h-96 bg-cyan-600/10 rounded-full blur-[120px] pointer-events-none"></div>
+	<div class="absolute top-1/4 left-0 w-96 h-96 bg-[#245ef5]/10 rounded-full blur-[120px] pointer-events-none"></div>
+	<div class="absolute bottom-1/4 right-0 w-96 h-96 bg-[#17cbda]/10 rounded-full blur-[120px] pointer-events-none"></div>
 </section>
 
 <style>
@@ -324,7 +324,7 @@
 		width: 28px;
 		height: 28px;
 		border-radius: 8px;
-		background: linear-gradient(135deg, #c084fc, #ec4899);
+		background: linear-gradient(135deg, #17cbda, #245ef5);
 	}
 
 	.sidebar-nav {
@@ -351,8 +351,8 @@
 	}
 
 	.nav-item.active {
-		background: rgba(192, 132, 252, 0.2);
-		color: #c084fc;
+		background: rgba(23, 203, 218, 0.2);
+		color: #17cbda;
 	}
 
 	.nav-item .material-symbols-outlined {
@@ -395,18 +395,18 @@
 	}
 
 	.stat-card-purple .stat-icon {
-		background: rgba(192, 132, 252, 0.2);
-		color: #c084fc;
+		background: rgba(23, 203, 218, 0.2);
+		color: #17cbda;
 	}
 
 	.stat-card-cyan .stat-icon {
-		background: rgba(34, 211, 238, 0.2);
-		color: #22d3ee;
+		background: rgba(36, 94, 245, 0.2);
+		color: #245ef5;
 	}
 
 	.stat-card-pink .stat-icon {
-		background: rgba(236, 72, 153, 0.2);
-		color: #ec4899;
+		background: rgba(23, 203, 218, 0.15);
+		color: #17cbda;
 	}
 
 	.stat-content {
@@ -485,8 +485,8 @@
 	}
 
 	.filter-btn.active {
-		background: rgba(192, 132, 252, 0.3);
-		color: #c084fc;
+		background: rgba(23, 203, 218, 0.3);
+		color: #17cbda;
 	}
 
 	.inbox-list {
@@ -512,7 +512,7 @@
 		width: 40px;
 		height: 40px;
 		border-radius: 50%;
-		background: linear-gradient(135deg, #8b5cf6, #d946ef);
+		background: linear-gradient(135deg, #17cbda, #245ef5);
 		display: flex;
 		align-items: center;
 		justify-content: center;
@@ -604,11 +604,11 @@
 		border-radius: 50%;
 		background: 
 			radial-gradient(circle at 30% 30%, rgba(255, 255, 255, 0.4), transparent 50%),
-			radial-gradient(circle at 70% 70%, rgba(168, 85, 247, 0.3), transparent 50%),
+			radial-gradient(circle at 70% 70%, rgba(36, 94, 245, 0.3), transparent 50%),
 			linear-gradient(135deg, 
-				rgba(192, 132, 252, 0.25), 
-				rgba(34, 211, 238, 0.25), 
-				rgba(236, 72, 153, 0.25)
+				rgba(23, 203, 218, 0.3), 
+				rgba(36, 94, 245, 0.25), 
+				rgba(23, 203, 218, 0.2)
 			);
 		backdrop-filter: blur(20px);
 		border: 2px solid rgba(255, 255, 255, 0.2);
@@ -640,8 +640,8 @@
 		inset: -20px;
 		border-radius: 50%;
 		background: radial-gradient(circle, 
-			rgba(192, 132, 252, 0.4), 
-			rgba(34, 211, 238, 0.3) 40%, 
+			rgba(23, 203, 218, 0.5), 
+			rgba(36, 94, 245, 0.4) 40%, 
 			transparent 70%
 		);
 		filter: blur(20px);
@@ -959,13 +959,12 @@
 			ease: 'power2.out',
 		});
 
-		// Animación secuencial de burbujas (solo en desktop/tablet)
+		// Animación secuencial de burbujas
 		const isMobile = window.innerWidth < 768;
+		const bubbles = gsap.utils.toArray('.bubble');
 
 		if (!isMobile) {
-			// Desktop/tablet: animar burbujas con scroll
-			const bubbles = gsap.utils.toArray('.bubble');
-			
+			// Desktop/tablet: animar burbujas con scroll alrededor del mockup
 			bubbles.forEach((bubble, index) => {
 				gsap.to(bubble, {
 					scrollTrigger: {
@@ -982,18 +981,20 @@
 				});
 			});
 		} else {
-			// Mobile: animar burbujas cuando aparecen (sin delay, todas juntas)
-			gsap.to('.bubble', {
-				scrollTrigger: {
-					trigger: '.crm-bubbles',
-					start: 'top 85%',
-					toggleActions: 'play none none reverse',
-				},
-				opacity: 1,
-				scale: 1,
-				duration: 0.5,
-				stagger: 0.1,
-				ease: 'back.out(1.7)',
+			// Mobile: animar burbujas secuencialmente en el grid
+			bubbles.forEach((bubble, index) => {
+				gsap.to(bubble, {
+					scrollTrigger: {
+						trigger: '.crm-bubbles',
+						start: 'top 85%',
+						toggleActions: 'play none none reverse',
+					},
+					opacity: 1,
+					scale: 1,
+					duration: 0.5,
+					delay: index * 0.12,
+					ease: 'back.out(1.7)',
+				});
 			});
 		}
 	} else {

@@ -30,6 +30,13 @@ body {
     -webkit-text-fill-color: transparent;
 }
 
+.text-gradient-scalia {
+    background: linear-gradient(to right, #17cbda, #245ef5);
+    background-clip: text;
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+}
+
 .glass-card {
     background: rgba(10, 10, 22, 0.6);
     backdrop-filter: blur(12px);
