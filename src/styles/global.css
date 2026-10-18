@@ -2,6 +2,7 @@
 
 html {
     scroll-padding-top: 80px; /* Offset para el header fijo */
+    overflow-x: clip; /* Evita scroll horizontal por los brillos decorativos (p. ej. en 375px) */
 }
 
 body {
