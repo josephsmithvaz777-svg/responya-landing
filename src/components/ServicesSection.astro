@@ -1,0 +1,155 @@
+---
+// Servicios como bento grid: las 4 soluciones enlazan a su sección; abajo, los servicios existentes.
+const base = import.meta.env.BASE_URL.replace(/\/$/, '');
+const solutions = [
+	{ href: '#diseno-a-medida', kind: 'dm', icon: 'design_services', eyebrow: 'Diseño a medida', title: 'Software diseñado para tu negocio', desc: 'Del boceto a la aplicación terminada: diseñamos y desarrollamos herramientas que se adaptan a tus procesos, no al revés.' },
+	{ href: '#web-ecommerce', kind: 'web', icon: 'storefront', eyebrow: 'Web y ecommerce', title: 'Tu negocio, abierto las 24 horas', desc: 'Páginas web y tiendas online que se ven bien en cualquier pantalla y venden mientras tú atiendes tu negocio.' },
+	{ href: '#crm', kind: 'crm', icon: 'forum', eyebrow: 'CRM', title: 'Gestiona tus conversaciones con inteligencia', desc: 'Una bandeja compartida para todo tu equipo, con IA, embudos de venta y automatizaciones.' },
+	{ href: '#erp', kind: 'erp', icon: 'hub', eyebrow: 'ERP', title: 'Toda tu empresa en un solo sistema', desc: 'Inventario, ventas, compras, facturación electrónica, contabilidad y personal conectados, con la información al día.' },
+];
+const services = [
+	{ icon: 'smart_toy', title: 'Soluciones con IA', desc: 'Implementamos inteligencia artificial para automatizar decisiones, predecir comportamientos y optimizar procesos.', ai: true },
+	{ icon: 'code', title: 'Desarrollo a Medida', desc: 'Creamos aplicaciones y sistemas personalizados que resuelven tus desafíos específicos con las tecnologías más avanzadas.' },
+	{ icon: 'settings_heart', title: 'Automatización', desc: 'Eliminamos tareas repetitivas y optimizamos flujos de trabajo con soluciones inteligentes que aumentan la productividad.' },
+	{ icon: 'lightbulb', title: 'Consultoría Técnica', desc: 'Asesoramos sobre las mejores estrategias tecnológicas para maximizar resultados y minimizar costos operativos.' },
+];
+---
+
+<section id="services" class="sv w-full py-24 md:py-28 px-4 relative overflow-x-clip" translate="no">
+	<div class="sv-glow" aria-hidden="true"></div>
+	<div class="max-w-7xl mx-auto relative z-10">
+		<div class="sc-head">
+			<div class="sc-eyebrow">Nuestros servicios</div>
+			<h2 class="sc-h2">Soluciones <span class="text-gradient">tecnológicas</span> a medida</h2>
+			<p class="sc-lead">Creamos tecnología inteligente que transforma tu negocio, automatiza procesos y potencia resultados.</p>
+		</div>
+
+		<div class="sv-bento">
+			{solutions.map((s) => (
+				<a href={s.href} class:list={['sv-tile sc-glass sc-spot sc-focus', `sv-${s.kind}`]} data-sv-tile>
+					<div class="sv-art" aria-hidden="true">
+						{s.kind === 'dm' && (
+							<div class="art-dm">
+								<div class="dm-wire"><i></i><i></i><i></i><b></b></div>
+								<span class="material-symbols-outlined dm-arrow">arrow_forward</span>
+								<div class="dm-ui"><i></i><i></i><i></i><b></b></div>
+							</div>
+						)}
+						{s.kind === 'web' && (
+							<div class="art-web">
+								<div class="web-bar"><i></i><i></i><i></i></div>
+								<img src={`${base}/portfolio/tienda-desktop.webp`} alt="" width="1280" height="800" loading="lazy" decoding="async" />
+							</div>
+						)}
+						{s.kind === 'crm' && (
+							<div class="art-crm">
+								<span class="b in">Hola, ¿tienen stock?</span>
+								<span class="b out">¡Sí! Te envío el catálogo</span>
+								<span class="b ai"><span class="material-symbols-outlined">auto_awesome</span>Sugerencia IA</span>
+							</div>
+						)}
+						{s.kind === 'erp' && (
+							<div class="art-erp">
+								{[38, 62, 48, 80, 56, 92, 70].map((h) => <i style={`height:${h}%`}></i>)}
+							</div>
+						)}
+					</div>
+					<div class="sv-body">
+						<div class="sv-eyebrow"><span class="material-symbols-outlined" aria-hidden="true">{s.icon}</span>{s.eyebrow}</div>
+						<h3 class="sv-title">{s.title}</h3>
+						<p class="sv-desc">{s.desc}</p>
+						<span class="sv-link">Ver sección<span class="material-symbols-outlined" aria-hidden="true">arrow_forward</span></span>
+					</div>
+				</a>
+			))}
+			{services.map((s) => (
+				<article class:list={['sv-card sc-glass sc-spot', { 'sv-ai': s.ai }]} data-sv-tile>
+					<span class="sc-icon-chip material-symbols-outlined" aria-hidden="true">{s.icon}</span>
+					<h3 class="sv-ctitle">{s.title}</h3>
+					<p class="sv-desc">{s.desc}</p>
+				</article>
+			))}
+		</div>
+	</div>
+</section>
+
+<style>
+	.sv-glow { position: absolute; left: -10%; top: 30%; width: 600px; height: 600px; border-radius: 50%; background: radial-gradient(circle, rgba(36, 94, 245, 0.12), transparent 65%); pointer-events: none; }
+	.sv-bento { display: grid; gap: 1rem; grid-template-columns: 1fr; }
+	@media (min-width: 768px) { .sv-bento { grid-template-columns: repeat(2, 1fr); } }
+	@media (min-width: 1024px) {
+		.sv-bento { grid-template-columns: repeat(12, 1fr); gap: 1.1rem; }
+		.sv-dm { grid-column: span 7; } .sv-web { grid-column: span 5; }
+		.sv-crm { grid-column: span 5; } .sv-erp { grid-column: span 7; }
+		.sv-card { grid-column: span 3; }
+	}
+	.sv-tile { display: flex; flex-direction: column; border-radius: 22px; overflow: hidden; min-height: 100%; transition: transform 0.35s ease; }
+	.sv-tile:hover { transform: translateY(-4px); }
+	@media (min-width: 1024px) { .sv-dm, .sv-erp { flex-direction: row; } .sv-dm .sv-art, .sv-erp .sv-art { flex: 0 0 46%; height: auto; min-height: 230px; } .sv-erp { flex-direction: row-reverse; } }
+	.sv-art { position: relative; height: 170px; margin: 10px 10px 0; border-radius: 16px; overflow: hidden; background: radial-gradient(ellipse at 30% 20%, rgba(23, 203, 218, 0.16), transparent 60%), linear-gradient(160deg, #0a1730, #071022); border: 1px solid rgba(159, 243, 251, 0.08); }
+	@media (min-width: 1024px) { .sv-dm .sv-art, .sv-erp .sv-art { margin: 10px; } }
+	.sv-body { padding: 1.3rem 1.5rem 1.5rem; display: flex; flex-direction: column; flex: 1; }
+	.sv-eyebrow { display: inline-flex; align-items: center; gap: 0.45rem; font-size: 0.72rem; font-weight: 700; letter-spacing: 0.16em; text-transform: uppercase; color: var(--color-neon-400); }
+	.sv-eyebrow .material-symbols-outlined { font-size: 1.05rem; }
+	.sv-title { margin: 0.55rem 0 0.5rem; font-size: 1.3rem; line-height: 1.25; font-weight: 750; color: #fff; letter-spacing: -0.01em; }
+	.sv-desc { font-size: 0.93rem; line-height: 1.6; color: rgba(203, 213, 225, 0.85); }
+	.sv-link { margin-top: auto; padding-top: 1rem; display: inline-flex; align-items: center; gap: 0.35rem; font-size: 0.88rem; font-weight: 600; color: var(--color-neon-300); }
+	.sv-link .material-symbols-outlined { font-size: 1.05rem; transition: transform 0.3s ease; }
+	.sv-tile:hover .sv-link .material-symbols-outlined { transform: translateX(4px); }
+	.sv-card { padding: 1.4rem 1.4rem 1.5rem; border-radius: 20px; }
+	.sv-ctitle { margin: 1rem 0 0.45rem; font-size: 1.05rem; font-weight: 700; color: #fff; }
+	.sv-ai .sc-icon-chip { background: linear-gradient(135deg, rgba(106, 92, 240, 0.5), rgba(23, 203, 218, 0.35)); }
+
+	/* Mini ilustraciones */
+	.art-dm { position: absolute; inset: 0; display: flex; align-items: center; justify-content: center; gap: 14px; padding: 18px; }
+	.dm-wire, .dm-ui { width: 40%; max-width: 150px; height: 74%; border-radius: 10px; padding: 10px; display: flex; flex-direction: column; gap: 7px; }
+	.dm-wire { border: 1.5px dashed rgba(159, 243, 251, 0.35); }
+	.dm-wire i { height: 9px; border-radius: 4px; background: rgba(159, 243, 251, 0.18); } .dm-wire i:nth-child(2) { width: 70%; } .dm-wire i:nth-child(3) { width: 45%; }
+	.dm-wire b, .dm-ui b { margin-top: auto; height: 18px; border-radius: 6px; border: 1.5px dashed rgba(159, 243, 251, 0.35); }
+	.dm-ui { background: linear-gradient(160deg, #10224a, #0b1734); box-shadow: 0 0 0 1px rgba(95, 232, 255, 0.3), 0 10px 30px -10px rgba(36, 94, 245, 0.7); }
+	.dm-ui i { height: 9px; border-radius: 4px; background: linear-gradient(90deg, #17cbda, #245ef5); } .dm-ui i:nth-child(2) { width: 70%; opacity: 0.7; } .dm-ui i:nth-child(3) { width: 45%; opacity: 0.5; }
+	.dm-ui b { border: 0; background: linear-gradient(90deg, #17cbda, #245ef5); }
+	.dm-arrow { color: var(--color-neon-400); font-size: 1.4rem !important; }
+	.art-web { position: absolute; left: 14px; right: 14px; top: 16px; bottom: -6px; border-radius: 10px 10px 0 0; overflow: hidden; background: #fff; box-shadow: 0 0 0 1px rgba(255, 255, 255, 0.1), 0 16px 40px -14px rgba(0, 0, 0, 0.8); }
+	.web-bar { height: 16px; display: flex; gap: 4px; align-items: center; padding: 0 8px; background: #0e1628; }
+	.web-bar i { width: 6px; height: 6px; border-radius: 50%; background: #2a3550; } .web-bar i:first-child { background: #ff5f57; } .web-bar i:nth-child(2) { background: #febc2e; } .web-bar i:nth-child(3) { background: #28c840; }
+	.art-web img { width: 100%; height: calc(100% - 16px); object-fit: cover; object-position: top; transition: transform 1.2s ease; }
+	.sv-tile:hover .art-web img { transform: scale(1.04); }
+	.art-crm { position: absolute; inset: 0; display: flex; flex-direction: column; justify-content: center; gap: 9px; padding: 16px 22px; }
+	.art-crm .b { max-width: 78%; padding: 8px 12px; border-radius: 14px; font-size: 0.78rem; line-height: 1.3; }
+	.art-crm .in { align-self: flex-start; background: rgba(255, 255, 255, 0.08); color: #dbe7f5; border-bottom-left-radius: 4px; }
+	.art-crm .out { align-self: flex-end; background: linear-gradient(100deg, #0a7b88, #2150d6); color: #fff; border-bottom-right-radius: 4px; }
+	.art-crm .ai { align-self: flex-start; display: inline-flex; align-items: center; gap: 6px; color: var(--color-neon-300); border: 1px solid rgba(95, 232, 255, 0.35); background: rgba(23, 203, 218, 0.08); font-weight: 600; }
+	.art-crm .ai .material-symbols-outlined { font-size: 0.95rem; }
+	.art-erp { position: absolute; inset: 22px 22px 18px; display: flex; align-items: flex-end; gap: 8%; border-bottom: 1px solid rgba(159, 243, 251, 0.15); }
+	.art-erp i { flex: 1; border-radius: 6px 6px 2px 2px; background: linear-gradient(180deg, #5fe8ff, #245ef5); opacity: 0.85; transform-origin: 50% 100%; }
+	.art-erp i:nth-child(odd) { background: linear-gradient(180deg, rgba(143, 155, 255, 0.9), rgba(70, 48, 184, 0.9)); }
+	@media (prefers-reduced-motion: reduce) { .sv-tile, .sv-tile:hover, .art-web img, .sv-tile:hover .art-web img { transition: none; transform: none; } }
+</style>
+
+<script>
+	import { gsap } from 'gsap';
+	import { ScrollTrigger } from 'gsap/ScrollTrigger';
+	import { prefersReducedMotion } from '../scripts/fit-mock';
+	import { initSpotlight } from '../scripts/spotlight';
+
+	gsap.registerPlugin(ScrollTrigger);
+	const root = document.getElementById('services');
+	if (root) {
+		initSpotlight(root);
+		if (!prefersReducedMotion()) {
+			const tiles = Array.from(root.querySelectorAll<HTMLElement>('[data-sv-tile]'));
+			// Bento: cada tile se "abre" con un recorte desde su centro, en cascada.
+			gsap.set(tiles, { clipPath: 'inset(12% 12% 12% 12% round 22px)', autoAlpha: 0, scale: 0.96 });
+			ScrollTrigger.batch(tiles, {
+				start: 'top 86%',
+				once: true,
+				onEnter: (batch) => gsap.to(batch, { clipPath: 'inset(0% 0% 0% 0% round 22px)', autoAlpha: 1, scale: 1, duration: 0.85, stagger: 0.1, ease: 'power3.out', clearProps: 'clipPath,transform' }),
+			});
+			// Detalles de cada ilustración
+			gsap.from(root.querySelectorAll('.art-erp i'), { scaleY: 0, duration: 0.7, stagger: 0.06, ease: 'power3.out', scrollTrigger: { trigger: root.querySelector('.sv-erp'), start: 'top 80%', once: true } });
+			gsap.from(root.querySelectorAll('.art-crm .b'), { y: 14, autoAlpha: 0, duration: 0.45, stagger: 0.25, delay: 0.3, ease: 'power2.out', scrollTrigger: { trigger: root.querySelector('.sv-crm'), start: 'top 80%', once: true } });
+			gsap.from(root.querySelectorAll('.dm-ui > *'), { scaleX: 0, transformOrigin: '0 50%', duration: 0.5, stagger: 0.1, delay: 0.4, ease: 'power2.out', scrollTrigger: { trigger: root.querySelector('.sv-dm'), start: 'top 80%', once: true } });
+		}
+	}
+</script>

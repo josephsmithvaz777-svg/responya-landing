@@ -1,0 +1,165 @@
+---
+// Contacto: banda CTA + formulario de vidrio. Sin backend: el formulario prepara un correo a info@ (cc al correo de Joseph).
+import { WHATSAPP_URL, WHATSAPP_DISPLAY, EMAIL_PRIMARY, EMAIL_SECONDARY } from '../data/contact';
+const topics = ['Diseño a medida', 'Web y ecommerce', 'CRM', 'ERP', 'Soluciones con IA', 'Automatización', 'Consultoría técnica', 'Otro'];
+---
+
+<section id="contact" class="ct w-full py-24 md:py-28 px-4 relative overflow-x-clip" translate="no">
+	<div class="ct-glow" aria-hidden="true"></div>
+	<div class="max-w-6xl mx-auto relative z-10">
+		<div class="ct-panel sc-glass" data-ct-panel>
+			<span class="ct-border" aria-hidden="true"></span>
+			<div class="ct-left" data-ct-left>
+				<div class="sc-eyebrow">Contacto</div>
+				<h2 class="sc-h2 ct-h2">¿Listo para <span class="text-gradient">transformar tu negocio?</span></h2>
+				<p class="sc-lead">Contacta ahora y descubre cómo podemos ayudarte a impulsar tu empresa con soluciones de IA a medida.</p>
+
+				<a class="ct-wa sc-btn" href={WHATSAPP_URL} target="_blank" rel="noopener noreferrer" aria-label={`Contactar por WhatsApp al ${WHATSAPP_DISPLAY} (se abre en una pestaña nueva)`} data-ct-wa>
+					<svg viewBox="0 0 448 512" width="22" height="22" fill="currentColor" aria-hidden="true"><path d="M380.9 97.1C339 55.1 283.2 32 223.9 32c-122.4 0-222 99.6-222 222 0 39.1 10.2 77.3 29.6 111L0 480l117.7-30.9c32.4 17.7 68.9 27 106.1 27h.1c122.3 0 224.1-99.6 224.1-222 0-59.3-25.2-115-67.1-157zm-157 341.6c-33.2 0-65.7-8.9-94-25.7l-6.7-4-69.8 18.3L72 359.2l-4.4-7c-18.5-29.4-28.2-63.3-28.2-98.2 0-101.7 82.8-184.5 184.6-184.5 49.3 0 95.6 19.2 130.4 54.1 34.8 34.9 56.2 81.2 56.1 130.5 0 101.8-84.9 184.6-186.6 184.6zm101.2-138.2c-5.5-2.8-32.8-16.2-37.9-18-5.1-1.9-8.8-2.8-12.5 2.8-3.7 5.6-14.3 18-17.6 21.8-3.2 3.7-6.5 4.2-12 1.4-32.6-16.3-54-29.1-75.5-66-5.7-9.8 5.7-9.1 16.3-30.3 1.8-3.7.9-6.9-.5-9.7-1.4-2.8-12.5-30.1-17.1-41.2-4.5-10.8-9.1-9.3-12.5-9.5-3.2-.2-6.9-.2-10.6-.2-3.7 0-9.7 1.4-14.8 6.9-5.1 5.6-19.4 19-19.4 46.3 0 27.3 19.9 53.7 22.6 57.4 2.8 3.7 39.1 59.7 94.8 83.8 35.2 15.2 49 16.5 66.6 13.9 10.7-1.6 32.8-13.4 37.4-26.4 4.6-13 4.6-24.1 3.2-26.4-1.3-2.5-5-3.9-10.5-6.6z"></path></svg>
+					Contactar por WhatsApp
+				</a>
+
+				<ul class="ct-info">
+					<li>
+						<span class="ct-ic material-symbols-outlined" aria-hidden="true">mail</span>
+						<div><span class="ct-k">Correo</span><a class="ct-v sc-focus" href={`mailto:${EMAIL_PRIMARY}`}>{EMAIL_PRIMARY}</a><a class="ct-v ct-v2 sc-focus" href={`mailto:${EMAIL_SECONDARY}`}>{EMAIL_SECONDARY}</a></div>
+					</li>
+					<li>
+						<span class="ct-ic ct-ic-wa" aria-hidden="true"><svg viewBox="0 0 24 24" width="20" height="20" fill="currentColor"><path d="M12.04 2C6.58 2 2.13 6.45 2.13 11.91c0 1.75.46 3.45 1.32 4.95L2.05 22l5.25-1.38a9.9 9.9 0 0 0 4.74 1.21c5.46 0 9.91-4.45 9.91-9.91C21.95 6.45 17.5 2 12.04 2Zm5.8 14.03c-.24.68-1.42 1.3-1.96 1.35-.5.05-1.13.07-1.82-.11a16.5 16.5 0 0 1-1.65-.61c-2.9-1.25-4.79-4.17-4.94-4.36-.14-.19-1.18-1.57-1.18-3s.75-2.13 1.02-2.42c.27-.29.58-.36.78-.36h.56c.18 0 .42-.07.65.5.24.58.82 2 .89 2.15.07.15.12.32.02.51-.1.19-.15.31-.29.48-.15.17-.31.38-.44.51-.15.14-.3.3-.13.6.17.29.76 1.25 1.63 2.03 1.12 1 2.06 1.31 2.36 1.46.29.14.46.12.63-.07.17-.2.73-.85.92-1.14.2-.29.39-.24.65-.15.27.1 1.7.8 1.99.95.29.14.48.22.55.34.07.12.07.7-.17 1.37Z"/></svg></span>
+						<div><span class="ct-k">WhatsApp</span><a class="ct-v sc-focus" href={WHATSAPP_URL} target="_blank" rel="noopener noreferrer">{WHATSAPP_DISPLAY}</a></div>
+					</li>
+					<li>
+						<span class="ct-ic material-symbols-outlined" aria-hidden="true">schedule</span>
+						<div><span class="ct-k">Tiempo de respuesta</span><span class="ct-v"><i class="ct-live" aria-hidden="true"></i>Respuesta en menos de 24 horas</span></div>
+					</li>
+				</ul>
+			</div>
+
+			<form class="ct-form" data-ct-form novalidate>
+				<div class="ct-row">
+					<label class="ct-field" data-ct-field>
+						<span>Nombre <b aria-hidden="true">*</b></span>
+						<input name="nombre" type="text" autocomplete="name" required placeholder="Tu nombre" />
+					</label>
+					<label class="ct-field" data-ct-field>
+						<span>Correo <b aria-hidden="true">*</b></span>
+						<input name="correo" type="email" autocomplete="email" required placeholder="tu@empresa.com" />
+					</label>
+				</div>
+				<div class="ct-row">
+					<label class="ct-field" data-ct-field>
+						<span>Empresa <em>(opcional)</em></span>
+						<input name="empresa" type="text" autocomplete="organization" placeholder="Nombre de tu empresa" />
+					</label>
+					<label class="ct-field" data-ct-field>
+						<span>¿Qué necesitas?</span>
+						<select name="interes">
+							{topics.map((t) => <option>{t}</option>)}
+						</select>
+					</label>
+				</div>
+				<label class="ct-field" data-ct-field>
+					<span>Mensaje <b aria-hidden="true">*</b></span>
+					<textarea name="mensaje" rows="4" required placeholder="Cuéntanos sobre tu proyecto"></textarea>
+				</label>
+				<div class="ct-actions" data-ct-field>
+					<button type="submit" class="sc-btn sc-btn-primary"><span class="material-symbols-outlined" aria-hidden="true">send</span>Enviar mensaje</button>
+					<p class="ct-legal">Al enviar aceptas nuestra <button type="button" class="ct-link" data-modal="privacy">Política de privacidad</button>.</p>
+				</div>
+				<p class="ct-status" role="status" aria-live="polite" data-ct-status></p>
+			</form>
+		</div>
+	</div>
+</section>
+
+<style>
+	.ct-glow { position: absolute; left: 50%; top: 50%; width: 900px; height: 600px; margin: -300px 0 0 -450px; border-radius: 50%; background: radial-gradient(ellipse, rgba(36, 94, 245, 0.18), rgba(23, 203, 218, 0.08) 45%, transparent 70%); pointer-events: none; }
+	.ct-panel { display: grid; gap: 2.5rem; padding: 2.2rem 1.4rem; border-radius: 28px; overflow: hidden; }
+	@media (min-width: 640px) { .ct-panel { padding: 2.6rem; } }
+	@media (min-width: 1024px) { .ct-panel { grid-template-columns: 1fr 1.1fr; gap: 3.5rem; padding: 3.4rem; } }
+	.ct-border { position: absolute; inset: 0; border-radius: inherit; pointer-events: none; background: radial-gradient(600px circle at 0% 0%, rgba(23, 203, 218, 0.16), transparent 50%), radial-gradient(500px circle at 100% 100%, rgba(90, 60, 230, 0.16), transparent 50%); }
+	.ct-left, .ct-form { position: relative; }
+	.ct-h2 { margin-top: 0.9rem; }
+	.ct-wa { margin-top: 1.8rem; color: #04210f; background: linear-gradient(100deg, #3be38a, #25d366); box-shadow: 0 12px 30px -12px rgba(37, 211, 102, 0.7), 0 0 0 1px rgba(255, 255, 255, 0.25) inset; }
+	.ct-wa:hover { transform: translateY(-2px); box-shadow: 0 16px 40px -12px rgba(37, 211, 102, 0.85), 0 0 26px rgba(37, 211, 102, 0.35); }
+	.ct-info { list-style: none; margin: 2rem 0 0; padding: 0; display: grid; gap: 0.9rem; }
+	.ct-info li { display: flex; gap: 0.9rem; align-items: center; }
+	.ct-ic { width: 2.6rem; height: 2.6rem; flex: none; display: grid; place-items: center; border-radius: 12px; color: var(--color-neon-300); font-size: 1.25rem !important; background: rgba(23, 203, 218, 0.08); border: 1px solid rgba(95, 232, 255, 0.2); }
+	.ct-k { display: block; font-size: 0.75rem; color: #94a3b8; }
+	.ct-v { display: inline-flex; align-items: center; gap: 0.45rem; font-weight: 600; color: #e2e8f0; }
+	a.ct-v { overflow-wrap: anywhere; }
+	.ct-v2 { display: flex; margin-top: 0.15rem; font-weight: 500; font-size: 0.92rem; color: #cbd5e1; }
+	.ct-ic-wa { color: #4ade80; background: rgba(37, 211, 102, 0.08); border-color: rgba(74, 222, 128, 0.25); }
+	a.ct-v:hover { color: var(--color-neon-300); }
+	.ct-live { width: 8px; height: 8px; border-radius: 50%; background: #34d399; box-shadow: 0 0 0 0 rgba(52, 211, 153, 0.7); animation: ct-ping 2s infinite; }
+	@keyframes ct-ping { 0% { box-shadow: 0 0 0 0 rgba(52, 211, 153, 0.6); } 70% { box-shadow: 0 0 0 8px rgba(52, 211, 153, 0); } 100% { box-shadow: 0 0 0 0 rgba(52, 211, 153, 0); } }
+
+	.ct-form { display: grid; gap: 1rem; align-content: start; }
+	.ct-row { display: grid; gap: 1rem; }
+	@media (min-width: 640px) { .ct-row { grid-template-columns: 1fr 1fr; } }
+	.ct-field { display: grid; gap: 0.4rem; font-size: 0.85rem; font-weight: 600; color: #cbd5e1; }
+	.ct-field b { color: var(--color-neon-400); font-weight: 700; }
+	.ct-field em { font-style: normal; font-weight: 400; color: #94a3b8; }
+	.ct-field input, .ct-field select, .ct-field textarea {
+		width: 100%; min-width: 0; font: 500 0.95rem/1.4 Inter, system-ui, sans-serif; color: #f1f5f9;
+		padding: 0.8rem 0.95rem; border-radius: 12px; background: rgba(3, 8, 23, 0.6); border: 1px solid rgba(159, 243, 251, 0.16);
+		transition: border-color 0.25s, box-shadow 0.25s, background 0.25s; appearance: none;
+	}
+	.ct-field textarea { resize: vertical; min-height: 7rem; }
+	.ct-field select { background-image: linear-gradient(45deg, transparent 50%, #5fe8ff 50%), linear-gradient(135deg, #5fe8ff 50%, transparent 50%); background-position: calc(100% - 18px) 55%, calc(100% - 13px) 55%; background-size: 5px 5px; background-repeat: no-repeat; padding-right: 2.4rem; }
+	.ct-field select option { background: #0a1428; color: #f1f5f9; }
+	.ct-field ::placeholder { color: #7c8aa0; }
+	.ct-field input:focus, .ct-field select:focus, .ct-field textarea:focus { outline: none; border-color: rgba(95, 232, 255, 0.7); background: rgba(6, 13, 31, 0.85); box-shadow: 0 0 0 3px rgba(23, 203, 218, 0.18); }
+	.ct-field.is-invalid input, .ct-field.is-invalid textarea { border-color: #f87171; box-shadow: 0 0 0 3px rgba(248, 113, 113, 0.15); }
+	.ct-actions { display: flex; flex-wrap: wrap; align-items: center; gap: 0.8rem 1.2rem; margin-top: 0.3rem; }
+	.ct-legal { font-size: 0.8rem; color: #94a3b8; }
+	.ct-link { color: var(--color-neon-300); text-decoration: underline; text-underline-offset: 3px; }
+	.ct-link:hover { color: #fff; }
+	.ct-status { min-height: 1.2rem; font-size: 0.88rem; color: var(--color-neon-300); }
+	.ct-status.is-error { color: #fca5a5; }
+	@media (max-width: 639px) { .ct-actions .sc-btn { width: 100%; } .ct-wa { width: 100%; } }
+	@media (prefers-reduced-motion: reduce) { .ct-live { animation: none; } .ct-wa:hover { transform: none; } }
+</style>
+
+<script>
+	import { gsap } from 'gsap';
+	import { ScrollTrigger } from 'gsap/ScrollTrigger';
+	import { prefersReducedMotion } from '../scripts/fit-mock';
+
+	gsap.registerPlugin(ScrollTrigger);
+	const root = document.getElementById('contact');
+	const form = root?.querySelector<HTMLFormElement>('[data-ct-form]');
+	const status = root?.querySelector<HTMLElement>('[data-ct-status]');
+	if (root && form && status) {
+		form.addEventListener('submit', (e) => {
+			e.preventDefault();
+			const data = new FormData(form);
+			const get = (k: string) => String(data.get(k) ?? '').trim();
+			let ok = true;
+			form.querySelectorAll<HTMLInputElement | HTMLTextAreaElement>('[required]').forEach((el) => {
+				const bad = !el.value.trim() || (el.type === 'email' && !/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(el.value.trim()));
+				el.closest('.ct-field')?.classList.toggle('is-invalid', bad);
+				el.setAttribute('aria-invalid', String(bad));
+				if (bad) ok = false;
+			});
+			if (!ok) {
+				status.classList.add('is-error');
+				status.textContent = 'Revisa los campos marcados: nombre, un correo válido y tu mensaje.';
+				return;
+			}
+			status.classList.remove('is-error');
+			const subject = `Nuevo proyecto: ${get('interes')} — ${get('nombre')}`;
+			const body = [`Nombre: ${get('nombre')}`, `Correo: ${get('correo')}`, get('empresa') && `Empresa: ${get('empresa')}`, `Interés: ${get('interes')}`, '', get('mensaje')].filter((l) => l !== '').join('\n');
+			window.location.href = `mailto:info@scaliasolutions.site?cc=${encodeURIComponent('josephsmithvaz777@gmail.com')}&subject=${encodeURIComponent(subject)}&body=${encodeURIComponent(body)}`;
+			status.textContent = 'Abrimos tu aplicación de correo con el mensaje listo. Si no se abre, escríbenos a info@scaliasolutions.site.';
+		});
+
+		if (!prefersReducedMotion()) {
+			const tl = gsap.timeline({ scrollTrigger: { trigger: '[data-ct-panel]', start: 'top 78%', once: true } });
+			tl.from('[data-ct-panel]', { autoAlpha: 0, y: 60, scale: 0.97, duration: 0.9, ease: 'power3.out' })
+				.from(root.querySelectorAll('[data-ct-left] > *'), { autoAlpha: 0, x: -26, duration: 0.6, stagger: 0.09, ease: 'power3.out' }, '-=0.5')
+				.from(root.querySelectorAll('[data-ct-field]'), { autoAlpha: 0, y: 22, duration: 0.5, stagger: 0.07, ease: 'power2.out' }, '-=0.6')
+				.fromTo('[data-ct-wa]', { boxShadow: '0 0 0 0 rgba(37,211,102,0.6)' }, { boxShadow: '0 0 0 14px rgba(37,211,102,0)', duration: 1.2, repeat: 1, ease: 'power2.out', clearProps: 'boxShadow' }, '-=0.2');
+		}
+	}
+</script>

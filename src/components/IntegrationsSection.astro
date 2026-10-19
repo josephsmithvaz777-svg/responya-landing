@@ -1,0 +1,83 @@
+---
+// Integraciones: el logo al centro con dos órbitas de iconos (los mismos de la versión anterior) girando lento.
+const inner = ['cloud', 'chat', 'storage', 'analytics', 'code'];
+const outer = ['edit_note', 'fingerprint', 'hub', 'text_fields', 'local_fire_department', 'settings', 'thumb_up', 'bar_chart'];
+const place = (list: string[], r: number, offset: number) =>
+	list.map((icon, i) => {
+		const a = ((i / list.length) * 360 + offset) * (Math.PI / 180);
+		return { icon, left: 50 + r * Math.cos(a), top: 50 + r * Math.sin(a) };
+	});
+const ringA = place(inner, 50, -90);
+const ringB = place(outer, 50, -67.5);
+---
+
+<section id="integrations" class="ig w-full py-24 md:py-28 px-4 relative overflow-x-clip" translate="no">
+	<div class="max-w-6xl mx-auto relative z-10">
+		<div class="sc-head">
+			<div class="sc-eyebrow">Integraciones</div>
+			<h2 class="sc-h2">Conecta con tus <span class="text-gradient">herramientas favoritas</span></h2>
+			<p class="sc-lead">Integramos perfectamente con las plataformas y servicios que ya utilizas.</p>
+		</div>
+
+		<div class="orb" data-orb aria-hidden="true">
+			<div class="orb-halo"></div>
+			<div class="orb-ring orb-b" data-orb-ring><div class="orb-spin">
+				<span class="orb-comet"></span>
+				{ringB.map((c) => (
+					<span class="orb-chip" style={`left:${c.left.toFixed(2)}%;top:${c.top.toFixed(2)}%`}><span class="orb-ico material-symbols-outlined" data-orb-chip>{c.icon}</span></span>
+				))}
+			</div></div>
+			<div class="orb-ring orb-a" data-orb-ring><div class="orb-spin">
+				<span class="orb-comet"></span>
+				{ringA.map((c) => (
+					<span class="orb-chip" style={`left:${c.left.toFixed(2)}%;top:${c.top.toFixed(2)}%`}><span class="orb-ico material-symbols-outlined" data-orb-chip>{c.icon}</span></span>
+				))}
+			</div></div>
+			<div class="orb-core" data-orb-core>
+				<img src="/favicon.svg" alt="" width="64" height="66" loading="lazy" />
+			</div>
+		</div>
+	</div>
+</section>
+
+<style>
+	.orb { position: relative; width: min(100%, 560px); aspect-ratio: 1; margin: 0 auto; }
+	.orb-halo { position: absolute; inset: 22%; border-radius: 50%; background: radial-gradient(circle, rgba(23, 203, 218, 0.22), rgba(36, 94, 245, 0.1) 50%, transparent 72%); filter: blur(12px); }
+	.orb-ring { position: absolute; border-radius: 50%; border: 1px dashed rgba(159, 243, 251, 0.18); }
+	.orb-spin { position: absolute; inset: 0; border-radius: 50%; animation: orb-spin var(--d) linear infinite; }
+	.orb-b { inset: 4%; --d: 90s; }
+	.orb-a { inset: 24%; --d: 60s; }
+	.orb-a .orb-spin { animation-direction: reverse; }
+	.orb-a { border-style: solid; border-color: rgba(79, 141, 255, 0.18); }
+	.orb-comet { position: absolute; inset: -1px; border-radius: 50%; background: conic-gradient(from 0deg, transparent 0deg, rgba(95, 232, 255, 0.85) 40deg, transparent 41deg); -webkit-mask: radial-gradient(farthest-side, transparent calc(100% - 2px), #000 calc(100% - 1.5px)); mask: radial-gradient(farthest-side, transparent calc(100% - 2px), #000 calc(100% - 1.5px)); }
+	.orb-a .orb-comet { background: conic-gradient(from 180deg, transparent 0deg, rgba(143, 155, 255, 0.85) 50deg, transparent 51deg); }
+	.orb-chip { position: absolute; width: 0; height: 0; }
+	.orb-ico { position: absolute; left: -26px; top: -26px; width: 52px; height: 52px; display: grid; place-items: center; border-radius: 16px; font-size: 1.45rem !important; color: var(--color-ice); background: linear-gradient(160deg, rgba(16, 32, 70, 0.92), rgba(6, 12, 30, 0.92)); box-shadow: 0 0 0 1px rgba(95, 232, 255, 0.28) inset, 0 10px 26px -10px rgba(0, 0, 0, 0.8), 0 0 18px -4px rgba(var(--scalia-glow-cyan), 0.45); animation: orb-spin var(--d) linear infinite; animation-direction: reverse; }
+	.orb-a .orb-ico { animation-direction: normal; color: #cfe0ff; box-shadow: 0 0 0 1px rgba(143, 155, 255, 0.35) inset, 0 10px 26px -10px rgba(0, 0, 0, 0.8), 0 0 18px -4px rgba(var(--scalia-glow-indigo), 0.55); }
+	.orb-core { position: absolute; left: 50%; top: 50%; width: 112px; height: 112px; margin: -56px 0 0 -56px; display: grid; place-items: center; border-radius: 30px; background: linear-gradient(160deg, #0b1838, #050b1d); box-shadow: 0 0 0 1px rgba(95, 232, 255, 0.35) inset, 0 0 50px rgba(var(--scalia-glow-cyan), 0.35), 0 0 100px rgba(var(--scalia-glow-blue), 0.25); }
+	.orb-core img { width: 58px; height: auto; filter: drop-shadow(0 0 14px rgba(23, 203, 218, 0.6)); }
+	@keyframes orb-spin { to { transform: rotate(360deg); } }
+	@media (max-width: 639px) {
+		.orb-ico { left: -20px; top: -20px; width: 40px; height: 40px; border-radius: 12px; font-size: 1.15rem !important; }
+		.orb-core { width: 84px; height: 84px; margin: -42px 0 0 -42px; border-radius: 22px; }
+		.orb-core img { width: 44px; }
+	}
+	@media (prefers-reduced-motion: reduce) { .orb-spin, .orb-ico { animation: none; } }
+</style>
+
+<script>
+	import { gsap } from 'gsap';
+	import { ScrollTrigger } from 'gsap/ScrollTrigger';
+	import { prefersReducedMotion } from '../scripts/fit-mock';
+
+	gsap.registerPlugin(ScrollTrigger);
+	const root = document.getElementById('integrations');
+	if (root && !prefersReducedMotion()) {
+		// Las órbitas se expanden desde el centro y los iconos "aterrizan" en ellas.
+		const tl = gsap.timeline({ scrollTrigger: { trigger: '[data-orb]', start: 'top 78%', once: true } });
+		tl.from('[data-orb-core]', { scale: 0.2, autoAlpha: 0, rotate: -45, duration: 0.8, ease: 'back.out(1.8)' })
+			.from(root.querySelectorAll('[data-orb-ring]'), { scale: 0.3, autoAlpha: 0, duration: 1, stagger: 0.15, ease: 'expo.out' }, '-=0.45')
+			.from(root.querySelectorAll('.orb-chip'), { scale: 0, duration: 0.5, stagger: { each: 0.05, from: 'random' }, ease: 'back.out(2.6)' }, '-=0.7')
+			.from('.orb-halo', { autoAlpha: 0, scale: 0.6, duration: 1.2, ease: 'power2.out' }, 0.2);
+	}
+</script>

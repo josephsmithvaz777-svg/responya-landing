@@ -1,0 +1,279 @@
+---
+// Sección "Diseño a medida": lienzo de diseño donde el wireframe se transforma en la interfaz final.
+const features = [
+	{ icon: 'travel_explore', title: 'Descubrimiento y prototipo', desc: 'Entendemos tu proceso y validamos la idea con un prototipo navegable antes de programar.' },
+	{ icon: 'palette', title: 'Interfaces con tu marca', desc: 'Diseño UI/UX con tus colores y tipografía, pensado para la forma en que trabaja tu equipo.' },
+	{ icon: 'code_blocks', title: 'Desarrollo web y móvil', desc: 'Construimos la solución completa: frontend, backend e integraciones con tus sistemas.' },
+	{ icon: 'trending_up', title: 'Lista para crecer', desc: 'Arquitectura escalable, con soporte y mejoras continuas cuando tu negocio lo necesite.' },
+];
+const layers = ['Encabezado', 'Indicadores', 'Gráfico', 'Lista de pedidos', 'Botón principal'];
+---
+
+<section class="dm-section w-full py-24 px-4 relative overflow-x-clip" id="diseno-a-medida" translate="no">
+	<div class="max-w-7xl mx-auto relative z-10">
+		<div class="text-center mb-14">
+			<div class="sc-eyebrow mb-4">Diseño a medida</div>
+			<h2 class="text-3xl md:text-5xl font-bold mb-6">
+				Software diseñado <span class="text-gradient">para tu negocio</span>
+			</h2>
+			<p class="text-gray-400 text-lg max-w-2xl mx-auto">
+				Del boceto a la aplicación terminada: diseñamos y desarrollamos herramientas que se adaptan a tus procesos, no al revés.
+			</p>
+		</div>
+
+		<div class="dm-grid">
+			<div class="dm-mock-wrap" data-dm-wrap>
+				<span class="sc-demo-chip" style="top:-12px;right:16px">Ejemplo</span>
+				<div class="dm-mock" data-dm-mock aria-hidden="true">
+					<!-- Barra superior -->
+					<div class="dm-top">
+						<div class="dm-dots"><span></span><span></span><span></span></div>
+						<div class="dm-file"><span class="material-symbols-outlined">draw</span>App de pedidos <span class="dm-sep">/</span> Inicio</div>
+						<div class="dm-top-right">
+							<span class="dm-av" style="background:#245ef5">D</span>
+							<span class="dm-av" style="background:#14988c">UX</span>
+							<span class="dm-zoom">100%</span>
+							<span class="dm-share">Compartir</span>
+						</div>
+					</div>
+					<div class="dm-body">
+						<!-- Capas -->
+						<aside class="dm-layers">
+							<div class="dm-ph">Capas</div>
+							<div class="dm-layer is-frame"><span class="material-symbols-outlined">crop_free</span>Inicio — Escritorio</div>
+							{layers.map((l, i) => (
+								<div class:list={['dm-layer', 'dm-layer-child', { 'is-sel': i === 1 }]} data-dm-layer={i}>
+									<span class="material-symbols-outlined">{i === 2 ? 'insert_chart' : i === 4 ? 'smart_button' : 'rectangle'}</span>{l}
+								</div>
+							))}
+							<div class="dm-ph" style="margin-top:14px">Componentes</div>
+							<div class="dm-layer"><span class="material-symbols-outlined">widgets</span>Botón / Primario</div>
+							<div class="dm-layer"><span class="material-symbols-outlined">widgets</span>Tarjeta / Indicador</div>
+						</aside>
+
+						<!-- Lienzo -->
+						<div class="dm-canvas">
+							<div class="dm-board-label">Inicio — Escritorio</div>
+							<div class="dm-board">
+								<!-- Wireframe -->
+								<div class="dm-layer-wire">
+									<div class="w-head"><i class="wb" style="width:70px"></i><i class="wb s"></i><i class="wb s"></i><i class="wb s"></i><i class="wb c"></i></div>
+									<div class="w-kpis"><i class="wbox"></i><i class="wbox"></i><i class="wbox"></i></div>
+									<div class="w-chart wbox"><span class="w-x"></span></div>
+									<div class="w-rows"><i class="wrow"></i><i class="wrow"></i><i class="wrow"></i></div>
+									<i class="w-btn wbox"></i>
+								</div>
+								<!-- UI final -->
+								<div class="dm-layer-ui">
+									<div class="u-head">
+										<span class="u-logo"><i></i>Tu app</span>
+										<span class="u-nav is-on">Inicio</span><span class="u-nav">Pedidos</span><span class="u-nav">Clientes</span>
+										<span class="u-av">TU</span>
+									</div>
+									<div class="u-kpis">
+										<div class="u-kpi"><span>Pedidos hoy</span><b>128</b><em>▲ en curso</em></div>
+										<div class="u-kpi"><span>En camino</span><b>24</b><em class="b">● ruta</em></div>
+										<div class="u-kpi"><span>Entregados</span><b>96</b><em>✓ completos</em></div>
+									</div>
+									<div class="u-chart">
+										<div class="u-chart-h">Pedidos por día</div>
+										<svg viewBox="0 0 300 70" preserveAspectRatio="none">
+											<defs>
+												<linearGradient id="dmArea" x1="0" y1="0" x2="0" y2="1"><stop offset="0" stop-color="#17cbda" stop-opacity=".45"></stop><stop offset="1" stop-color="#245ef5" stop-opacity="0"></stop></linearGradient>
+											</defs>
+											<path d="M0 55 C 30 50, 45 30, 75 34 S 120 52, 150 38 S 200 12, 225 20 S 270 30, 300 10 L300 70 L0 70 Z" fill="url(#dmArea)"></path>
+											<path d="M0 55 C 30 50, 45 30, 75 34 S 120 52, 150 38 S 200 12, 225 20 S 270 30, 300 10" fill="none" stroke="#5fe8ff" stroke-width="2"></path>
+										</svg>
+									</div>
+									<div class="u-rows">
+										<div class="u-row"><i style="background:#17cbda"></i><span>Pedido #1042</span><em class="ok">Entregado</em></div>
+										<div class="u-row"><i style="background:#4f8dff"></i><span>Pedido #1043</span><em class="go">En camino</em></div>
+										<div class="u-row"><i style="background:#8f9bff"></i><span>Pedido #1044</span><em class="new">Nuevo</em></div>
+									</div>
+									<span class="u-btn">Nuevo pedido</span>
+								</div>
+								<!-- Barrido -->
+								<div class="dm-scan"></div>
+								<!-- Selección -->
+								<div class="dm-select" data-dm-select><i></i><i></i><i></i><i></i><span>Tarjeta / Indicador</span></div>
+							</div>
+							<div class="dm-cursor" data-dm-cursor>
+								<svg viewBox="0 0 24 24" width="18" height="18"><path d="M4 2l15 9-7 1.5L9 20z" fill="#5fe8ff" stroke="#031018" stroke-width="1.2"></path></svg>
+								<span>Diseño</span>
+							</div>
+						</div>
+
+						<!-- Propiedades -->
+						<aside class="dm-props">
+							<div class="dm-ph">Diseño</div>
+							<div class="dm-prop-h">Colores</div>
+							<div class="dm-swatches">
+								<span style="background:#17cbda"></span><span style="background:#245ef5"></span><span style="background:#0a1428"></span><span style="background:#dffbff"></span><span style="background:#1fbfae"></span>
+							</div>
+							<div class="dm-prop-h">Tipografía</div>
+							<div class="dm-field">Inter · Semibold</div>
+							<div class="dm-row2"><div class="dm-field">16 px</div><div class="dm-field">1.5</div></div>
+							<div class="dm-prop-h">Esquinas</div>
+							<div class="dm-row2"><div class="dm-field">12 px</div><div class="dm-field">Sombra</div></div>
+							<div class="dm-prop-h">Prototipo</div>
+							<div class="dm-field dm-flow"><span class="material-symbols-outlined">bolt</span>Al tocar → Pedidos</div>
+							<div class="dm-handoff"><span class="material-symbols-outlined">code</span>Listo para desarrollo</div>
+						</aside>
+					</div>
+				</div>
+			</div>
+
+			<ul class="dm-features">
+				{features.map((f, i) => (
+					<li class="sc-glass dm-feature" data-dm-feature>
+						<span class="sc-icon-chip material-symbols-outlined" aria-hidden="true">{f.icon}</span>
+						<div>
+							<h3 class="sc-feature-title"><span class="dm-num">{String(i + 1).padStart(2, '0')}</span>{f.title}</h3>
+							<p class="sc-feature-desc">{f.desc}</p>
+						</div>
+					</li>
+				))}
+			</ul>
+		</div>
+	</div>
+</section>
+
+<style>
+	.dm-grid { display: grid; gap: 28px; }
+	@media (min-width: 1024px) {
+		.dm-grid { grid-template-columns: minmax(0, 1.55fr) minmax(0, 1fr); gap: 44px; align-items: center; }
+	}
+	.dm-mock-wrap { position: relative; width: 100%; }
+	.dm-features { list-style: none; margin: 0; padding: 0; display: grid; gap: 14px; }
+	@media (min-width: 640px) and (max-width: 1023px) { .dm-features { grid-template-columns: 1fr 1fr; } }
+	.dm-feature { display: flex; gap: 14px; padding: 16px 18px; }
+	.dm-num { color: var(--color-neon-400); font-size: 11px; letter-spacing: 0.16em; margin-right: 8px; vertical-align: 2px; }
+
+	/* ---- Mockup (900 × 560) ---- */
+	.dm-mock {
+		position: absolute; left: 0; top: 0; width: 900px; height: 560px; transform-origin: 0 0;
+		border-radius: 14px; overflow: hidden; color: #e8eef7; font: 500 11px/1.35 Inter, system-ui, sans-serif;
+		background: #0b1222;
+		box-shadow: 0 0 0 1px rgba(255,255,255,.08), 0 30px 80px -20px rgba(36,94,245,.45), 0 0 60px -10px rgba(23,203,218,.22);
+	}
+	.dm-mock .material-symbols-outlined { font-size: 14px; font-variation-settings: 'wght' 300; line-height: 1; }
+	.dm-top { height: 40px; display: flex; align-items: center; gap: 14px; padding: 0 14px; background: #0e1628; border-bottom: 1px solid #1d2a44; }
+	.dm-dots { display: flex; gap: 6px; }
+	.dm-dots span { width: 10px; height: 10px; border-radius: 50%; background: #2a3550; }
+	.dm-dots span:first-child { background: #ff5f57; } .dm-dots span:nth-child(2) { background: #febc2e; } .dm-dots span:nth-child(3) { background: #28c840; }
+	.dm-file { display: flex; align-items: center; gap: 6px; color: #c7d3e8; font-weight: 600; }
+	.dm-sep { color: #4b5b7a; }
+	.dm-top-right { margin-left: auto; display: flex; align-items: center; gap: 6px; }
+	.dm-av { width: 22px; height: 22px; border-radius: 99px; display: grid; place-items: center; font-size: 8.5px; font-weight: 700; color: #fff; border: 2px solid #0e1628; }
+	.dm-zoom { padding: 3px 8px; border-radius: 6px; background: #16213a; color: #9fb0cc; }
+	.dm-share { padding: 5px 12px; border-radius: 7px; color: #fff; font-weight: 600; background: linear-gradient(135deg, #17cbda, #245ef5); }
+	.dm-body { display: grid; grid-template-columns: 170px 1fr 180px; height: calc(100% - 40px); }
+	.dm-layers, .dm-props { background: #0e1628; padding: 12px 10px; }
+	.dm-layers { border-right: 1px solid #1d2a44; }
+	.dm-props { border-left: 1px solid #1d2a44; }
+	.dm-ph { font-size: 9.5px; font-weight: 700; letter-spacing: .1em; text-transform: uppercase; color: #7f8fae; margin-bottom: 8px; }
+	.dm-layer { display: flex; align-items: center; gap: 7px; height: 26px; padding: 0 8px; border-radius: 6px; color: #b4c1d8; transition: background .3s, color .3s; }
+	.dm-layer .material-symbols-outlined { color: #6f80a0; }
+	.dm-layer.is-frame { color: #e8eef7; font-weight: 600; }
+	.dm-layer-child { padding-left: 22px; }
+	.dm-layer.is-sel { background: rgba(23,203,218,.14); color: #9ff3fb; }
+	.dm-layer.is-sel .material-symbols-outlined { color: #5fe8ff; }
+	.dm-canvas {
+		position: relative; display: grid; place-items: center;
+		background-color: #070d1b;
+		background-image: radial-gradient(circle at 1px 1px, rgba(159,176,204,.16) 1px, transparent 0);
+		background-size: 18px 18px;
+	}
+	.dm-board-label { position: absolute; top: 18px; left: 50%; transform: translateX(-210px); font-size: 9.5px; color: #7f8fae; }
+	.dm-board { position: relative; width: 420px; height: 430px; margin-top: 14px; border-radius: 10px; background: #0a1428; box-shadow: 0 0 0 1px #22314f, 0 20px 50px -20px rgba(0,0,0,.8); overflow: hidden; }
+	.dm-layer-wire, .dm-layer-ui { position: absolute; inset: 0; padding: 14px; display: flex; flex-direction: column; gap: 12px; }
+	/* wireframe */
+	.dm-layer-wire { background: #0c1424; }
+	.w-head { display: flex; gap: 8px; align-items: center; height: 26px; }
+	.wb { display: block; height: 12px; border-radius: 4px; border: 1.5px dashed #3a4a6a; }
+	.wb.s { width: 42px; } .wb.c { width: 22px; height: 22px; border-radius: 99px; margin-left: auto; }
+	.wbox { display: block; border: 1.5px dashed #3a4a6a; border-radius: 8px; position: relative; }
+	.w-kpis { display: grid; grid-template-columns: repeat(3, 1fr); gap: 10px; }
+	.w-kpis .wbox { height: 68px; }
+	.w-chart { height: 112px; overflow: hidden; }
+	.w-x::before, .w-x::after { content: ''; position: absolute; left: 0; right: 0; top: 50%; height: 1.5px; background: #2c3a57; }
+	.w-x::before { transform: rotate(14deg); } .w-x::after { transform: rotate(-14deg); }
+	.w-rows { display: grid; gap: 8px; }
+	.wrow { display: block; height: 22px; border-radius: 6px; border: 1.5px dashed #3a4a6a; }
+	.w-btn { height: 34px; width: 140px; margin-top: auto; border-radius: 99px; }
+	/* UI */
+	.dm-layer-ui { background: radial-gradient(ellipse at 80% 0%, rgba(36,94,245,.18), transparent 60%), #0a1428; clip-path: inset(0 0 0 0); }
+	.u-head { display: flex; align-items: center; gap: 8px; height: 26px; }
+	.u-logo { display: inline-flex; align-items: center; gap: 6px; font-weight: 700; font-size: 12px; margin-right: 6px; }
+	.u-logo i { width: 16px; height: 16px; border-radius: 5px; background: linear-gradient(135deg, #17cbda, #245ef5); }
+	.u-nav { padding: 3px 9px; border-radius: 99px; color: #93a3c0; font-size: 10px; }
+	.u-nav.is-on { background: rgba(23,203,218,.14); color: #9ff3fb; }
+	.u-av { margin-left: auto; width: 22px; height: 22px; border-radius: 99px; display: grid; place-items: center; font-size: 8px; font-weight: 700; background: #1d2a44; }
+	.u-kpis { display: grid; grid-template-columns: repeat(3, 1fr); gap: 10px; }
+	.u-kpi { height: 68px; padding: 9px 10px; border-radius: 10px; background: #111c33; border: 1px solid #1f2d4a; display: flex; flex-direction: column; }
+	.u-kpi span { font-size: 9.5px; color: #93a3c0; } .u-kpi b { font-size: 19px; margin-top: 2px; }
+	.u-kpi em { font-style: normal; font-size: 8.5px; color: #4fe3d3; margin-top: auto; } .u-kpi em.b { color: #8fb3ff; }
+	.u-chart { height: 112px; padding: 9px 10px 0; border-radius: 10px; background: #111c33; border: 1px solid #1f2d4a; display: flex; flex-direction: column; }
+	.u-chart-h { font-size: 9.5px; color: #93a3c0; margin-bottom: 4px; }
+	.u-chart svg { flex: 1; width: 100%; }
+	.u-rows { display: grid; gap: 8px; }
+	.u-row { height: 22px; display: flex; align-items: center; gap: 8px; padding: 0 9px; border-radius: 6px; background: #0f1930; font-size: 10px; }
+	.u-row i { width: 6px; height: 6px; border-radius: 9px; }
+	.u-row em { margin-left: auto; font-style: normal; font-size: 8.5px; padding: 2px 7px; border-radius: 99px; }
+	.u-row em.ok { color: #8ff5ea; background: rgba(31,191,174,.16); } .u-row em.go { color: #b3c0ff; background: rgba(79,141,255,.16); } .u-row em.new { color: #9ff3fb; background: rgba(23,203,218,.16); }
+	.u-btn { margin-top: auto; height: 34px; width: 140px; display: grid; place-items: center; border-radius: 99px; font-weight: 700; color: #fff; background: linear-gradient(135deg, #17cbda, #245ef5); box-shadow: 0 8px 20px -6px rgba(36,94,245,.6); }
+	.dm-scan { position: absolute; top: 0; bottom: 0; left: 0; width: 2px; background: #5fe8ff; box-shadow: 0 0 14px 3px rgba(23,203,218,.7); opacity: 0; }
+	.dm-select { position: absolute; left: 14px; top: 52px; width: 124px; height: 68px; border: 1.5px solid #5fe8ff; border-radius: 10px; pointer-events: none; }
+	.dm-select i { position: absolute; width: 7px; height: 7px; background: #fff; border: 1.5px solid #17cbda; border-radius: 2px; }
+	.dm-select i:nth-child(1) { left: -4px; top: -4px; } .dm-select i:nth-child(2) { right: -4px; top: -4px; } .dm-select i:nth-child(3) { left: -4px; bottom: -4px; } .dm-select i:nth-child(4) { right: -4px; bottom: -4px; }
+	.dm-select span { position: absolute; left: -1px; bottom: -20px; font-size: 8.5px; font-weight: 600; color: #031018; background: #5fe8ff; padding: 2px 6px; border-radius: 4px; white-space: nowrap; }
+	.dm-cursor { position: absolute; left: calc(50% + 120px); top: 250px; display: flex; align-items: flex-start; gap: 2px; pointer-events: none; }
+	.dm-cursor span { margin-top: 12px; font-size: 9px; font-weight: 700; color: #031018; background: #5fe8ff; padding: 2px 6px; border-radius: 99px; }
+	.dm-prop-h { font-size: 9.5px; color: #7f8fae; margin: 12px 0 6px; }
+	.dm-props .dm-ph { margin-bottom: 0; }
+	.dm-swatches { display: flex; gap: 6px; }
+	.dm-swatches span { width: 22px; height: 22px; border-radius: 6px; box-shadow: 0 0 0 1px rgba(255,255,255,.12) inset; }
+	.dm-field { height: 26px; display: flex; align-items: center; gap: 6px; padding: 0 9px; border-radius: 6px; background: #16213a; color: #c7d3e8; font-size: 10px; }
+	.dm-row2 { display: grid; grid-template-columns: 1fr 1fr; gap: 6px; margin-top: 6px; }
+	.dm-row2:first-of-type { margin-top: 0; }
+	.dm-flow .material-symbols-outlined { color: #5fe8ff; }
+	.dm-handoff { margin-top: 16px; display: flex; align-items: center; gap: 6px; padding: 8px 9px; border-radius: 8px; font-size: 10px; color: #8ff5ea; border: 1px solid rgba(31,191,174,.35); background: rgba(31,191,174,.1); }
+</style>
+
+<script>
+	import { gsap } from 'gsap';
+	import { ScrollTrigger } from 'gsap/ScrollTrigger';
+	import { fitMock, prefersReducedMotion } from '../scripts/fit-mock';
+
+	gsap.registerPlugin(ScrollTrigger);
+	const root = document.getElementById('diseno-a-medida');
+	const wrap = root?.querySelector<HTMLElement>('[data-dm-wrap]');
+	const mock = root?.querySelector<HTMLElement>('[data-dm-mock]');
+	if (root && wrap && mock) {
+		fitMock(wrap, mock, 900, 560);
+		if (!prefersReducedMotion()) {
+			const q = (s: string) => Array.from(root.querySelectorAll<HTMLElement>(s));
+			const ui = root.querySelector<HTMLElement>('.dm-layer-ui')!;
+			const scan = root.querySelector<HTMLElement>('.dm-scan')!;
+			const layers = q('[data-dm-layer]');
+			gsap.set(ui, { clipPath: 'inset(0 100% 0 0)' });
+			gsap.set(['[data-dm-select]', '[data-dm-cursor]'], { autoAlpha: 0 });
+			gsap.set(q('[data-dm-feature]'), { autoAlpha: 0, y: 18 });
+			layers.forEach((l) => l.classList.remove('is-sel'));
+			const tl = gsap.timeline({ scrollTrigger: { trigger: root, start: 'top 65%', once: true } });
+			tl.from(wrap, { autoAlpha: 0, y: 30, duration: 0.6, ease: 'power3.out' })
+				.from(q('.dm-layer-wire > *, .w-kpis > *, .w-rows > *'), { autoAlpha: 0, scale: 0.85, transformOrigin: '0 50%', duration: 0.35, stagger: 0.05, ease: 'power2.out' }, '-=0.2')
+				.addLabel('scan')
+				.to(scan, { autoAlpha: 1, duration: 0.1 })
+				.to(ui, { clipPath: 'inset(0 0% 0 0)', duration: 1.3, ease: 'power2.inOut' }, '<')
+				.fromTo(scan, { x: 0 }, { x: 418, duration: 1.3, ease: 'power2.inOut' }, '<')
+				.to(scan, { autoAlpha: 0, duration: 0.2 });
+			layers.forEach((l, i) => tl.call(() => { layers.forEach((x) => x.classList.remove('is-sel')); l.classList.add('is-sel'); }, [], `scan+=${0.1 + i * 0.25}`));
+			tl.call(() => { layers.forEach((x) => x.classList.remove('is-sel')); layers[1]?.classList.add('is-sel'); })
+				.fromTo('[data-dm-cursor]', { autoAlpha: 0, x: 80, y: 60 }, { autoAlpha: 1, x: 0, y: 0, duration: 0.6, ease: 'power2.out' })
+				.fromTo('[data-dm-select]', { autoAlpha: 0, scale: 0.92 }, { autoAlpha: 1, scale: 1, duration: 0.3, ease: 'back.out(2)' }, '-=0.15')
+				.from(q('.dm-swatches span'), { scale: 0, duration: 0.3, stagger: 0.06, ease: 'back.out(2)' }, '-=0.2')
+				.to(q('[data-dm-feature]'), { autoAlpha: 1, y: 0, duration: 0.5, stagger: 0.12, ease: 'power3.out' }, 0.5);
+		}
+	}
+</script>

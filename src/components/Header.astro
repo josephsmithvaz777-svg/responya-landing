@@ -1,56 +1,77 @@
 ---
-// Header/Navigation component
+// Navegación fija con menú móvil y resaltado de la sección activa.
+const links = [
+	{ href: '#services', label: 'Servicios' },
+	{ href: '#diseno-a-medida', label: 'Diseño' },
+	{ href: '#web-ecommerce', label: 'Web' },
+	{ href: '#crm', label: 'CRM' },
+	{ href: '#erp', label: 'ERP' },
+	{ href: '#about', label: 'Nosotros' },
+	{ href: '#process', label: 'Proceso' },
+];
 ---
 
-<nav class="fixed top-0 z-50 w-full glass-nav transition-all duration-300">
-    <div class="max-w-7xl mx-auto px-6 h-20 flex items-center justify-between">
-        <a href="#hero" class="flex items-center gap-3 group cursor-pointer">
-            <div class="relative">
-                <div
-                    class="absolute inset-0 bg-cyan-500/50 blur-lg rounded-full opacity-0 group-hover:opacity-100 transition-opacity duration-300"
-                >
-                </div>
-                <img
-                    src="/favicon.svg"
-                    alt="SCAL-IA Logo"
-                    class="w-10 h-10 relative z-10 group-hover:scale-110 transition-transform duration-500"
-                />
-            </div>
-            <span
-                class="font-bold text-xl tracking-tight group-hover:text-cyan-200 transition-colors"
-                >SCAL-IA</span
-            >
-        </a>
-        <button
-            class="md:hidden text-white hover:text-cyan-400 transition-colors"
-        >
-            <span class="material-symbols-outlined">menu</span>
-        </button>
-        <div
-            class="hidden md:flex items-center gap-8 text-sm font-medium text-gray-400"
-        >
-            <a
-                class="hover:text-white transition-colors hover:shadow-[0_1px_0_0_currentColor]"
-                href="#services">Servicios</a
-            >
-            <a
-                class="hover:text-white transition-colors hover:shadow-[0_1px_0_0_currentColor]"
-                href="#about">Nosotros</a
-            >
-            <a
-                class="hover:text-white transition-colors hover:shadow-[0_1px_0_0_currentColor]"
-                href="#process">Proceso</a
-            >
-            <a
-                class="px-5 py-2 rounded-full bg-white/5 hover:bg-white/10 border border-white/10 text-white transition-all hover:scale-105 hover:border-cyan-500/50 hover:shadow-neon-cyan"
-                href="#contact">Contacto</a
-            >
-        </div>
-    </div>
+<nav class="fixed top-0 z-50 w-full glass-nav transition-all duration-300" aria-label="Principal">
+	<div class="max-w-7xl mx-auto px-6 h-20 flex items-center justify-between">
+		<a href="#hero" class="flex items-center gap-3 group cursor-pointer sc-focus">
+			<div class="relative">
+				<div class="absolute inset-0 bg-cyan-500/50 blur-lg rounded-full opacity-0 group-hover:opacity-100 transition-opacity duration-300"></div>
+				<img src="/favicon.svg" alt="SCAL-IA Logo" width="40" height="41" class="w-10 h-10 relative z-10 group-hover:scale-110 transition-transform duration-500" />
+			</div>
+			<span class="font-bold text-xl tracking-tight group-hover:text-cyan-200 transition-colors">SCAL-IA</span>
+		</a>
+		<button class="hd-burger md:hidden sc-focus" type="button" aria-label="Abrir menú" aria-expanded="false" aria-controls="hd-mobile" data-hd-burger>
+			<span class="material-symbols-outlined" aria-hidden="true">menu</span>
+		</button>
+		<div class="hidden md:flex items-center gap-5 lg:gap-8 text-sm font-medium text-gray-400">
+			{links.map((l) => <a class="hd-link sc-focus" href={l.href} data-hd-link>{l.label}</a>)}
+			<a class="hd-cta sc-focus" href="#contact" data-hd-link>Contacto</a>
+		</div>
+	</div>
+	<div id="hd-mobile" class="hd-mobile md:hidden" data-hd-mobile hidden>
+		{links.map((l) => <a href={l.href} class="sc-focus" data-hd-link>{l.label}</a>)}
+		<a href="#contact" class="sc-btn sc-btn-primary hd-mcta" data-hd-link>Contacto</a>
+	</div>
 </nav>
 
 <style>
-    .shadow-neon-cyan {
-        box-shadow: 0 0 20px rgba(34, 211, 238, 0.3);
-    }
+	.hd-link { position: relative; transition: color 0.2s; }
+	.hd-link:hover, .hd-link.is-active { color: #fff; }
+	.hd-link::after { content: ''; position: absolute; left: 0; right: 0; bottom: -6px; height: 2px; border-radius: 2px; background: var(--scalia-gradient); transform: scaleX(0); transition: transform 0.3s ease; }
+	.hd-link.is-active::after, .hd-link:hover::after { transform: scaleX(1); }
+	.hd-cta { padding: 0.5rem 1.25rem; border-radius: 999px; color: #fff; background: rgba(255, 255, 255, 0.05); border: 1px solid rgba(255, 255, 255, 0.12); transition: border-color 0.25s, box-shadow 0.25s, background 0.25s; }
+	.hd-cta:hover, .hd-cta.is-active { border-color: rgba(23, 203, 218, 0.6); background: rgba(23, 203, 218, 0.08); box-shadow: 0 0 20px rgba(23, 203, 218, 0.3); }
+	.hd-burger { width: 2.75rem; height: 2.75rem; display: grid; place-items: center; border-radius: 12px; color: #fff; border: 1px solid rgba(159, 243, 251, 0.14); background: rgba(255, 255, 255, 0.04); }
+	.hd-mobile { display: grid; gap: 0.25rem; padding: 0.5rem 1.5rem 1.5rem; border-top: 1px solid rgba(159, 243, 251, 0.08); background: rgba(3, 8, 23, 0.96); }
+	.hd-mobile[hidden] { display: none; }
+	.hd-mobile a:not(.sc-btn) { padding: 0.8rem 0.25rem; font-size: 1rem; font-weight: 500; color: #cbd5e1; border-bottom: 1px solid rgba(159, 243, 251, 0.06); }
+	.hd-mobile a.is-active:not(.sc-btn) { color: var(--color-neon-300); }
+	.hd-mcta { margin-top: 0.9rem; }
+	@media (min-width: 768px) { .hd-mobile, .hd-burger { display: none !important; } }
 </style>
+
+<script>
+	const burger = document.querySelector<HTMLButtonElement>('[data-hd-burger]');
+	const panel = document.querySelector<HTMLElement>('[data-hd-mobile]');
+	const setOpen = (open: boolean) => {
+		if (!burger || !panel) return;
+		panel.hidden = !open;
+		burger.setAttribute('aria-expanded', String(open));
+		burger.setAttribute('aria-label', open ? 'Cerrar menú' : 'Abrir menú');
+		burger.querySelector('span')!.textContent = open ? 'close' : 'menu';
+	};
+	burger?.addEventListener('click', () => setOpen(panel?.hidden ?? false));
+	panel?.querySelectorAll('a').forEach((a) => a.addEventListener('click', () => setOpen(false)));
+	document.addEventListener('keydown', (e) => { if (e.key === 'Escape') setOpen(false); });
+
+	// Resalta el enlace de la sección visible.
+	const links = Array.from(document.querySelectorAll<HTMLAnchorElement>('[data-hd-link]'));
+	const ids = Array.from(new Set(links.map((a) => a.getAttribute('href')!.slice(1))));
+	const io = new IntersectionObserver((entries) => {
+		entries.forEach((en) => {
+			if (!en.isIntersecting) return;
+			links.forEach((a) => a.classList.toggle('is-active', a.getAttribute('href') === `#${en.target.id}`));
+		});
+	}, { rootMargin: '-45% 0px -50% 0px' });
+	ids.forEach((id) => { const el = document.getElementById(id); if (el) io.observe(el); });
+</script>
