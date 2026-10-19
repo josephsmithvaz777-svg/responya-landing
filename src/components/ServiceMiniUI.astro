@@ -1,0 +1,203 @@
+---
+// Mini interfaces realistas (HTML/CSS) para los tiles de Servicios. Datos de ejemplo, ficticios.
+// Diseñadas a 360 × 210 px y escaladas al tamaño del tile (ver src/scripts/mini-ui.ts).
+interface Props { kind: 'dm' | 'web' | 'crm' | 'erp' }
+const { kind } = Astro.props;
+---
+<div class="mu" data-mu={kind} aria-hidden="true">
+	<span class="mu-demo">Ejemplo</span>
+	<div class="mu-stage" data-mu-stage>
+		{kind === 'crm' && (
+			<div class="crm">
+				<div class="c-head">
+					<span class="c-av">MF</span>
+					<div class="c-who"><b>María Fernández</b><span><i class="c-on"></i>en línea · +51 987 654 321</span></div>
+					<span class="c-tag c-hot">Lead caliente</span>
+					<span class="c-tag c-stage" data-c-stage>Propuesta enviada</span>
+				</div>
+				<div class="c-chat">
+					<div class="c-msg c-in" data-c-m1>Hola 👋 ¿el plan para 3 sucursales incluye la bandeja compartida?<em>10:42</em></div>
+					<div class="c-ai" data-c-ai><span class="ms">auto_awesome</span><span>Sugerencia IA: <b>confirmar y ofrecer cotización</b></span></div>
+					<div class="c-msg c-out" data-c-m2><span data-c-type data-text="¡Hola María! Sí, incluye bandeja compartida para todo tu equipo. ¿Te envío la cotización?"></span><em>10:43 <span class="ms c-ticks" data-c-ticks>done_all</span></em></div>
+					<div class="c-typing" data-c-typing><i></i><i></i><i></i></div>
+					<div class="c-msg c-in" data-c-m3>Sí, por favor 🙌<em>10:44</em></div>
+				</div>
+				<div class="c-input"><span>Escribe un mensaje…</span><span class="ms">send</span></div>
+			</div>
+		)}
+		{kind === 'erp' && (
+			<div class="erp">
+				<div class="e-side"><span class="ms on">dashboard</span><span class="ms">inventory_2</span><span class="ms">receipt_long</span><span class="ms">groups</span><span class="ms">settings</span></div>
+				<div class="e-main">
+					<div class="e-kpis">
+						<div class="e-kpi"><span>Ventas hoy</span><b>S/ <i data-e-count="12480" data-e-fmt="money">0</i></b><em class="up">▲ 8%</em></div>
+						<div class="e-kpi"><span>Stock bajo</span><b><i data-e-count="3">0</i> ítems</b><em class="warn">Revisar</em></div>
+						<div class="e-kpi"><span>Facturas emitidas</span><b><i data-e-count="48">0</i></b><em>hoy</em></div>
+					</div>
+					<div class="e-chart">
+						<svg viewBox="0 0 240 54" preserveAspectRatio="none"><defs><linearGradient id="egr" x1="0" x2="0" y1="0" y2="1"><stop offset="0" stop-color="#17cbda" stop-opacity=".35"/><stop offset="1" stop-color="#17cbda" stop-opacity="0"/></linearGradient></defs><path data-e-area d="M0 44 L30 38 L60 40 L90 28 L120 31 L150 20 L180 24 L210 12 L240 8 L240 54 L0 54Z" fill="url(#egr)"/><path data-e-line d="M0 44 L30 38 L60 40 L90 28 L120 31 L150 20 L180 24 L210 12 L240 8" fill="none" stroke="#5fe8ff" stroke-width="2" stroke-linejoin="round" vector-effect="non-scaling-stroke"/></svg>
+						<span class="e-cl">Ventas · últimos 9 días</span>
+					</div>
+					<div class="e-rows">
+						<div class="e-row" data-e-row><span class="ms">description</span><b>F001-000123</b><span class="e-cli">Comercial Andina SAC</span><span class="e-amt">S/ 1,180.00</span><span class="e-badge" data-e-badge>Enviando…</span></div>
+						<div class="e-row" data-e-row><span class="ms">description</span><b>B001-004512</b><span class="e-cli">Cliente varios</span><span class="e-amt">S/ 89.90</span><span class="e-badge ok">Aceptada</span></div>
+					</div>
+				</div>
+				<div class="e-toast" data-e-toast><span class="ms">warning</span><div><b>Stock bajo</b><span>Polo algodón M · quedan 4 u.</span></div></div>
+			</div>
+		)}
+		{kind === 'dm' && (
+			<div class="dm">
+				<div class="d-tool"><span class="ms">near_me</span><span class="ms">crop_square</span><span class="ms">title</span><span class="ms">widgets</span><span class="d-file">Panel de pedidos · v3</span><span class="d-avs"><i>AL</i><i>JV</i></span></div>
+				<div class="d-body">
+					<div class="d-layers"><span>Capas</span><i class="on">Header</i><i>Tarjeta KPI</i><i>Tabla</i><i>Botón</i></div>
+					<div class="d-canvas">
+						<div class="d-frame" data-d-frame>
+							<span class="d-flabel">Escritorio · 1440</span>
+							<div class="d-hdr" data-d-part><i></i><span>Pedidos</span><b></b></div>
+							<div class="d-kpis" data-d-part><div><span>Pendientes</span><b>18</b></div><div><span>En ruta</span><b>7</b></div></div>
+							<div class="d-tbl" data-d-part><i></i><i></i><i></i></div>
+							<div class="d-btn" data-d-btn>Nuevo pedido</div>
+							<div class="d-sel" data-d-sel><i></i><i></i><i></i><i></i></div>
+						</div>
+						<div class="d-cursor" data-d-cursor><svg viewBox="0 0 16 16" width="14" height="14"><path d="M1 1 L14 7 L8 8.5 L6 14 Z" fill="#ff7ad9" stroke="#fff" stroke-width="1"/></svg><span>Ana · Diseño</span></div>
+					</div>
+					<div class="d-props"><span>Botón</span><div class="d-sw"><i style="background:#245ef5"></i><i style="background:#17cbda"></i><i style="background:#ffffff"></i></div><em>Radio 10</em><em>Auto layout</em></div>
+				</div>
+			</div>
+		)}
+		{kind === 'web' && (
+			<div class="web">
+				<div class="w-bar"><i></i><i></i><i></i><span class="w-url"><span class="ms">lock</span>lumara.demo</span></div>
+				<div class="w-page">
+					<div class="w-hdr"><b>Lumara.</b><span>Novedades</span><span>Mujer</span><span>Hombre</span><span class="w-cart"><span class="ms">shopping_bag</span><i data-w-badge>0</i></span></div>
+					<div class="w-grid">
+						<div class="w-card"><div class="w-ph p1"><span class="ms">checkroom</span></div><b>Polo algodón pima</b><span>S/ 59.90</span><em>Agregar</em></div>
+						<div class="w-card" data-w-target><div class="w-ph p2"><span class="ms">styler</span></div><b>Casaca denim</b><span>S/ 149.90</span><em data-w-add>Agregar</em></div>
+						<div class="w-card"><div class="w-ph p3"><span class="ms">apparel</span></div><b>Vestido lino</b><span>S/ 119.90</span><em>Agregar</em></div>
+					</div>
+				</div>
+				<div class="w-pay" data-w-pay>
+					<div class="w-pay-h"><span class="w-yape">yape</span><b>Pagar S/ 149.90</b></div>
+					<div class="w-pay-st">
+						<div class="w-pay-s" data-w-pay-wait><i class="w-spin"></i>Confirmando pago…</div>
+						<div class="w-pay-s ok" data-w-pay-ok><span class="ms">check_circle</span>Pago confirmado · Pedido #1048</div>
+					</div>
+				</div>
+				<div class="w-cursor" data-w-cursor><svg viewBox="0 0 16 16" width="14" height="14"><path d="M1 1 L14 7 L8 8.5 L6 14 Z" fill="#fff" stroke="#0b1120" stroke-width="1"/></svg></div>
+			</div>
+		)}
+	</div>
+</div>
+
+<style>
+	.mu { position: absolute; inset: 0; overflow: hidden; }
+	.mu-demo { position: absolute; z-index: 6; top: 6px; right: 10px; font: 700 8.5px/1 Inter, system-ui, sans-serif; letter-spacing: 0.14em; text-transform: uppercase; color: #9fd8ef; background: rgba(5, 12, 28, 0.75); border: 1px solid rgba(95, 232, 255, 0.25); border-radius: 99px; padding: 3px 7px; }
+	.mu-stage { position: absolute; left: 50%; top: 50%; width: 360px; height: 210px; margin: -105px 0 0 -180px; transform-origin: 50% 50%; font: 500 10px/1.35 Inter, system-ui, sans-serif; color: #e2e8f0; }
+	.ms { font-family: 'Material Symbols Outlined'; font-weight: normal; font-style: normal; line-height: 1; letter-spacing: normal; text-transform: none; white-space: nowrap; font-size: 13px; -webkit-font-smoothing: antialiased; }
+	.mu-stage > div { position: absolute; inset: 0; border-radius: 12px; overflow: hidden; background: #0b1326; box-shadow: 0 0 0 1px rgba(159, 243, 251, 0.12), 0 18px 40px -18px rgba(0, 0, 0, 0.9); }
+
+	/* CRM (estilo bandeja WACRM) */
+	.c-head { display: flex; align-items: center; gap: 7px; padding: 7px 9px; background: #101b33; border-bottom: 1px solid #1d2a44; }
+	.c-av { width: 24px; height: 24px; flex: none; border-radius: 50%; display: grid; place-items: center; font-size: 9px; font-weight: 700; color: #fff; background: linear-gradient(135deg, #17cbda, #245ef5); }
+	.c-who { display: flex; flex-direction: column; min-width: 0; }
+	.c-who b { font-size: 10.5px; color: #fff; }
+	.c-who span { font-size: 8.5px; color: #8ea3bf; display: inline-flex; align-items: center; gap: 4px; white-space: nowrap; }
+	.c-on { width: 6px; height: 6px; border-radius: 50%; background: #34d399; }
+	.c-tag { font-size: 8.5px; font-weight: 600; padding: 3px 6px; border-radius: 99px; white-space: nowrap; }
+	.c-hot { margin-left: auto; color: #fdba74; background: rgba(251, 146, 60, 0.12); border: 1px solid rgba(251, 146, 60, 0.35); }
+	.c-stage { color: #a5f3fc; background: rgba(23, 203, 218, 0.12); border: 1px solid rgba(95, 232, 255, 0.35); }
+	.c-chat { position: absolute; left: 0; right: 0; top: 39px; bottom: 26px; padding: 8px 10px; display: flex; flex-direction: column; gap: 5px; background: radial-gradient(ellipse at 70% 0%, rgba(36, 94, 245, 0.12), transparent 60%), #0a1224; }
+	.c-msg { max-width: 76%; padding: 5px 8px 4px; border-radius: 10px; font-size: 9.5px; line-height: 1.35; }
+	.c-msg em { display: flex; justify-content: flex-end; align-items: center; gap: 2px; font-style: normal; font-size: 7.5px; color: rgba(226, 232, 240, 0.6); margin-top: 1px; }
+	.c-in { align-self: flex-start; background: #1a2640; color: #e2e8f0; border-bottom-left-radius: 3px; }
+	.c-out { align-self: flex-end; background: linear-gradient(100deg, #0a7b88, #2150d6); color: #fff; border-bottom-right-radius: 3px; min-height: 30px; }
+	.c-ticks { font-size: 11px; color: rgba(255, 255, 255, 0.55); transition: color 0.3s; }
+	.c-ticks.read { color: #7dd3fc; }
+	.c-ai { align-self: flex-end; display: inline-flex; align-items: center; gap: 4px; font-size: 8.5px; color: #c4f5fb; padding: 3px 7px; border-radius: 99px; background: rgba(106, 92, 240, 0.18); border: 1px solid rgba(143, 155, 255, 0.45); }
+	.c-ai .ms { font-size: 11px; color: #a5b4fc; }
+	.c-typing { align-self: flex-start; display: flex; gap: 3px; padding: 6px 8px; border-radius: 10px; background: #1a2640; }
+	.c-typing i { width: 4px; height: 4px; border-radius: 50%; background: #8ea3bf; animation: mu-dot 1s infinite; }
+	.c-typing i:nth-child(2) { animation-delay: 0.15s; } .c-typing i:nth-child(3) { animation-delay: 0.3s; }
+	@keyframes mu-dot { 0%, 100% { opacity: 0.35; } 50% { opacity: 1; } }
+	.c-input { position: absolute; left: 0; right: 0; bottom: 0; height: 26px; display: flex; align-items: center; justify-content: space-between; padding: 0 10px; font-size: 9px; color: #64748b; background: #101b33; border-top: 1px solid #1d2a44; }
+	.c-input .ms { color: #5fe8ff; }
+
+	/* ERP */
+	.e-side { position: absolute; left: 0; top: 0; bottom: 0; width: 30px; display: flex; flex-direction: column; align-items: center; gap: 10px; padding-top: 10px; background: #0e1830; border-right: 1px solid #1d2a44; color: #64748b; }
+	.e-side .on { color: #5fe8ff; }
+	.e-main { position: absolute; left: 30px; right: 0; top: 0; bottom: 0; padding: 8px 9px; display: flex; flex-direction: column; gap: 6px; }
+	.e-kpis { display: grid; grid-template-columns: 1.25fr 1fr 1fr; gap: 6px; }
+	.e-kpi { padding: 5px 7px; border-radius: 8px; background: #111d38; border: 1px solid #1d2a44; display: flex; flex-direction: column; }
+	.e-kpi span { font-size: 8px; color: #8ea3bf; }
+	.e-kpi b { font-size: 12.5px; color: #fff; font-variant-numeric: tabular-nums; }
+	.e-kpi b i { font-style: normal; }
+	.e-kpi em { font-style: normal; font-size: 7.5px; color: #8ea3bf; }
+	.e-kpi em.up { color: #34d399; } .e-kpi em.warn { color: #fbbf24; }
+	.e-chart { position: relative; height: 54px; border-radius: 8px; background: #0f1a33; border: 1px solid #1d2a44; overflow: hidden; }
+	.e-chart svg { position: absolute; inset: 6px 0 0; width: 100%; height: calc(100% - 6px); }
+	.e-cl { position: absolute; left: 7px; top: 4px; font-size: 7.5px; color: #8ea3bf; }
+	.e-rows { display: flex; flex-direction: column; gap: 4px; }
+	.e-row { display: flex; align-items: center; gap: 6px; padding: 4px 7px; border-radius: 7px; background: #111d38; border: 1px solid #1d2a44; font-size: 8.5px; white-space: nowrap; }
+	.e-row .ms { font-size: 11px; color: #5fe8ff; }
+	.e-row b { color: #fff; font-weight: 600; }
+	.e-cli { color: #8ea3bf; overflow: hidden; text-overflow: ellipsis; min-width: 0; flex: 1; }
+	.e-amt { color: #e2e8f0; font-variant-numeric: tabular-nums; }
+	.e-badge { font-size: 7.5px; font-weight: 700; padding: 2px 6px; border-radius: 99px; color: #fde68a; background: rgba(251, 191, 36, 0.12); border: 1px solid rgba(251, 191, 36, 0.35); }
+	.e-badge.ok { color: #6ee7b7; background: rgba(52, 211, 153, 0.12); border-color: rgba(52, 211, 153, 0.4); }
+	.e-toast { position: absolute; right: 8px; bottom: 8px; display: flex; gap: 6px; align-items: center; padding: 5px 8px; border-radius: 8px; background: #2a1d0b; border: 1px solid rgba(251, 191, 36, 0.45); box-shadow: 0 8px 20px -8px rgba(0, 0, 0, 0.8); }
+	.e-toast .ms { color: #fbbf24; font-size: 14px; }
+	.e-toast b { display: block; font-size: 8.5px; color: #fde68a; }
+	.e-toast span { font-size: 8px; color: #fcd9a0; }
+
+	/* Diseño a medida (lienzo tipo Figma) */
+	.d-tool { height: 24px; display: flex; align-items: center; gap: 8px; padding: 0 8px; background: #121a2e; border-bottom: 1px solid #222d47; color: #94a3b8; }
+	.d-tool .ms:first-child { color: #5fe8ff; }
+	.d-file { margin-left: 6px; font-size: 8.5px; color: #cbd5e1; }
+	.d-avs { margin-left: auto; display: flex; } .d-avs i { width: 15px; height: 15px; border-radius: 50%; display: grid; place-items: center; font: 700 6.5px/1 Inter, sans-serif; font-style: normal; color: #fff; background: #db2777; border: 1.5px solid #121a2e; } .d-avs i + i { margin-left: -4px; background: #245ef5; }
+	.d-body { position: absolute; top: 24px; left: 0; right: 0; bottom: 0; display: flex; }
+	.d-layers { width: 62px; padding: 6px; display: flex; flex-direction: column; gap: 4px; background: #0f1628; border-right: 1px solid #222d47; font-size: 7.5px; color: #8ea3bf; }
+	.d-layers span { font-weight: 700; color: #cbd5e1; margin-bottom: 2px; }
+	.d-layers i { font-style: normal; padding: 2px 4px; border-radius: 4px; } .d-layers i.on { background: rgba(36, 94, 245, 0.25); color: #c7d7fe; }
+	.d-canvas { position: relative; flex: 1; background-color: #0a0f1d; background-image: radial-gradient(rgba(148, 163, 184, 0.18) 1px, transparent 1px); background-size: 10px 10px; }
+	.d-frame { position: absolute; left: 12px; right: 12px; top: 16px; bottom: 12px; border-radius: 6px; background: #f8fafc; padding: 8px; display: flex; flex-direction: column; gap: 6px; }
+	.d-flabel { position: absolute; left: 0; top: -12px; font-size: 7px; color: #8ea3bf; }
+	.d-hdr { display: flex; align-items: center; gap: 5px; height: 14px; } .d-hdr i { width: 10px; height: 10px; border-radius: 3px; background: linear-gradient(135deg, #17cbda, #245ef5); } .d-hdr span { font: 700 8.5px/1 Inter, sans-serif; color: #0f172a; } .d-hdr b { margin-left: auto; width: 34px; height: 7px; border-radius: 4px; background: #e2e8f0; }
+	.d-kpis { display: grid; grid-template-columns: 1fr 1fr; gap: 5px; } .d-kpis div { padding: 4px 6px; border-radius: 5px; background: #eef2ff; display: flex; flex-direction: column; } .d-kpis span { font-size: 6.5px; color: #64748b; } .d-kpis b { font-size: 10px; color: #1e293b; }
+	.d-tbl { display: flex; flex-direction: column; gap: 3px; } .d-tbl i { height: 6px; border-radius: 3px; background: #e2e8f0; } .d-tbl i:nth-child(2) { width: 82%; } .d-tbl i:nth-child(3) { width: 64%; }
+	.d-btn { position: absolute; right: 8px; bottom: 8px; padding: 4px 8px; border-radius: 10px; font: 700 7.5px/1 Inter, sans-serif; color: #fff; background: linear-gradient(100deg, #0a7b88, #2150d6); }
+	.d-sel { position: absolute; right: 6px; bottom: 6px; width: 62px; height: 19px; border: 1px solid #38bdf8; pointer-events: none; }
+	.d-sel i { position: absolute; width: 4px; height: 4px; background: #fff; border: 1px solid #38bdf8; } .d-sel i:nth-child(1) { left: -3px; top: -3px; } .d-sel i:nth-child(2) { right: -3px; top: -3px; } .d-sel i:nth-child(3) { left: -3px; bottom: -3px; } .d-sel i:nth-child(4) { right: -3px; bottom: -3px; }
+	.d-cursor { position: absolute; left: 0; top: 0; display: flex; align-items: flex-start; gap: 2px; z-index: 3; }
+	.d-cursor span { margin-top: 10px; padding: 2px 5px; border-radius: 4px; font: 600 7px/1.2 Inter, sans-serif; color: #fff; background: #db2777; white-space: nowrap; }
+	.d-props { width: 64px; padding: 6px; display: flex; flex-direction: column; gap: 5px; background: #0f1628; border-left: 1px solid #222d47; font-size: 7.5px; color: #8ea3bf; }
+	.d-props span { font-weight: 700; color: #cbd5e1; } .d-props em { font-style: normal; padding: 2px 4px; border-radius: 4px; background: #16203a; }
+	.d-sw { display: flex; gap: 3px; } .d-sw i { width: 11px; height: 11px; border-radius: 3px; box-shadow: 0 0 0 1px rgba(255, 255, 255, 0.2); }
+
+	/* Web / ecommerce */
+	.w-bar { height: 18px; display: flex; align-items: center; gap: 4px; padding: 0 8px; background: #0e1628; }
+	.w-bar > i { width: 6px; height: 6px; border-radius: 50%; background: #2a3550; } .w-bar > i:first-child { background: #ff5f57; } .w-bar > i:nth-child(2) { background: #febc2e; } .w-bar > i:nth-child(3) { background: #28c840; }
+	.w-url { margin: 0 auto; display: inline-flex; align-items: center; gap: 3px; padding: 1px 10px; border-radius: 5px; background: #16213a; font-size: 7.5px; color: #9fb0cc; } .w-url .ms { font-size: 9px; }
+	.w-page { position: absolute; top: 18px; left: 0; right: 0; bottom: 0; background: #fbf7f2; color: #1f2937; padding: 7px 10px; }
+	.w-hdr { display: flex; align-items: center; gap: 10px; font-size: 8px; color: #6b7280; margin-bottom: 7px; }
+	.w-hdr b { font: 700 12px/1 Georgia, 'Times New Roman', serif; color: #111827; margin-right: 4px; }
+	.w-cart { margin-left: auto; position: relative; color: #111827; } .w-cart .ms { font-size: 15px; }
+	.w-cart i { position: absolute; right: -6px; top: -5px; min-width: 12px; height: 12px; padding: 0 3px; border-radius: 99px; display: grid; place-items: center; font: 700 7.5px/1 Inter, sans-serif; font-style: normal; color: #fff; background: #c2410c; }
+	.w-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 7px; }
+	.w-card { display: flex; flex-direction: column; gap: 1px; font-size: 8px; }
+	.w-ph { height: 82px; border-radius: 7px; display: grid; place-items: center; margin-bottom: 3px; } .w-ph .ms { font-size: 30px; color: rgba(255, 255, 255, 0.85); }
+	.p1 { background: linear-gradient(160deg, #e8c9a6, #b98458); } .p2 { background: linear-gradient(160deg, #8fb3d9, #3f6b9e); } .p3 { background: linear-gradient(160deg, #d9c7b8, #8b6f5a); }
+	.w-card b { font-weight: 600; color: #111827; } .w-card span { color: #6b7280; }
+	.w-card em { margin-top: 3px; align-self: flex-start; font-style: normal; font-weight: 700; font-size: 7.5px; padding: 3px 7px; border-radius: 99px; color: #fff; background: #111827; transition: background 0.2s; }
+	.w-card em.is-on { background: #c2410c; }
+	.w-pay { position: absolute; right: 10px; bottom: 10px; width: 150px; padding: 7px 8px; border-radius: 10px; background: #fff; color: #111827; box-shadow: 0 10px 30px -8px rgba(0, 0, 0, 0.45), 0 0 0 1px rgba(17, 24, 39, 0.08); }
+	.w-pay-h { display: flex; align-items: center; gap: 6px; font-size: 9px; }
+	.w-yape { font: 800 9px/1 Inter, sans-serif; color: #fff; background: #742284; padding: 3px 5px; border-radius: 5px; }
+	.w-pay-s { margin-top: 6px; display: flex; align-items: center; gap: 5px; font-size: 8px; color: #6b7280; }
+	.w-pay-st { display: grid; } .w-pay-st > * { grid-area: 1 / 1; }
+	.w-pay-s.ok { color: #047857; font-weight: 700; } .w-pay-s.ok .ms { font-size: 12px; }
+	.w-spin { width: 9px; height: 9px; border-radius: 50%; border: 1.5px solid #e5e7eb; border-top-color: #742284; animation: mu-spin 0.8s linear infinite; }
+	@keyframes mu-spin { to { transform: rotate(360deg); } }
+	.w-cursor { position: absolute; left: 0; top: 0; z-index: 4; filter: drop-shadow(0 1px 2px rgba(0, 0, 0, 0.5)); }
+	@media (prefers-reduced-motion: reduce) { .w-spin { animation-duration: 1.6s; } }
+</style>
