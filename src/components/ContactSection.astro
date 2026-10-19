@@ -1,6 +1,6 @@
 ---
-// Contacto: banda CTA + formulario de vidrio. Sin backend: el formulario prepara un correo a info@ (cc al correo de Joseph).
-import { WHATSAPP_URL, WHATSAPP_DISPLAY, EMAIL_PRIMARY, EMAIL_SECONDARY } from '../data/contact';
+// Contacto: banda CTA + formulario de vidrio. Sin backend propio: el formulario se envía por AJAX a FormSubmit.co, que lo entrega a ambos correos.
+import { WHATSAPP_URL, WHATSAPP_DISPLAY, EMAIL_PRIMARY, EMAIL_SECONDARY, FORM_ENDPOINT, FORM_CC } from '../data/contact';
 const topics = ['Diseño a medida', 'Web y ecommerce', 'CRM', 'ERP', 'Soluciones con IA', 'Automatización', 'Consultoría técnica', 'Otro'];
 ---
 
@@ -35,7 +35,8 @@ const topics = ['Diseño a medida', 'Web y ecommerce', 'CRM', 'ERP', 'Soluciones
 				</ul>
 			</div>
 
-			<form class="ct-form" data-ct-form novalidate>
+			<form class="ct-form" data-ct-form novalidate data-endpoint={FORM_ENDPOINT} data-cc={FORM_CC}>
+				<input type="text" name="_honey" class="ct-hp" tabindex="-1" autocomplete="off" aria-hidden="true" />
 				<div class="ct-row">
 					<label class="ct-field" data-ct-field>
 						<span>Nombre <b aria-hidden="true">*</b></span>
@@ -63,10 +64,11 @@ const topics = ['Diseño a medida', 'Web y ecommerce', 'CRM', 'ERP', 'Soluciones
 					<textarea name="mensaje" rows="4" required placeholder="Cuéntanos sobre tu proyecto"></textarea>
 				</label>
 				<div class="ct-actions" data-ct-field>
-					<button type="submit" class="sc-btn sc-btn-primary"><span class="material-symbols-outlined" aria-hidden="true">send</span>Enviar mensaje</button>
+					<button type="submit" class="sc-btn sc-btn-primary" data-ct-submit><span class="material-symbols-outlined" aria-hidden="true" data-ct-ic>send</span><span data-ct-label>Enviar mensaje</span></button>
 					<p class="ct-legal">Al enviar aceptas nuestra <button type="button" class="ct-link" data-modal="privacy">Política de privacidad</button>.</p>
 				</div>
 				<p class="ct-status" role="status" aria-live="polite" data-ct-status></p>
+				<div class="ct-ok" data-ct-ok hidden tabindex="-1"><span class="material-symbols-outlined" aria-hidden="true">check_circle</span><div><b>¡Mensaje enviado! Te responderemos pronto.</b><span>Recibimos tu mensaje en {EMAIL_PRIMARY}.</span></div></div>
 			</form>
 		</div>
 	</div>
@@ -117,6 +119,17 @@ const topics = ['Diseño a medida', 'Web y ecommerce', 'CRM', 'ERP', 'Soluciones
 	.ct-link:hover { color: #fff; }
 	.ct-status { min-height: 1.2rem; font-size: 0.88rem; color: var(--color-neon-300); }
 	.ct-status.is-error { color: #fca5a5; }
+	.ct-status a { color: #fff; text-decoration: underline; text-underline-offset: 3px; }
+	.ct-hp { position: absolute !important; left: -9999px; width: 1px; height: 1px; opacity: 0; }
+	.ct-ok { display: flex; gap: 0.8rem; align-items: flex-start; padding: 1rem 1.1rem; border-radius: 14px; background: rgba(16, 185, 129, 0.12); border: 1px solid rgba(52, 211, 153, 0.45); color: #d1fae5; outline: none; }
+	.ct-form [hidden] { display: none !important; }
+	.ct-ok .material-symbols-outlined { color: #34d399; font-size: 1.6rem; }
+	.ct-ok b { display: block; color: #ecfdf5; font-size: 1rem; }
+	.ct-ok span { font-size: 0.85rem; color: #a7f3d0; }
+	[data-ct-submit][disabled] { opacity: 0.75; cursor: progress; }
+	.ct-spin { animation: ct-rot 0.9s linear infinite; }
+	@keyframes ct-rot { to { transform: rotate(360deg); } }
+	@media (prefers-reduced-motion: reduce) { .ct-spin { animation-duration: 1.8s; } }
 	@media (max-width: 639px) { .ct-actions .sc-btn { width: 100%; } .ct-wa { width: 100%; } }
 	@media (prefers-reduced-motion: reduce) { .ct-wa:hover { transform: none; } } /* el pulso de .ct-live es solo sombra/opacidad: se mantiene */
 </style>
@@ -126,6 +139,7 @@ const topics = ['Diseño a medida', 'Web y ecommerce', 'CRM', 'ERP', 'Soluciones
 	import { ScrollTrigger } from 'gsap/ScrollTrigger';
 	import { prefersReducedMotion } from '../scripts/fit-mock';
 	import { revealCards } from '../scripts/reveal';
+	import { EMAIL_PRIMARY, EMAIL_SECONDARY, WHATSAPP_URL } from '../data/contact';
 
 	gsap.registerPlugin(ScrollTrigger);
 	const root = document.getElementById('contact');
@@ -149,10 +163,35 @@ const topics = ['Diseño a medida', 'Web y ecommerce', 'CRM', 'ERP', 'Soluciones
 				return;
 			}
 			status.classList.remove('is-error');
+			if (get('_honey')) return; // bot
+			const btn = form.querySelector<HTMLButtonElement>('[data-ct-submit]')!;
+			const ic = btn.querySelector<HTMLElement>('[data-ct-ic]')!, label = btn.querySelector<HTMLElement>('[data-ct-label]')!;
+			const okBox = form.querySelector<HTMLElement>('[data-ct-ok]')!;
 			const subject = `Nuevo proyecto: ${get('interes')} — ${get('nombre')}`;
 			const body = [`Nombre: ${get('nombre')}`, `Correo: ${get('correo')}`, get('empresa') && `Empresa: ${get('empresa')}`, `Interés: ${get('interes')}`, '', get('mensaje')].filter((l) => l !== '').join('\n');
-			window.location.href = `mailto:info@scaliasolutions.site?cc=${encodeURIComponent('josephsmithvaz777@gmail.com')}&subject=${encodeURIComponent(subject)}&body=${encodeURIComponent(body)}`;
-			status.textContent = 'Abrimos tu aplicación de correo con el mensaje listo. Si no se abre, escríbenos a info@scaliasolutions.site.';
+			const mailto = `mailto:${EMAIL_PRIMARY}?cc=${encodeURIComponent(EMAIL_SECONDARY)}&subject=${encodeURIComponent(subject)}&body=${encodeURIComponent(body)}`;
+			btn.disabled = true; ic.textContent = 'progress_activity'; ic.classList.add('ct-spin'); label.textContent = 'Enviando…';
+			status.textContent = '';
+			const ctrl = new AbortController(); const to = setTimeout(() => ctrl.abort(), 15000);
+			fetch(form.dataset.endpoint!, {
+				method: 'POST', signal: ctrl.signal,
+				headers: { 'Content-Type': 'application/json', Accept: 'application/json' },
+				body: JSON.stringify({
+					Nombre: get('nombre'), Correo: get('correo'), Empresa: get('empresa') || '—', Interés: get('interes'), Mensaje: get('mensaje'),
+					_replyto: get('correo'), _subject: subject, _cc: form.dataset.cc, _template: 'table', _captcha: 'false', _honey: '',
+				}),
+			})
+				.then(async (r) => { const j = await r.json().catch(() => ({})); if (!r.ok || String(j.success) !== 'true') throw new Error(j.message || r.status); })
+				.then(() => {
+					form.querySelectorAll<HTMLElement>('.ct-row, .ct-field, .ct-actions').forEach((el) => (el.hidden = true));
+					okBox.hidden = false; okBox.focus();
+					form.reset();
+				})
+				.catch(() => {
+					status.classList.add('is-error');
+					status.innerHTML = `No pudimos enviar tu mensaje. Escríbenos por <a href="${WHATSAPP_URL}" target="_blank" rel="noopener noreferrer">WhatsApp</a> o <a href="${mailto}">por correo</a>.`;
+				})
+				.finally(() => { clearTimeout(to); btn.disabled = false; ic.textContent = 'send'; ic.classList.remove('ct-spin'); label.textContent = 'Enviar mensaje'; });
 		});
 
 		// Bloques de texto, tarjetas de contacto y campos: cada uno aparece al entrar al viewport.
