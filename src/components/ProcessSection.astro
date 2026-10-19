@@ -76,6 +76,8 @@ const steps = [
 		const steps = Array.from(root.querySelectorAll<HTMLElement>('[data-pr-step]'));
 		if (prefersReducedMotion()) {
 			steps.forEach((s) => s.classList.add('is-on'));
+			// Movimiento reducido: cada paso aparece con un fundido suave.
+			revealCards(steps.map((s) => s.querySelector<HTMLElement>('.pr-card')!));
 		} else {
 			// La línea crece ligada al scroll (scrub) desde el primer paso hasta el último.
 			gsap.fromTo('[data-pr-fill]', { scaleY: 0 }, { scaleY: 1, ease: 'none', scrollTrigger: { trigger: line, start: 'top 62%', end: 'bottom 62%', scrub: 0.4 } });
