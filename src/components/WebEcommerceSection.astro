@@ -1,5 +1,5 @@
 ---
-// Sección "Diseño web y ecommerce": navegador con una tienda + celular con ficha de producto y carrito.
+// Sección "Diseño web y ecommerce": navegador que alterna capturas de sitios de demostración + celular con su versión móvil.
 const features = [
 	{ icon: 'language', title: 'Sitios web corporativos', desc: 'Rápidos, adaptados a celulares y optimizados para aparecer en Google.' },
 	{ icon: 'storefront', title: 'Tiendas online completas', desc: 'Catálogo, carrito, stock y pedidos que tu equipo administra sin depender de nadie.' },
@@ -7,11 +7,18 @@ const features = [
 	{ icon: 'hub', title: 'Conectada a tu negocio', desc: 'Integración con WhatsApp, tu CRM y tu ERP para no duplicar trabajo.' },
 	{ icon: 'query_stats', title: 'Medición y crecimiento', desc: 'Analítica y SEO para convertir visitas en clientes.' },
 ];
-const products = [
-	{ icon: 'headphones', name: 'Audífonos inalámbricos', price: 'S/ 189.90', bg: 'linear-gradient(135deg,#0f2a4d,#123a6b)' },
-	{ icon: 'watch', name: 'Reloj deportivo', price: 'S/ 249.00', bg: 'linear-gradient(135deg,#0c3236,#0f4a4f)' },
-	{ icon: 'backpack', name: 'Mochila urbana', price: 'S/ 129.90', bg: 'linear-gradient(135deg,#1b1f4d,#2a2f73)' },
-	{ icon: 'speaker', name: 'Parlante portátil', price: 'S/ 159.00', bg: 'linear-gradient(135deg,#0d2340,#173d73)' },
+// Capturas de sitios de demostración (negocios ficticios) creados por Scalia. Fotos: Wikimedia Commons, dominio público / CC0.
+const base = import.meta.env.BASE_URL.replace(/\/$/, '');
+const sites = [
+	{ id: 'tienda', url: 'lumara.demo', label: 'Tienda de moda',
+		alt: 'Página de inicio de Lumara, tienda de moda online de demostración: colección de temporada, precios en soles, pagos con Yape, Plin o tarjeta y envíos a todo el Perú.',
+		altM: 'Versión para celular de la tienda online de demostración Lumara.' },
+	{ id: 'cevicheria', url: 'olamorena.demo', label: 'Cevichería',
+		alt: 'Página de Ola Morena, cevichería de demostración en Chorrillos: carta con ceviche, arroz con mariscos y chicharrón, y reservas o pedidos por WhatsApp.',
+		altM: 'Versión para celular de la cevichería de demostración Ola Morena con formulario de reserva por WhatsApp.' },
+	{ id: 'clinica', url: 'clinicanuvia.demo', label: 'Clínica',
+		alt: 'Página de Clínica Nuvia, centro médico de demostración: reserva de citas online con especialidad, sede, fecha y horarios disponibles.',
+		altM: 'Versión para celular de Clínica Nuvia con el formulario para agendar una cita médica.' },
 ];
 ---
 
@@ -42,72 +49,40 @@ const products = [
 
 			<div class="we-mock-wrap" data-we-wrap>
 				<span class="sc-demo-chip" style="top:-12px;left:16px">Ejemplo</span>
-				<div class="we-mock" data-we-mock aria-hidden="true">
-					<!-- Navegador con tienda -->
+				<div class="we-mock" data-we-mock>
+					<!-- Navegador: crossfade entre sitios de demostración -->
 					<div class="we-browser" data-we-browser>
-						<div class="we-chrome">
+						<div class="we-chrome" aria-hidden="true">
 							<div class="we-dots"><span></span><span></span><span></span></div>
-							<div class="we-url"><span class="material-symbols-outlined">lock</span>tutienda.pe</div>
+							<div class="we-url"><span class="material-symbols-outlined">lock</span><span data-we-url>{sites[0].url}</span></div>
 						</div>
-						<div class="we-store">
-							<div class="we-nav">
-								<span class="we-logo"><i></i>Tu tienda</span>
-								<span>Novedades</span><span>Categorías</span><span>Ofertas</span><span>Contacto</span>
-								<span class="we-search"><span class="material-symbols-outlined">search</span>Buscar productos</span>
-								<span class="we-cart" data-we-cart><span class="material-symbols-outlined">shopping_bag</span><b data-we-badge>2</b></span>
-							</div>
-							<div class="we-hero">
-								<div>
-									<div class="we-kicker">Nueva temporada</div>
-									<div class="we-hero-t">Tecnología para tu día a día</div>
-									<div class="we-hero-s">Envíos a todo el Perú</div>
-									<span class="we-btn">Comprar ahora</span>
-								</div>
-								<div class="we-hero-art"><span class="material-symbols-outlined">headphones</span></div>
-							</div>
-							<div class="we-row-h"><b>Más vendidos</b><span>Ver todo →</span></div>
-							<div class="we-products">
-								{products.map((p) => (
-									<div class="we-prod" data-we-prod>
-										<div class="we-prod-img" style={`background:${p.bg}`}><span class="material-symbols-outlined">{p.icon}</span></div>
-										<div class="we-prod-n">{p.name}</div>
-										<div class="we-stars">★★★★★</div>
-										<div class="we-prod-f"><b>{p.price}</b><span class="we-add">Agregar</span></div>
-									</div>
-								))}
-							</div>
-							<div class="we-strip">
-								<span><span class="material-symbols-outlined">local_shipping</span>Envíos a todo el Perú</span>
-								<span><span class="material-symbols-outlined">credit_card</span>Tarjeta · Yape · Plin</span>
-								<span><span class="material-symbols-outlined">verified_user</span>Compra segura</span>
-							</div>
+						<div class="we-view">
+							{sites.map((site, i) => (
+								<img class:list={['we-slide', { 'is-on': i === 0 }]} data-we-slide src={`${base}/portfolio/${site.id}-desktop.webp`} width="1280" height="800" loading="lazy" decoding="async" alt={site.alt} />
+							))}
 						</div>
 					</div>
 
-					<!-- Celular con ficha de producto y carrito -->
+					<!-- Celular: versión móvil del mismo sitio -->
 					<div class="we-phone" data-we-phone>
-						<div class="we-notch"></div>
+						<div class="we-notch" aria-hidden="true"></div>
 						<div class="we-screen">
-							<div class="we-ph-top"><span class="material-symbols-outlined">arrow_back</span><b>Tu tienda</b><span class="material-symbols-outlined">shopping_bag</span></div>
-							<div class="we-ph-img"><span class="material-symbols-outlined">headphones</span></div>
-							<div class="we-ph-dots"><i class="on"></i><i></i><i></i></div>
-							<div class="we-ph-n">Audífonos inalámbricos</div>
-							<div class="we-ph-p">S/ 189.90</div>
-							<div class="we-ph-colors"><span>Color</span><i style="background:#17cbda" class="on"></i><i style="background:#245ef5"></i><i style="background:#e8eef7"></i></div>
-							<span class="we-ph-btn" data-we-addbtn>Agregar al carrito</span>
-							<div class="we-sheet" data-we-sheet>
-								<div class="we-sheet-h"><b>Carrito (2)</b><span class="material-symbols-outlined">expand_more</span></div>
-								<div class="we-line"><i style="background:linear-gradient(135deg,#0f2a4d,#123a6b)"></i><span>Audífonos inalámbricos</span><b>S/ 189.90</b></div>
-								<div class="we-line"><i style="background:linear-gradient(135deg,#1b1f4d,#2a2f73)"></i><span>Mochila urbana</span><b>S/ 129.90</b></div>
-								<div class="we-total"><span>Total</span><b>S/ 319.80</b></div>
-								<div class="we-pay"><span>Tarjeta</span><span>Yape</span><span>Plin</span></div>
-								<span class="we-checkout">Pagar ahora</span>
-							</div>
+							{sites.map((site, i) => (
+								<img class:list={['we-slide', { 'is-on': i === 0 }]} data-we-mslide src={`${base}/portfolio/${site.id}-mobile.webp`} width="440" height="952" loading="lazy" decoding="async" alt={site.altM} />
+							))}
 						</div>
+					</div>
+
+					<!-- Indicador de sitio -->
+					<div class="we-tabs" aria-hidden="true">
+						{sites.map((site, i) => (
+							<span class:list={['we-tab', { 'is-on': i === 0 }]} data-we-tab><i></i>{site.label}</span>
+						))}
 					</div>
 				</div>
 			</div>
 		</div>
+		<p class="we-note">Capturas de sitios de demostración para negocios ficticios. Fotos libres de dominio público y CC0.</p>
 	</div>
 </section>
 
@@ -125,55 +100,26 @@ const products = [
 	/* ---- Mockup (1000 × 600) ---- */
 	.we-mock { position: absolute; left: 0; top: 0; width: 1000px; height: 600px; transform-origin: 0 0; font: 500 11px/1.35 Inter, system-ui, sans-serif; color: #e8eef7; }
 	.we-mock .material-symbols-outlined { font-size: 14px; font-variation-settings: 'wght' 300; line-height: 1; }
-	.we-browser { position: absolute; left: 0; top: 10px; width: 790px; height: 540px; border-radius: 14px; overflow: hidden; background: #0a1428; box-shadow: 0 0 0 1px rgba(255,255,255,.08), 0 30px 80px -20px rgba(36,94,245,.45), 0 0 60px -10px rgba(23,203,218,.2); }
+	.we-browser { position: absolute; left: 0; top: 14px; width: 790px; height: 528px; border-radius: 14px; overflow: hidden; background: #0a1428; box-shadow: 0 0 0 1px rgba(255,255,255,.08), 0 30px 80px -20px rgba(36,94,245,.45), 0 0 60px -10px rgba(23,203,218,.2); }
 	.we-chrome { height: 34px; display: flex; align-items: center; gap: 14px; padding: 0 14px; background: #0e1628; border-bottom: 1px solid #1d2a44; }
 	.we-dots { display: flex; gap: 6px; } .we-dots span { width: 10px; height: 10px; border-radius: 50%; background: #2a3550; }
 	.we-dots span:first-child { background: #ff5f57; } .we-dots span:nth-child(2) { background: #febc2e; } .we-dots span:nth-child(3) { background: #28c840; }
 	.we-url { flex: 1; max-width: 340px; margin: 0 auto; height: 22px; display: flex; align-items: center; justify-content: center; gap: 6px; border-radius: 6px; background: #16213a; color: #9fb0cc; }
-	.we-store { padding: 0 22px 16px; }
-	.we-nav { height: 52px; display: flex; align-items: center; gap: 18px; color: #a9b6cd; border-bottom: 1px solid #1a2742; }
-	.we-logo { display: inline-flex; align-items: center; gap: 7px; font-weight: 800; font-size: 13px; color: #fff; margin-right: 8px; }
-	.we-logo i { width: 18px; height: 18px; border-radius: 6px; background: linear-gradient(135deg, #17cbda, #245ef5); }
-	.we-search { margin-left: auto; display: inline-flex; align-items: center; gap: 6px; height: 28px; width: 170px; padding: 0 10px; border-radius: 99px; background: #111c33; color: #7f8fae; font-size: 10px; }
-	.we-cart { position: relative; width: 30px; height: 30px; display: grid; place-items: center; border-radius: 99px; background: #111c33; }
-	.we-cart .material-symbols-outlined { font-size: 17px; }
-	.we-cart b { position: absolute; right: -4px; top: -4px; min-width: 16px; height: 16px; display: grid; place-items: center; border-radius: 99px; font-size: 9px; color: #031018; background: #5fe8ff; }
-	.we-hero { margin-top: 16px; height: 168px; border-radius: 14px; display: flex; align-items: center; justify-content: space-between; padding: 0 30px; background: radial-gradient(ellipse at 85% 50%, rgba(23,203,218,.35), transparent 60%), linear-gradient(120deg, #0d1f3f, #10295a 55%, #0b3a4a); overflow: hidden; }
-	.we-kicker { font-size: 10px; letter-spacing: .16em; text-transform: uppercase; color: #8ff5ea; font-weight: 700; }
-	.we-hero-t { font-size: 24px; font-weight: 800; line-height: 1.15; margin: 6px 0 4px; max-width: 300px; }
-	.we-hero-s { color: #b9c6dd; font-size: 11px; }
-	.we-btn { display: inline-block; margin-top: 12px; padding: 8px 16px; border-radius: 99px; font-weight: 700; color: #fff; background: linear-gradient(135deg, #17cbda, #245ef5); }
-	.we-hero-art { width: 130px; height: 130px; border-radius: 99px; display: grid; place-items: center; background: radial-gradient(circle at 35% 30%, rgba(159,243,251,.5), rgba(36,94,245,.25) 60%, transparent 70%); }
-	.we-hero-art .material-symbols-outlined { font-size: 78px; color: #dffbff; }
-	.we-row-h { display: flex; justify-content: space-between; margin: 16px 0 10px; font-size: 12px; } .we-row-h span { color: #5fe8ff; font-size: 10px; }
-	.we-products { display: grid; grid-template-columns: repeat(4, 1fr); gap: 12px; }
-	.we-prod { padding: 8px; border-radius: 12px; background: #0f1a30; border: 1px solid #1c2a47; }
-	.we-prod-img { height: 92px; border-radius: 9px; display: grid; place-items: center; }
-	.we-prod-img .material-symbols-outlined { font-size: 44px; color: #cfe9ff; }
-	.we-prod-n { margin-top: 7px; font-weight: 600; font-size: 10.5px; }
-	.we-stars { color: #4fe3d3; font-size: 9px; letter-spacing: 1px; margin-top: 2px; }
-	.we-prod-f { display: flex; align-items: center; justify-content: space-between; margin-top: 5px; } .we-prod-f b { font-size: 11.5px; }
-	.we-add { font-size: 9px; padding: 3px 8px; border-radius: 99px; color: #9ff3fb; border: 1px solid rgba(95,232,255,.35); }
-	.we-strip { margin-top: 14px; display: flex; justify-content: space-between; padding: 9px 14px; border-radius: 10px; background: #0f1a30; color: #a9b6cd; font-size: 10px; }
-	.we-strip > span { display: inline-flex; align-items: center; gap: 6px; } .we-strip .material-symbols-outlined { color: #5fe8ff; }
+	.we-view { position: relative; height: 494px; background: #fff; overflow: hidden; }
+	.we-slide { position: absolute; inset: 0; width: 100%; height: 100%; object-fit: cover; object-position: top center; opacity: 0; }
+	.we-slide.is-on { opacity: 1; }
 	/* Celular */
-	.we-phone { position: absolute; left: 772px; top: 92px; width: 226px; height: 496px; border-radius: 36px; padding: 10px; background: #0b1120; box-shadow: 0 0 0 1.5px #2a3a5c, 0 0 0 6px #070b16, 0 40px 80px -20px rgba(0,0,0,.85), 0 0 50px -10px rgba(23,203,218,.35); }
-	.we-notch { position: absolute; left: 50%; top: 14px; width: 74px; height: 18px; margin-left: -37px; border-radius: 99px; background: #000; z-index: 3; }
-	.we-screen { position: relative; height: 100%; border-radius: 28px; overflow: hidden; background: #0a1428; padding: 40px 14px 14px; }
-	.we-ph-top { display: flex; align-items: center; justify-content: space-between; font-size: 11px; }
-	.we-ph-img { margin-top: 12px; height: 150px; border-radius: 16px; display: grid; place-items: center; background: radial-gradient(circle at 50% 40%, rgba(23,203,218,.35), transparent 65%), linear-gradient(135deg, #0f2a4d, #123a6b); }
-	.we-ph-img .material-symbols-outlined { font-size: 84px; color: #dffbff; }
-	.we-ph-dots { display: flex; justify-content: center; gap: 4px; margin: 8px 0; } .we-ph-dots i { width: 5px; height: 5px; border-radius: 9px; background: #2a3a5c; } .we-ph-dots i.on { width: 14px; background: #5fe8ff; }
-	.we-ph-n { font-weight: 700; font-size: 13px; } .we-ph-p { font-weight: 800; font-size: 16px; margin-top: 2px; color: #9ff3fb; }
-	.we-ph-colors { display: flex; align-items: center; gap: 7px; margin-top: 10px; font-size: 10px; color: #a9b6cd; }
-	.we-ph-colors i { width: 16px; height: 16px; border-radius: 99px; } .we-ph-colors i.on { box-shadow: 0 0 0 2px #0a1428, 0 0 0 3.5px #5fe8ff; }
-	.we-ph-btn { display: grid; place-items: center; margin-top: 14px; height: 38px; border-radius: 12px; font-weight: 700; color: #fff; background: linear-gradient(135deg, #17cbda, #245ef5); box-shadow: 0 10px 20px -8px rgba(36,94,245,.7); }
-	.we-sheet { position: absolute; left: 0; right: 0; bottom: 0; padding: 12px 14px 14px; border-radius: 20px 20px 28px 28px; background: rgba(14, 24, 46, 0.96); border-top: 1px solid rgba(95,232,255,.3); box-shadow: 0 -20px 40px -10px rgba(0,0,0,.6); }
-	.we-sheet-h { display: flex; justify-content: space-between; align-items: center; font-size: 12px; margin-bottom: 8px; }
-	.we-line { display: flex; align-items: center; gap: 8px; font-size: 10px; padding: 5px 0; } .we-line i { width: 24px; height: 24px; border-radius: 7px; } .we-line span { flex: 1; color: #c7d3e8; } .we-line b { font-size: 10px; }
-	.we-total { display: flex; justify-content: space-between; border-top: 1px dashed #2a3a5c; margin-top: 4px; padding-top: 7px; font-size: 11px; } .we-total b { font-size: 13px; }
-	.we-pay { display: flex; gap: 5px; margin-top: 8px; } .we-pay span { flex: 1; text-align: center; font-size: 9px; padding: 4px 0; border-radius: 7px; background: #16213a; color: #c7d3e8; }
-	.we-checkout { display: grid; place-items: center; margin-top: 8px; height: 32px; border-radius: 10px; font-weight: 700; color: #031018; background: linear-gradient(135deg, #5fe8ff, #17cbda); }
+	.we-phone { position: absolute; left: 772px; top: 96px; width: 226px; height: 466px; border-radius: 36px; padding: 10px; background: #0b1120; box-shadow: 0 0 0 1.5px #2a3a5c, 0 0 0 6px #070b16, 0 40px 80px -20px rgba(0,0,0,.85), 0 0 50px -10px rgba(23,203,218,.35); }
+	.we-notch { position: absolute; left: 50%; top: 16px; width: 64px; height: 16px; margin-left: -32px; border-radius: 99px; background: #000; z-index: 3; }
+	.we-screen { position: relative; height: 100%; border-radius: 27px; overflow: hidden; background: #fff; }
+	/* Indicador */
+	.we-tabs { position: absolute; left: 0; top: 556px; width: 790px; display: flex; justify-content: center; gap: 10px; }
+	.we-tab { display: inline-flex; align-items: center; gap: 7px; padding: 6px 13px; border-radius: 99px; font-size: 12px; color: #8ea0bd; background: rgba(10,20,40,.6); border: 1px solid rgba(95,232,255,.12); transition: color .4s, border-color .4s, background .4s; }
+	.we-tab i { width: 7px; height: 7px; border-radius: 99px; background: #2a3a5c; transition: background .4s, box-shadow .4s; }
+	.we-tab.is-on { color: #dffbff; border-color: rgba(95,232,255,.45); background: rgba(23,203,218,.1); }
+	.we-tab.is-on i { background: #5fe8ff; box-shadow: 0 0 8px #5fe8ff; }
+	.we-note { margin-top: 18px; text-align: center; font-size: 12.5px; color: #8392ab; }
+	@media (min-width: 1024px) { .we-note { text-align: right; } }
 </style>
 
 <script>
@@ -187,21 +133,39 @@ const products = [
 	const mock = root?.querySelector<HTMLElement>('[data-we-mock]');
 	if (root && wrap && mock) {
 		fitMock(wrap, mock, 1000, 600);
+		const q = (sel: string) => Array.from(root.querySelectorAll<HTMLElement>(sel));
+		const slides = q('[data-we-slide]');
+		const mslides = q('[data-we-mslide]');
+		const tabs = q('[data-we-tab]');
+		const urlEl = root.querySelector<HTMLElement>('[data-we-url]');
+		const urls = ['lumara.demo', 'olamorena.demo', 'clinicanuvia.demo'];
 		if (!prefersReducedMotion()) {
-			const q = (s: string) => Array.from(root.querySelectorAll<HTMLElement>(s));
-			const sheet = root.querySelector('[data-we-sheet]');
-			const badge = root.querySelector<HTMLElement>('[data-we-badge]');
 			gsap.set(q('[data-we-feature]'), { autoAlpha: 0, x: -20 });
-			gsap.set(sheet, { yPercent: 105 });
-			if (badge) badge.textContent = '1';
-			const tl = gsap.timeline({ scrollTrigger: { trigger: wrap, start: 'top 75%', once: true } });
+			let idx = 0;
+			let timer: number | undefined;
+			let visible = false;
+			const show = (next: number) => {
+				const prev = idx;
+				if (next === prev) return;
+				idx = next;
+				gsap.to([slides[prev], mslides[prev]], { opacity: 0, duration: 0.9, ease: 'power2.inOut' });
+				gsap.fromTo(slides[next], { opacity: 0, scale: 1.035 }, { opacity: 1, scale: 1, duration: 0.9, ease: 'power2.inOut' });
+				gsap.fromTo(mslides[next], { opacity: 0, y: 14 }, { opacity: 1, y: 0, duration: 0.9, delay: 0.12, ease: 'power2.inOut' });
+				tabs.forEach((t, i) => t.classList.toggle('is-on', i === next));
+				if (urlEl) gsap.to(urlEl, { opacity: 0, duration: 0.2, onComplete: () => { urlEl.textContent = urls[next]; gsap.to(urlEl, { opacity: 1, duration: 0.25 }); } });
+			};
+			const loop = () => {
+				window.clearTimeout(timer);
+				if (!visible || document.hidden) return;
+				timer = window.setTimeout(() => { show((idx + 1) % slides.length); loop(); }, 3800);
+			};
+			const io = new IntersectionObserver((entries) => { visible = entries[0].isIntersecting; loop(); }, { threshold: 0.2 });
+			document.addEventListener('visibilitychange', loop);
+			const tl = gsap.timeline({ scrollTrigger: { trigger: wrap, start: 'top 75%', once: true }, onComplete: () => io.observe(wrap) });
 			tl.from('[data-we-browser]', { autoAlpha: 0, x: -70, rotateY: 8, transformPerspective: 1200, duration: 0.8, ease: 'power3.out' })
-				.from(q('[data-we-prod]'), { autoAlpha: 0, y: 24, duration: 0.45, stagger: 0.08, ease: 'power2.out' }, '-=0.35')
-				.from('[data-we-phone]', { autoAlpha: 0, y: 110, x: 40, rotate: 7, duration: 0.85, ease: 'power3.out' }, '-=0.55')
-				.to('[data-we-addbtn]', { scale: 0.94, duration: 0.12, yoyo: true, repeat: 1, ease: 'power1.inOut' }, '+=0.15')
-				.to(sheet, { yPercent: 0, duration: 0.55, ease: 'power3.out' })
-				.call(() => { if (badge) badge.textContent = '2'; }, [], '<')
-				.fromTo('[data-we-cart]', { scale: 1 }, { scale: 1.3, duration: 0.18, yoyo: true, repeat: 1, ease: 'power2.out' }, '<')
+				.from(slides[0], { scale: 1.06, duration: 1.1, ease: 'power2.out' }, '-=0.5')
+				.from('[data-we-phone]', { autoAlpha: 0, y: 110, x: 40, rotate: 7, duration: 0.85, ease: 'power3.out' }, '-=0.8')
+				.from('.we-tab', { autoAlpha: 0, y: 10, duration: 0.4, stagger: 0.08, ease: 'power2.out' }, '-=0.4')
 				.to(q('[data-we-feature]'), { autoAlpha: 1, x: 0, duration: 0.5, stagger: 0.1, ease: 'power3.out' }, 0.2);
 		}
 	}
