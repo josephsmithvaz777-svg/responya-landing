@@ -1045,25 +1045,32 @@ const convs = [
 				if (!playing) run();
 			}
 
+			// Distancia de scroll por tarjeta (≈ media pantalla, mínimo 320 px).
+			const STEP = () => Math.max(320, Math.round(window.innerHeight * 0.5));
 			const mm = gsap.matchMedia();
-			mm.add('(min-width: 640px) and (prefers-reduced-motion: no-preference)', () => {
+			// Escritorio (≥1024 px) en ambos modos, y tablet solo con movimiento normal: escenario fijo,
+			// un paso de scroll = una tarjeta (01 → 06). Fijar la sección no es animación, así que también
+			// se usa con movimiento reducido (allí las tarjetas solo aparecen con fundido).
+			mm.add('(min-width: 1024px), (min-width: 640px) and (prefers-reduced-motion: no-preference)', () => {
 				// Escenario fijo: se revela una función por tramo de scroll
 				const st = ScrollTrigger.create({
 					trigger: stage,
 					start: 'center center',
-					end: () => `+=${N * 260}`,
+					end: () => `+=${N * STEP()}`,
 					pin: true,
 					anticipatePin: 1,
+					// Imán a cada paso, en la dirección del scroll: un gesto/rueda avanza una tarjeta.
+					snap: { snapTo: Array.from({ length: N + 1 }, (_, k) => k / N), directional: true, delay: 0.04, duration: { min: 0.25, max: 0.6 }, ease: 'power1.inOut' },
 					onUpdate: (self) => {
-						const upto = Math.min(N, Math.floor(self.progress * (N + 0.5)) + 1);
+						const upto = Math.min(N, Math.floor(self.progress * N + 0.001) + 1);
 						for (let i = 0; i < upto; i++) enqueue(i);
 					},
 					onRefresh: layout,
 				});
 				return () => st.kill();
 			});
-			// Móvil, o movimiento reducido en cualquier ancho: sin escenario fijo, una tarjeta por vez al entrar.
-			mm.add('(max-width: 639px), (prefers-reduced-motion: reduce)', () => {
+			// Móvil (y tablet con movimiento reducido): sin escenario fijo, una tarjeta por vez al entrar.
+			mm.add('(max-width: 639px), (max-width: 1023px) and (prefers-reduced-motion: reduce)', () => {
 				const sts = cards.map((card, i) =>
 					ScrollTrigger.create({
 						trigger: card,

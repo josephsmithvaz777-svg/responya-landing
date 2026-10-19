@@ -26,6 +26,11 @@ const sites = [
 		alt: 'Página de Clínica Nuvia, centro médico de demostración: reserva de citas online con especialidad, sede, fecha y horarios disponibles.',
 		altM: 'Versión para celular de Clínica Nuvia con el formulario para agendar una cita médica.' },
 ];
+// Tamaño real de cada captura (página completa, no solo la primera pantalla) para el recorrido vertical.
+const dims: Record<string, { d: number; m: number }> = {
+	tienda: { d: 1211, m: 1910 }, cevicheria: { d: 1028, m: 2645 }, inmobiliaria: { d: 970, m: 1974 },
+	nikkei: { d: 1448, m: 2756 }, clinica: { d: 836, m: 1748 },
+};
 ---
 
 <section class="we-section w-full py-24 px-4 relative overflow-x-clip" id="web-ecommerce" translate="no">
@@ -65,7 +70,7 @@ const sites = [
 						</div>
 						<div class="we-view">
 							{sites.map((site, i) => (
-								<img class:list={['we-slide', { 'is-on': i === 0 }]} data-we-slide data-url={site.url} src={`${base}/portfolio/${site.id}-desktop.webp`} width="1280" height="800" loading="lazy" decoding="async" alt={site.alt} />
+								<img class:list={['we-slide', { 'is-on': i === 0 }]} data-we-slide data-url={site.url} src={`${base}/portfolio/${site.id}-desktop.webp`} width="1280" height={dims[site.id]?.d ?? 800} loading="lazy" decoding="async" alt={site.alt} />
 							))}
 						</div>
 					</div>
@@ -75,7 +80,7 @@ const sites = [
 						<div class="we-notch" aria-hidden="true"></div>
 						<div class="we-screen">
 							{sites.map((site, i) => (
-								<img class:list={['we-slide', { 'is-on': i === 0 }]} data-we-mslide src={`${base}/portfolio/${site.id}-mobile.webp`} width="440" height="952" loading="lazy" decoding="async" alt={site.altM} />
+								<img class:list={['we-slide', { 'is-on': i === 0 }]} data-we-mslide src={`${base}/portfolio/${site.id}-mobile.webp`} width="440" height={dims[site.id]?.m ?? 952} loading="lazy" decoding="async" alt={site.altM} />
 							))}
 						</div>
 					</div>
@@ -83,9 +88,9 @@ const sites = [
 				</div>
 			</div>
 				<!-- Indicador de sitio -->
-				<div class="we-tabs" aria-hidden="true">
+				<div class="we-tabs" role="group" aria-label="Sitios de ejemplo">
 					{sites.map((site, i) => (
-						<span class:list={['we-tab', { 'is-on': i === 0 }]} data-we-tab><i></i><b>{site.label}</b></span>
+						<button type="button" class:list={['we-tab sc-focus', { 'is-on': i === 0 }]} data-we-tab aria-pressed={i === 0 ? 'true' : 'false'}><i></i><b>{site.label}</b><s aria-hidden="true"></s></button>
 					))}
 				</div>
 			</div>
@@ -115,7 +120,7 @@ const sites = [
 	.we-dots span:first-child { background: #ff5f57; } .we-dots span:nth-child(2) { background: #febc2e; } .we-dots span:nth-child(3) { background: #28c840; }
 	.we-url { flex: 1; max-width: 340px; margin: 0 auto; height: 22px; display: flex; align-items: center; justify-content: center; gap: 6px; border-radius: 6px; background: #16213a; color: #9fb0cc; }
 	.we-view { position: relative; height: 494px; background: #fff; overflow: hidden; }
-	.we-slide { position: absolute; inset: 0; width: 100%; height: 100%; object-fit: cover; object-position: top center; opacity: 0; }
+	.we-slide { position: absolute; left: 0; top: 0; width: 100%; height: auto; min-height: 100%; opacity: 0; will-change: transform, opacity; }
 	.we-slide.is-on { opacity: 1; }
 	/* Celular */
 	.we-phone { position: absolute; left: 772px; top: 96px; width: 226px; height: 466px; border-radius: 36px; padding: 10px; background: #0b1120; box-shadow: 0 0 0 1.5px #2a3a5c, 0 0 0 6px #070b16, 0 40px 80px -20px rgba(0,0,0,.85), 0 0 50px -10px rgba(23,203,218,.35); }
@@ -128,6 +133,10 @@ const sites = [
 	@media (max-width: 639px) { .we-tab:not(.is-on) { padding: 6px 7px; gap: 0; } .we-tab:not(.is-on) b { display: none; } }
 	.we-tab { display: inline-flex; align-items: center; gap: 7px; padding: 6px 13px; border-radius: 99px; font: 500 12px/1.2 Inter, system-ui, sans-serif; color: #8ea0bd; background: rgba(10,20,40,.6); border: 1px solid rgba(95,232,255,.12); transition: color .4s, border-color .4s, background .4s; }
 	.we-tab i { width: 7px; height: 7px; border-radius: 99px; background: #2a3a5c; transition: background .4s, box-shadow .4s; }
+	.we-tab { position: relative; overflow: hidden; cursor: pointer; }
+	.we-tab:hover { color: #dffbff; }
+	.we-tab s { position: absolute; left: 10px; right: 10px; bottom: 2px; height: 2px; border-radius: 2px; background: linear-gradient(90deg, #5fe8ff, #2f7bff); transform: scaleX(0); transform-origin: 0 50%; opacity: 0; }
+	.we-tab.is-on s { opacity: 1; }
 	.we-tab.is-on { color: #dffbff; border-color: rgba(95,232,255,.45); background: rgba(23,203,218,.1); }
 	.we-tab.is-on i { background: #5fe8ff; box-shadow: 0 0 8px #5fe8ff; }
 	.we-note { margin-top: 18px; text-align: center; font-size: 12.5px; color: #8392ab; }
@@ -146,37 +155,102 @@ const sites = [
 	const mock = root?.querySelector<HTMLElement>('[data-we-mock]');
 	if (root && wrap && mock) {
 		fitMock(wrap, mock, 1000, 566);
-		// Tarjetas de características: una a una al entrar al viewport.
 		revealCards(root.querySelectorAll<HTMLElement>('[data-we-feature]'));
+		const reduce = prefersReducedMotion();
 		const q = (sel: string) => Array.from(root.querySelectorAll<HTMLElement>(sel));
-		const slides = q('[data-we-slide]');
-		const mslides = q('[data-we-mslide]');
+		const slides = q('[data-we-slide]') as HTMLImageElement[];
+		const mslides = q('[data-we-mslide]') as HTMLImageElement[];
 		const tabs = q('[data-we-tab]');
+		const bars = tabs.map((t) => t.querySelector('s') as HTMLElement);
+		const view = root.querySelector<HTMLElement>('.we-view')!;
+		const screen = root.querySelector<HTMLElement>('.we-screen')!;
 		const urlEl = root.querySelector<HTMLElement>('[data-we-url]');
 		const urls = slides.map((sl) => sl.dataset.url ?? '');
-		if (!prefersReducedMotion()) {
-			let idx = 0;
-			let timer: number | undefined;
-			let visible = false;
-			const show = (next: number) => {
-				const prev = idx;
-				if (next === prev) return;
-				idx = next;
-				gsap.to([slides[prev], mslides[prev]], { opacity: 0, duration: 0.9, ease: 'power2.inOut' });
-				gsap.fromTo(slides[next], { opacity: 0, scale: 1.035 }, { opacity: 1, scale: 1, duration: 0.9, ease: 'power2.inOut' });
-				gsap.fromTo(mslides[next], { opacity: 0, y: 14 }, { opacity: 1, y: 0, duration: 0.9, delay: 0.12, ease: 'power2.inOut' });
-				tabs.forEach((t, i) => t.classList.toggle('is-on', i === next));
+		const HOLD = 4.6; // segundos por sitio
+		const FADE = reduce ? 0.8 : 0.9;
+
+		// Las imágenes "lazy" de las demás demos se cargan al acercarse a la sección.
+		const eager = () => [...slides, ...mslides].forEach((img) => (img.loading = 'eager'));
+		// Distancia de recorrido vertical: alto de la captura menos el alto visible (en px del mockup).
+		const range = (img: HTMLImageElement, box: HTMLElement) => {
+			const h = img.naturalWidth ? (img.naturalHeight / img.naturalWidth) * box.clientWidth : Number(img.getAttribute('height')) / Number(img.getAttribute('width')) * box.clientWidth;
+			return Math.max(0, h - box.clientHeight);
+		};
+
+		let idx = 0;
+		let cycle: gsap.core.Timeline | null = null;
+		let visible = false;
+		let hover = false;
+		let started = false;
+
+		const setActive = (i: number) => tabs.forEach((t, k) => { t.classList.toggle('is-on', k === i); t.setAttribute('aria-pressed', String(k === i)); });
+
+		function play(i: number) {
+			cycle?.kill();
+			gsap.set(bars, { scaleX: 0 });
+			const img = slides[i];
+			const mimg = mslides[i];
+			cycle = gsap.timeline({ onComplete: () => show((idx + 1) % slides.length) });
+			cycle.to(bars[i], { scaleX: 1, duration: HOLD, ease: 'none' }, 0);
+			if (!reduce) {
+				// Recorrido suave por la página: baja y vuelve arriba justo antes del cambio.
+				const dr = range(img, view);
+				const mr = range(mimg, screen);
+				cycle.fromTo(img, { y: 0 }, { y: -dr, duration: HOLD * 0.62, ease: 'sine.inOut' }, 0.5)
+					.to(img, { y: 0, duration: HOLD * 0.25, ease: 'sine.inOut' }, HOLD * 0.72)
+					.fromTo(mimg, { y: 0 }, { y: -mr, duration: HOLD * 0.62, ease: 'sine.inOut' }, 0.7)
+					.to(mimg, { y: 0, duration: HOLD * 0.22, ease: 'sine.inOut' }, HOLD * 0.75);
+			}
+			sync();
+		}
+
+		function show(next: number) {
+			const prev = idx;
+			idx = next;
+			setActive(next);
+			if (next !== prev) {
+				gsap.to([slides[prev], mslides[prev]], { opacity: 0, duration: FADE, ease: 'power1.inOut', overwrite: 'auto' });
+				if (reduce) {
+					gsap.to([slides[next], mslides[next]], { opacity: 1, duration: FADE, ease: 'power1.inOut', overwrite: 'auto' });
+				} else {
+					gsap.fromTo(slides[next], { opacity: 0, scale: 1.03, y: 0 }, { opacity: 1, scale: 1, duration: FADE, ease: 'power2.inOut', overwrite: 'auto' });
+					gsap.fromTo(mslides[next], { opacity: 0, y: 14 }, { opacity: 1, y: 0, duration: FADE, delay: 0.1, ease: 'power2.inOut', overwrite: 'auto' });
+				}
 				if (urlEl) gsap.to(urlEl, { opacity: 0, duration: 0.2, onComplete: () => { urlEl.textContent = urls[next]; gsap.to(urlEl, { opacity: 1, duration: 0.25 }); } });
-			};
-			const loop = () => {
-				window.clearTimeout(timer);
-				if (!visible || document.hidden) return;
-				timer = window.setTimeout(() => { show((idx + 1) % slides.length); loop(); }, 3800);
-			};
-			const io = new IntersectionObserver((entries) => { visible = entries[0].isIntersecting; loop(); }, { threshold: 0.2 });
-			document.addEventListener('visibilitychange', loop);
-			const tl = gsap.timeline({ scrollTrigger: { trigger: wrap, start: 'top 75%', once: true }, onComplete: () => io.observe(wrap) });
-			tl.from('[data-we-browser]', { autoAlpha: 0, x: -70, rotateY: 8, transformPerspective: 1200, duration: 0.8, ease: 'power3.out' })
+			}
+			play(next);
+		}
+
+		// Pausa con el cursor encima, con foco dentro, fuera de pantalla o con la pestaña oculta.
+		function sync() {
+			if (!cycle) return;
+			const run = started && visible && !hover && !document.hidden;
+			run ? cycle.resume() : cycle.pause();
+		}
+
+		gsap.set(slides, { opacity: 0 }); gsap.set(mslides, { opacity: 0 });
+		gsap.set([slides[0], mslides[0]], { opacity: 1 });
+		const stage = root.querySelector<HTMLElement>('.we-stage')!;
+		// Solo con mouse (en táctil no hay "salir" del hover) y con foco de teclado, no con clic.
+		stage.addEventListener('pointerenter', (e) => { if (e.pointerType === 'mouse') { hover = true; sync(); } });
+		stage.addEventListener('pointerleave', (e) => { if (e.pointerType === 'mouse') { hover = false; sync(); } });
+		stage.addEventListener('focusin', (e) => { if ((e.target as HTMLElement).matches(':focus-visible')) { hover = true; sync(); } });
+		stage.addEventListener('focusout', () => { hover = false; sync(); });
+		document.addEventListener('visibilitychange', sync);
+		tabs.forEach((t, i) => t.addEventListener('click', () => { started = true; if (i !== idx) show(i); else play(i); }));
+		new IntersectionObserver((e) => { visible = e[0].isIntersecting; if (visible) eager(); sync(); }, { threshold: 0.25 }).observe(wrap);
+		ScrollTrigger.create({ trigger: wrap, start: 'top 140%', once: true, onEnter: eager });
+
+		const begin = () => { started = true; play(idx); };
+		if (reduce) {
+			// Movimiento reducido: entrada con fundido y luego solo fundidos entre sitios.
+			gsap.timeline({ scrollTrigger: { trigger: wrap, start: 'top 80%', once: true }, onComplete: begin })
+				.from('[data-we-browser]', { autoAlpha: 0, duration: 0.6 })
+				.from('[data-we-phone]', { autoAlpha: 0, duration: 0.6 }, '-=0.3')
+				.from('.we-tab', { autoAlpha: 0, duration: 0.3, stagger: 0.06 }, '-=0.3');
+		} else {
+			gsap.timeline({ scrollTrigger: { trigger: wrap, start: 'top 75%', once: true }, onComplete: begin })
+				.from('[data-we-browser]', { autoAlpha: 0, x: -70, rotateY: 8, transformPerspective: 1200, duration: 0.8, ease: 'power3.out' })
 				.from(slides[0], { scale: 1.06, duration: 1.1, ease: 'power2.out' }, '-=0.5')
 				.from('[data-we-phone]', { autoAlpha: 0, y: 110, x: 40, rotate: 7, duration: 0.85, ease: 'power3.out' }, '-=0.8')
 				.from('.we-tab', { autoAlpha: 0, y: 10, duration: 0.4, stagger: 0.08, ease: 'power2.out' }, '-=0.4');

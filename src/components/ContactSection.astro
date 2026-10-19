@@ -118,7 +118,7 @@ const topics = ['Diseño a medida', 'Web y ecommerce', 'CRM', 'ERP', 'Soluciones
 	.ct-status { min-height: 1.2rem; font-size: 0.88rem; color: var(--color-neon-300); }
 	.ct-status.is-error { color: #fca5a5; }
 	@media (max-width: 639px) { .ct-actions .sc-btn { width: 100%; } .ct-wa { width: 100%; } }
-	@media (prefers-reduced-motion: reduce) { .ct-live { animation: none; } .ct-wa:hover { transform: none; } }
+	@media (prefers-reduced-motion: reduce) { .ct-wa:hover { transform: none; } } /* el pulso de .ct-live es solo sombra/opacidad: se mantiene */
 </style>
 
 <script>
