@@ -42,13 +42,14 @@ function build(kind: string, stage: HTMLElement, R: boolean): gsap.core.Timeline
 	const tl = gsap.timeline({ repeat: -1, repeatDelay: 1.6, paused: true });
 
 	if (kind === 'crm') {
-		const m1 = $('[data-c-m1]'), ai = $('[data-c-ai]'), m2 = $('[data-c-m2]'), typed = $('[data-c-type]'), ticks = $('[data-c-ticks]'), typing = $('[data-c-typing]'), m3 = $('[data-c-m3]'), stageTag = $('[data-c-stage]');
-		tl.set([m1, ai, m2, typing, m3, stageTag], { autoAlpha: 0, y: 0, scale: 1 })
+		const m1 = $('[data-c-m1]'), ai = $('[data-c-ai]'), m2 = $('[data-c-m2]'), typed = $('[data-c-type]'), ticks = $('[data-c-ticks]'), typing = $('[data-c-typing]'), m3 = $('[data-c-m3]'), stageTag = $('[data-c-stage]'); const card = $('[data-c-card]');
+		tl.set([m1, ai, m2, typing, m3, stageTag, card], { autoAlpha: 0, y: 0, scale: 1 })
 			.call(() => { typed.textContent = ''; ticks.classList.remove('read'); })
 			.fromTo(m1, { autoAlpha: 0, y: mv(10) }, { autoAlpha: 1, y: 0, duration: 0.45, ease: 'power2.out' }, 0.3)
 			.fromTo(ai, { autoAlpha: 0, scale: R ? 1 : 0.85 }, { autoAlpha: 1, scale: 1, duration: 0.4, ease: R ? 'power1.out' : 'back.out(2)' }, '+=0.7')
 			.fromTo(m2, { autoAlpha: 0, y: mv(8) }, { autoAlpha: 1, y: 0, duration: 0.35 }, '+=0.6')
 			.add(typeInto(typed, 34))
+			.fromTo(card, { autoAlpha: 0, y: mv(6) }, { autoAlpha: 1, y: 0, duration: 0.4, ease: 'power2.out' }, '+=0.15')
 			.call(() => ticks.classList.add('read'), [], '+=0.6')
 			.to(ai, { autoAlpha: 0, duration: 0.3 }, '<')
 			.fromTo(typing, { autoAlpha: 0 }, { autoAlpha: 1, duration: 0.25 }, '+=0.3')

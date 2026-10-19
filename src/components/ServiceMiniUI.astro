@@ -3,6 +3,8 @@
 // Diseñadas a 360 × 210 px y escaladas al tamaño del tile (ver src/scripts/mini-ui.ts).
 interface Props { kind: 'dm' | 'web' | 'crm' | 'erp' }
 const { kind } = Astro.props;
+// Fotos reales de producto (CC0, ver demo-pages/CREDITS.md), optimizadas en public/products.
+const img = (n: string) => `${import.meta.env.BASE_URL.replace(/\/$/, '')}/products/${n}.webp`;
 ---
 <div class="mu" data-mu={kind} aria-hidden="true">
 	<span class="mu-demo">Ejemplo</span>
@@ -13,14 +15,14 @@ const { kind } = Astro.props;
 					<span class="c-av">MF</span>
 					<div class="c-who"><b>María Fernández</b><span><i class="c-on"></i>en línea · +51 987 654 321</span></div>
 					<span class="c-tag c-hot">Lead caliente</span>
-					<span class="c-tag c-stage" data-c-stage>Propuesta enviada</span>
+					<span class="c-tag c-stage" data-c-stage>Pedido por cerrar</span>
 				</div>
 				<div class="c-chat">
-					<div class="c-msg c-in" data-c-m1>Hola 👋 ¿el plan para 3 sucursales incluye la bandeja compartida?<em>10:42</em></div>
-					<div class="c-ai" data-c-ai><span class="ms">auto_awesome</span><span>Sugerencia IA: <b>confirmar y ofrecer cotización</b></span></div>
-					<div class="c-msg c-out" data-c-m2><span data-c-type data-text="¡Hola María! Sí, incluye bandeja compartida para todo tu equipo. ¿Te envío la cotización?"></span><em>10:43 <span class="ms c-ticks" data-c-ticks>done_all</span></em></div>
+					<div class="c-msg c-in" data-c-m1>Hola 👋 ¿tienen la casaca denim en talla M?<em>10:42</em></div>
+					<div class="c-ai" data-c-ai><span class="ms">auto_awesome</span><span>Sugerencia IA: <b>enviar foto y precio</b></span></div>
+					<div class="c-msg c-out" data-c-m2><span data-c-type data-text="¡Hola María! Sí, quedan 3 en M:"></span><span class="c-prod" data-c-card><img src={img('casaca-denim')} alt="" width="40" height="40" loading="lazy" decoding="async" /><span><b>Casaca denim</b>S/ 149.90 · Talla M</span></span><em>10:43 <span class="ms c-ticks" data-c-ticks>done_all</span></em></div>
 					<div class="c-typing" data-c-typing><i></i><i></i><i></i></div>
-					<div class="c-msg c-in" data-c-m3>Sí, por favor 🙌<em>10:44</em></div>
+					<div class="c-msg c-in" data-c-m3>¡La quiero! ¿Aceptan Yape? 🙌<em>10:44</em></div>
 				</div>
 				<div class="c-input"><span>Escribe un mensaje…</span><span class="ms">send</span></div>
 			</div>
@@ -43,20 +45,20 @@ const { kind } = Astro.props;
 						<div class="e-row" data-e-row><span class="ms">description</span><b>B001-004512</b><span class="e-cli">Cliente varios</span><span class="e-amt">S/ 89.90</span><span class="e-badge ok">Aceptada</span></div>
 					</div>
 				</div>
-				<div class="e-toast" data-e-toast><span class="ms">warning</span><div><b>Stock bajo</b><span>Polo algodón M · quedan 4 u.</span></div></div>
+				<div class="e-toast" data-e-toast><img class="e-thumb" src={img('polo-algodon')} alt="" width="28" height="28" loading="lazy" decoding="async" /><div><b><span class="ms">warning</span>Stock bajo</b><span>Polo algodón M · quedan 4 u.</span></div></div>
 			</div>
 		)}
 		{kind === 'dm' && (
 			<div class="dm">
 				<div class="d-tool"><span class="ms">near_me</span><span class="ms">crop_square</span><span class="ms">title</span><span class="ms">widgets</span><span class="d-file">Panel de pedidos · v3</span><span class="d-avs"><i>AL</i><i>JV</i></span></div>
 				<div class="d-body">
-					<div class="d-layers"><span>Capas</span><i class="on">Header</i><i>Tarjeta KPI</i><i>Tabla</i><i>Botón</i></div>
+					<div class="d-layers"><span>Capas</span><i class="on">Header</i><i>Tarjeta KPI</i><i>Imagen</i><i>Botón</i></div>
 					<div class="d-canvas">
 						<div class="d-frame" data-d-frame>
 							<span class="d-flabel">Escritorio · 1440</span>
 							<div class="d-hdr" data-d-part><i></i><span>Pedidos</span><b></b></div>
 							<div class="d-kpis" data-d-part><div><span>Pendientes</span><b>18</b></div><div><span>En ruta</span><b>7</b></div></div>
-							<div class="d-tbl" data-d-part><i></i><i></i><i></i></div>
+							<div class="d-img" data-d-part><img src={img('colgadores-tienda')} alt="" width="240" height="140" loading="lazy" decoding="async" /><span>Colección otoño</span></div>
 							<div class="d-btn" data-d-btn>Nuevo pedido</div>
 							<div class="d-sel" data-d-sel><i></i><i></i><i></i><i></i></div>
 						</div>
@@ -72,9 +74,9 @@ const { kind } = Astro.props;
 				<div class="w-page">
 					<div class="w-hdr"><b>Lumara.</b><span>Novedades</span><span>Mujer</span><span>Hombre</span><span class="w-cart"><span class="ms">shopping_bag</span><i data-w-badge>0</i></span></div>
 					<div class="w-grid">
-						<div class="w-card"><div class="w-ph p1"><span class="ms">checkroom</span></div><b>Polo algodón pima</b><span>S/ 59.90</span><em>Agregar</em></div>
-						<div class="w-card" data-w-target><div class="w-ph p2"><span class="ms">styler</span></div><b>Casaca denim</b><span>S/ 149.90</span><em data-w-add>Agregar</em></div>
-						<div class="w-card"><div class="w-ph p3"><span class="ms">apparel</span></div><b>Vestido lino</b><span>S/ 119.90</span><em>Agregar</em></div>
+						<div class="w-card"><img class="w-ph" src={img('polo-algodon')} alt="" width="160" height="160" loading="lazy" decoding="async" /><b>Polo algodón pima</b><span>S/ 59.90</span><em>Agregar</em></div>
+						<div class="w-card" data-w-target><img class="w-ph" src={img('casaca-denim')} alt="" width="160" height="160" loading="lazy" decoding="async" /><b>Casaca denim</b><span>S/ 149.90</span><em data-w-add>Agregar</em></div>
+						<div class="w-card"><img class="w-ph" src={img('zapatillas-lona')} alt="" width="160" height="160" loading="lazy" decoding="async" /><b>Zapatillas de lona</b><span>S/ 129.90</span><em>Agregar</em></div>
 					</div>
 				</div>
 				<div class="w-pay" data-w-pay>
@@ -111,12 +113,13 @@ const { kind } = Astro.props;
 	.c-msg { max-width: 76%; padding: 5px 8px 4px; border-radius: 10px; font-size: 9.5px; line-height: 1.35; }
 	.c-msg em { display: flex; justify-content: flex-end; align-items: center; gap: 2px; font-style: normal; font-size: 7.5px; color: rgba(226, 232, 240, 0.6); margin-top: 1px; }
 	.c-in { align-self: flex-start; background: #1a2640; color: #e2e8f0; border-bottom-left-radius: 3px; }
+	.c-prod { display: flex; gap: 6px; align-items: center; margin-top: 3px; padding: 3px; border-radius: 7px; background: rgba(5, 12, 28, 0.35); } .c-prod img { width: 28px; height: 28px; border-radius: 5px; object-fit: cover; } .c-prod span { display: flex; flex-direction: column; font-size: 8px; color: rgba(255,255,255,.85); } .c-prod b { font-size: 9px; color: #fff; }
 	.c-out { align-self: flex-end; background: linear-gradient(100deg, #0a7b88, #2150d6); color: #fff; border-bottom-right-radius: 3px; min-height: 30px; }
 	.c-ticks { font-size: 11px; color: rgba(255, 255, 255, 0.55); transition: color 0.3s; }
 	.c-ticks.read { color: #7dd3fc; }
-	.c-ai { align-self: flex-end; display: inline-flex; align-items: center; gap: 4px; font-size: 8.5px; color: #c4f5fb; padding: 3px 7px; border-radius: 99px; background: rgba(106, 92, 240, 0.18); border: 1px solid rgba(143, 155, 255, 0.45); }
+	.c-ai { position: absolute; right: 10px; top: 30px; display: inline-flex; align-items: center; gap: 4px; font-size: 8.5px; color: #c4f5fb; padding: 3px 7px; border-radius: 99px; background: rgba(106, 92, 240, 0.18); border: 1px solid rgba(143, 155, 255, 0.45); }
 	.c-ai .ms { font-size: 11px; color: #a5b4fc; }
-	.c-typing { align-self: flex-start; display: flex; gap: 3px; padding: 6px 8px; border-radius: 10px; background: #1a2640; }
+	.c-typing { position: absolute; left: 10px; bottom: 8px; display: flex; gap: 3px; padding: 6px 8px; border-radius: 10px; background: #1a2640; }
 	.c-typing i { width: 4px; height: 4px; border-radius: 50%; background: #8ea3bf; animation: mu-dot 1s infinite; }
 	.c-typing i:nth-child(2) { animation-delay: 0.15s; } .c-typing i:nth-child(3) { animation-delay: 0.3s; }
 	@keyframes mu-dot { 0%, 100% { opacity: 0.35; } 50% { opacity: 1; } }
@@ -146,7 +149,8 @@ const { kind } = Astro.props;
 	.e-badge { font-size: 7.5px; font-weight: 700; padding: 2px 6px; border-radius: 99px; color: #fde68a; background: rgba(251, 191, 36, 0.12); border: 1px solid rgba(251, 191, 36, 0.35); }
 	.e-badge.ok { color: #6ee7b7; background: rgba(52, 211, 153, 0.12); border-color: rgba(52, 211, 153, 0.4); }
 	.e-toast { position: absolute; right: 8px; bottom: 8px; display: flex; gap: 6px; align-items: center; padding: 5px 8px; border-radius: 8px; background: #2a1d0b; border: 1px solid rgba(251, 191, 36, 0.45); box-shadow: 0 8px 20px -8px rgba(0, 0, 0, 0.8); }
-	.e-toast .ms { color: #fbbf24; font-size: 14px; }
+	.e-toast .ms { color: #fbbf24; font-size: 10px; vertical-align: -1px; margin-right: 2px; }
+	.e-thumb { width: 28px; height: 28px; border-radius: 5px; object-fit: cover; border: 1px solid rgba(251, 191, 36, 0.35); }
 	.e-toast b { display: block; font-size: 8.5px; color: #fde68a; }
 	.e-toast span { font-size: 8px; color: #fcd9a0; }
 
@@ -164,7 +168,7 @@ const { kind } = Astro.props;
 	.d-flabel { position: absolute; left: 0; top: -12px; font-size: 7px; color: #8ea3bf; }
 	.d-hdr { display: flex; align-items: center; gap: 5px; height: 14px; } .d-hdr i { width: 10px; height: 10px; border-radius: 3px; background: linear-gradient(135deg, #17cbda, #245ef5); } .d-hdr span { font: 700 8.5px/1 Inter, sans-serif; color: #0f172a; } .d-hdr b { margin-left: auto; width: 34px; height: 7px; border-radius: 4px; background: #e2e8f0; }
 	.d-kpis { display: grid; grid-template-columns: 1fr 1fr; gap: 5px; } .d-kpis div { padding: 4px 6px; border-radius: 5px; background: #eef2ff; display: flex; flex-direction: column; } .d-kpis span { font-size: 6.5px; color: #64748b; } .d-kpis b { font-size: 10px; color: #1e293b; }
-	.d-tbl { display: flex; flex-direction: column; gap: 3px; } .d-tbl i { height: 6px; border-radius: 3px; background: #e2e8f0; } .d-tbl i:nth-child(2) { width: 82%; } .d-tbl i:nth-child(3) { width: 64%; }
+	.d-img { position: relative; height: 34px; border-radius: 5px; overflow: hidden; } .d-img img { width: 100%; height: 100%; object-fit: cover; display: block; } .d-img span { position: absolute; left: 6px; bottom: 4px; font-size: 7px; font-weight: 700; color: #fff; text-shadow: 0 1px 3px rgba(0,0,0,.7); }
 	.d-btn { position: absolute; right: 8px; bottom: 8px; padding: 4px 8px; border-radius: 10px; font: 700 7.5px/1 Inter, sans-serif; color: #fff; background: linear-gradient(100deg, #0a7b88, #2150d6); }
 	.d-sel { position: absolute; right: 6px; bottom: 6px; width: 62px; height: 19px; border: 1px solid #38bdf8; pointer-events: none; }
 	.d-sel i { position: absolute; width: 4px; height: 4px; background: #fff; border: 1px solid #38bdf8; } .d-sel i:nth-child(1) { left: -3px; top: -3px; } .d-sel i:nth-child(2) { right: -3px; top: -3px; } .d-sel i:nth-child(3) { left: -3px; bottom: -3px; } .d-sel i:nth-child(4) { right: -3px; bottom: -3px; }
@@ -185,7 +189,7 @@ const { kind } = Astro.props;
 	.w-cart i { position: absolute; right: -6px; top: -5px; min-width: 12px; height: 12px; padding: 0 3px; border-radius: 99px; display: grid; place-items: center; font: 700 7.5px/1 Inter, sans-serif; font-style: normal; color: #fff; background: #c2410c; }
 	.w-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 7px; }
 	.w-card { display: flex; flex-direction: column; gap: 1px; font-size: 8px; }
-	.w-ph { height: 82px; border-radius: 7px; display: grid; place-items: center; margin-bottom: 3px; } .w-ph .ms { font-size: 30px; color: rgba(255, 255, 255, 0.85); }
+	.w-ph { display: block; width: 100%; height: 82px; object-fit: cover; border-radius: 7px; margin-bottom: 3px; background: #1d2a44; }
 	.p1 { background: linear-gradient(160deg, #e8c9a6, #b98458); } .p2 { background: linear-gradient(160deg, #8fb3d9, #3f6b9e); } .p3 { background: linear-gradient(160deg, #d9c7b8, #8b6f5a); }
 	.w-card b { font-weight: 600; color: #111827; } .w-card span { color: #6b7280; }
 	.w-card em { margin-top: 3px; align-self: flex-start; font-style: normal; font-weight: 700; font-size: 7.5px; padding: 3px 7px; border-radius: 99px; color: #fff; background: #111827; transition: background 0.2s; }
