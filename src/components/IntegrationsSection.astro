@@ -62,7 +62,10 @@ const ringB = place(outer, 50, -67.5);
 		.orb-core { width: 84px; height: 84px; margin: -42px 0 0 -42px; border-radius: 22px; }
 		.orb-core img { width: 44px; }
 	}
-	@media (prefers-reduced-motion: reduce) { .orb-spin, .orb-ico { animation: none; } }
+	/* Movimiento reducido: las órbitas siguen girando, pero más despacio (los iconos se mantienen derechos). */
+	@media (prefers-reduced-motion: reduce) { .orb-b { --d: 160s; } .orb-a { --d: 120s; } }
+	/* Fuera de pantalla se pausa (rendimiento). */
+	.orb.is-paused .orb-spin, .orb.is-paused .orb-ico { animation-play-state: paused; }
 </style>
 
 <script>
@@ -72,6 +75,8 @@ const ringB = place(outer, 50, -67.5);
 
 	gsap.registerPlugin(ScrollTrigger);
 	const root = document.getElementById('integrations');
+	const orb = root?.querySelector<HTMLElement>('[data-orb]');
+	if (orb) new IntersectionObserver((e) => orb.classList.toggle('is-paused', !e[0].isIntersecting)).observe(orb);
 	if (root && prefersReducedMotion()) {
 		// Movimiento reducido: el núcleo, las órbitas y los iconos aparecen con fundidos, sin escalas.
 		gsap.timeline({ scrollTrigger: { trigger: '[data-orb]', start: 'top 85%', once: true } })

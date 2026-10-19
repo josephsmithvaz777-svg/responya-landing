@@ -121,9 +121,14 @@ const chips = [
 		.hero-ctas { width: 100%; flex-direction: column; align-items: stretch; max-width: 22rem; }
 		.hero-chip { font-size: 0.75rem; padding: 6px 11px; }
 	}
+	/* Fuera de pantalla se pausa (rendimiento). */
+	.hero.is-paused .hero-ring, .hero.is-paused .hero-glow, .hero.is-paused .hero-stars .s3, .hero.is-paused .hero-mouse i { animation-play-state: paused; }
 	@media (prefers-reduced-motion: reduce) {
 		/* Movimiento reducido: sin giros ni desplazamientos; se mantienen el parpadeo de estrellas y un brillo suave (solo opacidad). */
-		.hero-ring, .hero-mouse i { animation: none; }
+		/* Anillos e indicador de scroll: más lentos y suaves. */
+		.hero-ring.r1 { animation-duration: 32s; }
+		.hero-ring.r2 { animation-duration: 50s; }
+		.hero-mouse i { animation-duration: 3.2s; }
 		.hero-glow { animation-name: hero-glow-soft; }
 	}
 </style>
@@ -135,6 +140,7 @@ const chips = [
 
 	gsap.registerPlugin(ScrollTrigger);
 	const hero = document.getElementById('hero');
+	if (hero) new IntersectionObserver((e) => hero.classList.toggle('is-paused', !e[0].isIntersecting)).observe(hero);
 	// Movimiento reducido: entrada solo con fundidos (sin escalas, giros ni parallax).
 	if (hero && prefersReducedMotion()) {
 		const q = (s: string) => Array.from(hero.querySelectorAll<HTMLElement>(s));
