@@ -132,24 +132,21 @@ const services = [
 	import { ScrollTrigger } from 'gsap/ScrollTrigger';
 	import { prefersReducedMotion } from '../scripts/fit-mock';
 	import { initSpotlight } from '../scripts/spotlight';
+	import { revealCards } from '../scripts/reveal';
 
 	gsap.registerPlugin(ScrollTrigger);
 	const root = document.getElementById('services');
 	if (root) {
 		initSpotlight(root);
-		if (!prefersReducedMotion()) {
-			const tiles = Array.from(root.querySelectorAll<HTMLElement>('[data-sv-tile]'));
-			// Bento: cada tile se "abre" con un recorte desde su centro, en cascada.
-			gsap.set(tiles, { clipPath: 'inset(12% 12% 12% 12% round 22px)', autoAlpha: 0, scale: 0.96 });
-			ScrollTrigger.batch(tiles, {
-				start: 'top 86%',
-				once: true,
-				onEnter: (batch) => gsap.to(batch, { clipPath: 'inset(0% 0% 0% 0% round 22px)', autoAlpha: 1, scale: 1, duration: 0.85, stagger: 0.1, ease: 'power3.out', clearProps: 'clipPath,transform' }),
-			});
-			// Detalles de cada ilustración
-			gsap.from(root.querySelectorAll('.art-erp i'), { scaleY: 0, duration: 0.7, stagger: 0.06, ease: 'power3.out', scrollTrigger: { trigger: root.querySelector('.sv-erp'), start: 'top 80%', once: true } });
-			gsap.from(root.querySelectorAll('.art-crm .b'), { y: 14, autoAlpha: 0, duration: 0.45, stagger: 0.25, delay: 0.3, ease: 'power2.out', scrollTrigger: { trigger: root.querySelector('.sv-crm'), start: 'top 80%', once: true } });
-			gsap.from(root.querySelectorAll('.dm-ui > *'), { scaleX: 0, transformOrigin: '0 50%', duration: 0.5, stagger: 0.1, delay: 0.4, ease: 'power2.out', scrollTrigger: { trigger: root.querySelector('.sv-dm'), start: 'top 80%', once: true } });
-		}
+		// Bento: cada tile aparece al entrar al viewport (en cascada si entran juntos) y luego anima su ilustración.
+		revealCards(root.querySelectorAll<HTMLElement>('[data-sv-tile]'), {
+			onReveal: (tile, delay) => {
+				if (prefersReducedMotion()) return;
+				const at = delay + 0.3;
+				if (tile.classList.contains('sv-erp')) gsap.fromTo(tile.querySelectorAll('.art-erp i'), { scaleY: 0 }, { scaleY: 1, duration: 0.7, stagger: 0.06, delay: at, ease: 'power3.out' });
+				if (tile.classList.contains('sv-crm')) gsap.fromTo(tile.querySelectorAll('.art-crm .b'), { y: 14, autoAlpha: 0 }, { y: 0, autoAlpha: 1, duration: 0.45, stagger: 0.25, delay: at, ease: 'power2.out' });
+				if (tile.classList.contains('sv-dm')) gsap.fromTo(tile.querySelectorAll('.dm-ui > *'), { scaleX: 0, transformOrigin: '0 50%' }, { scaleX: 1, duration: 0.5, stagger: 0.1, delay: at + 0.1, ease: 'power2.out' });
+			},
+		});
 	}
 </script>

@@ -138,6 +138,7 @@ const sites = [
 	import { gsap } from 'gsap';
 	import { ScrollTrigger } from 'gsap/ScrollTrigger';
 	import { fitMock, prefersReducedMotion } from '../scripts/fit-mock';
+	import { revealCards } from '../scripts/reveal';
 
 	gsap.registerPlugin(ScrollTrigger);
 	const root = document.getElementById('web-ecommerce');
@@ -145,6 +146,8 @@ const sites = [
 	const mock = root?.querySelector<HTMLElement>('[data-we-mock]');
 	if (root && wrap && mock) {
 		fitMock(wrap, mock, 1000, 566);
+		// Tarjetas de características: una a una al entrar al viewport.
+		revealCards(root.querySelectorAll<HTMLElement>('[data-we-feature]'));
 		const q = (sel: string) => Array.from(root.querySelectorAll<HTMLElement>(sel));
 		const slides = q('[data-we-slide]');
 		const mslides = q('[data-we-mslide]');
@@ -152,7 +155,6 @@ const sites = [
 		const urlEl = root.querySelector<HTMLElement>('[data-we-url]');
 		const urls = slides.map((sl) => sl.dataset.url ?? '');
 		if (!prefersReducedMotion()) {
-			gsap.set(q('[data-we-feature]'), { autoAlpha: 0, x: -20 });
 			let idx = 0;
 			let timer: number | undefined;
 			let visible = false;
@@ -177,8 +179,7 @@ const sites = [
 			tl.from('[data-we-browser]', { autoAlpha: 0, x: -70, rotateY: 8, transformPerspective: 1200, duration: 0.8, ease: 'power3.out' })
 				.from(slides[0], { scale: 1.06, duration: 1.1, ease: 'power2.out' }, '-=0.5')
 				.from('[data-we-phone]', { autoAlpha: 0, y: 110, x: 40, rotate: 7, duration: 0.85, ease: 'power3.out' }, '-=0.8')
-				.from('.we-tab', { autoAlpha: 0, y: 10, duration: 0.4, stagger: 0.08, ease: 'power2.out' }, '-=0.4')
-				.to(q('[data-we-feature]'), { autoAlpha: 1, x: 0, duration: 0.5, stagger: 0.1, ease: 'power3.out' }, 0.2);
+				.from('.we-tab', { autoAlpha: 0, y: 10, duration: 0.4, stagger: 0.08, ease: 'power2.out' }, '-=0.4');
 		}
 	}
 </script>
