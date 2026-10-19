@@ -67,6 +67,7 @@ const steps = [
 	import { gsap } from 'gsap';
 	import { ScrollTrigger } from 'gsap/ScrollTrigger';
 	import { prefersReducedMotion } from '../scripts/fit-mock';
+	import { revealCards } from '../scripts/reveal';
 
 	gsap.registerPlugin(ScrollTrigger);
 	const root = document.getElementById('process');
@@ -78,13 +79,19 @@ const steps = [
 		} else {
 			// La línea crece ligada al scroll (scrub) desde el primer paso hasta el último.
 			gsap.fromTo('[data-pr-fill]', { scaleY: 0 }, { scaleY: 1, ease: 'none', scrollTrigger: { trigger: line, start: 'top 62%', end: 'bottom 62%', scrub: 0.4 } });
-			steps.forEach((s, i) => {
-				const card = s.querySelector('.pr-card');
-				const desktop = window.matchMedia('(min-width: 768px)').matches;
-				const fromX = desktop ? (i % 2 ? 50 : -50) : 30;
+			const desktop = window.matchMedia('(min-width: 768px)').matches;
+			steps.forEach((s) => {
 				ScrollTrigger.create({ trigger: s.querySelector('.pr-node'), start: 'top 62%', onEnter: () => s.classList.add('is-on'), onLeaveBack: () => s.classList.remove('is-on') });
-				gsap.from(card, { autoAlpha: 0, x: fromX, filter: 'blur(6px)', duration: 0.8, ease: 'power3.out', clearProps: 'filter', scrollTrigger: { trigger: s, start: 'top 80%', once: true } });
-				gsap.from(s.querySelector('.pr-node'), { scale: 0.3, autoAlpha: 0, duration: 0.5, ease: 'back.out(2.5)', scrollTrigger: { trigger: s, start: 'top 80%', once: true } });
+			});
+			// Cada paso: su tarjeta aparece al entrar al viewport y el nodo "salta" justo después.
+			steps.forEach((s, i) => {
+				const card = s.querySelector<HTMLElement>('.pr-card')!;
+				const node = s.querySelector<HTMLElement>('.pr-node')!;
+				gsap.set(node, { autoAlpha: 0, scale: 0.3 });
+				revealCards([card], {
+					from: { x: desktop ? (i % 2 ? 30 : -30) : 18 },
+					onReveal: () => gsap.to(node, { scale: 1, autoAlpha: 1, duration: 0.5, delay: 0.15, ease: 'back.out(2.5)', clearProps: 'transform' }),
+				});
 			});
 		}
 	}

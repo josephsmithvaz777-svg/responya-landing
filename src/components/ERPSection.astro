@@ -226,6 +226,7 @@ const bars = [42, 55, 48, 63, 58, 71, 66, 80, 74, 86];
 	import { gsap } from 'gsap';
 	import { ScrollTrigger } from 'gsap/ScrollTrigger';
 	import { fitMock, prefersReducedMotion } from '../scripts/fit-mock';
+	import { revealCards } from '../scripts/reveal';
 
 	gsap.registerPlugin(ScrollTrigger);
 	const root = document.getElementById('erp');
@@ -239,7 +240,9 @@ const bars = [42, 55, 48, 63, 58, 71, 66, 80, 74, 86];
 		const targets = Array.from({ length: N }, (_, i) => get('data-erp-target', i + 1));
 		const lines = Array.from({ length: N }, (_, i) => root.querySelector<SVGPathElement>(`[data-erp-line="${i + 1}"]`)!);
 		const dots = Array.from({ length: N }, (_, i) => get('data-erp-dot', i + 1));
-		let drawn = prefersReducedMotion();
+		const reduce = prefersReducedMotion();
+		// Líneas ya dibujadas (con reduced motion: todas desde el inicio).
+		const drawn = new Set<number>(reduce ? [0, 1, 2, 3, 4, 5] : []);
 
 		function layout() {
 			const sr = stage!.getBoundingClientRect();
@@ -258,8 +261,8 @@ const bars = [42, 55, 48, 63, 58, 71, 66, 80, 74, 86];
 				const mx = ax + (left ? 22 : -22);
 				lines[i].setAttribute('d', `M ${ax} ${ay} H ${mx} L ${tx} ${ty}`);
 				const len = lines[i].getTotalLength();
-				lines[i].style.strokeDasharray = drawn ? '3 4' : `${len}`;
-				lines[i].style.strokeDashoffset = drawn ? '0' : `${len}`;
+				lines[i].style.strokeDasharray = drawn.has(i) ? '3 4' : `${len}`;
+				lines[i].style.strokeDashoffset = drawn.has(i) ? '0' : `${len}`;
 				lines[i].dataset.len = String(len);
 			}
 		}
@@ -270,25 +273,32 @@ const bars = [42, 55, 48, 63, 58, 71, 66, 80, 74, 86];
 			const bars = Array.from(root.querySelectorAll<HTMLElement>('[data-erp-bar]'));
 			const donut = root.querySelector<HTMLElement>('[data-erp-donut]')!;
 			const prox = { p: 0 };
-			gsap.set(cards, { autoAlpha: 0 });
 			gsap.set(dots, { autoAlpha: 0, scale: 0.3 });
 			donut.style.setProperty('--p', '0');
-			const tl = gsap.timeline({ scrollTrigger: { trigger: wrap, start: 'top 72%', once: true } });
+			const tl = gsap.timeline({ scrollTrigger: { trigger: wrap, start: 'top 85%', once: true } });
 			tl.from('[data-erp-dash]', { autoAlpha: 0, y: 40, scale: 0.97, duration: 0.7, ease: 'power3.out' })
 				.from(root.querySelectorAll('.e-kpi'), { autoAlpha: 0, y: 12, duration: 0.35, stagger: 0.07 }, '-=0.3')
 				.from(bars, { scaleY: 0, duration: 0.6, stagger: 0.05, ease: 'power3.out' }, '-=0.15')
 				.to(prox, { p: 1, duration: 0.9, ease: 'power2.out', onUpdate: () => donut.style.setProperty('--p', String(prox.p)) }, '<')
 				.from('[data-erp-invoice]', { autoAlpha: 0, x: 60, rotate: 4, duration: 0.6, ease: 'power3.out' }, '-=0.5')
-				.from('[data-erp-stamp]', { autoAlpha: 0, scale: 1.8, rotate: -12, duration: 0.4, ease: 'back.out(2.2)' })
-				.call(() => { drawn = true; });
-			cards.forEach((c, i) => {
-				const pos = i === 0 ? '+=0.1' : '-=0.32';
-				const desktop = window.innerWidth >= 1024;
-				tl.to(dots[i], { autoAlpha: 1, scale: 1, duration: 0.25, ease: 'back.out(2.5)' }, pos)
-					.call(() => { targets[i].classList.add('is-lit'); setTimeout(() => targets[i].classList.remove('is-lit'), 1200); }, [], '<');
-				if (desktop) tl.fromTo(lines[i], { strokeDashoffset: () => Number(lines[i].dataset.len) }, { strokeDashoffset: 0, duration: 0.45, ease: 'power2.inOut', onComplete: () => { lines[i].style.strokeDasharray = '3 4'; } }, '<');
-				tl.fromTo(c, { autoAlpha: 0, x: desktop ? (i < 3 ? -24 : 24) : 0, y: desktop ? 0 : 16 }, { autoAlpha: 1, x: 0, y: 0, duration: 0.4, ease: 'power3.out' }, '-=0.15');
-			});
+				.from('[data-erp-stamp]', { autoAlpha: 0, scale: 1.8, rotate: -12, duration: 0.4, ease: 'back.out(2.2)' });
+
 		}
+
+		// Tarjetas: cada una aparece al entrar al viewport; después su punto se enciende
+		// y la línea guía se dibuja hacia el elemento del panel.
+		const isDesk = () => window.innerWidth >= 1024;
+		revealCards(cards, {
+			from: { x: (_: number, el: HTMLElement) => (isDesk() ? (Number(el.dataset.erpCard) <= 3 ? -24 : 24) : 0) },
+			onReveal: (c, delay) => {
+				if (reduce) return;
+				const i = cards.indexOf(c);
+				const t = gsap.timeline({ delay: delay + 0.35 });
+				t.to(dots[i], { autoAlpha: 1, scale: 1, duration: 0.25, ease: 'back.out(2.5)' })
+					.call(() => { targets[i].classList.add('is-lit'); setTimeout(() => targets[i].classList.remove('is-lit'), 1200); }, [], '<');
+				if (isDesk()) t.fromTo(lines[i], { strokeDashoffset: () => Number(lines[i].dataset.len) }, { strokeDashoffset: 0, duration: 0.5, ease: 'power2.inOut', onComplete: () => { drawn.add(i); lines[i].style.strokeDasharray = '3 4'; } }, '<');
+				else drawn.add(i);
+			},
+		});
 	}
 </script>

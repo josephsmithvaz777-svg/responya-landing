@@ -244,6 +244,7 @@ const layers = ['Encabezado', 'Indicadores', 'Gráfico', 'Lista de pedidos', 'Bo
 	import { gsap } from 'gsap';
 	import { ScrollTrigger } from 'gsap/ScrollTrigger';
 	import { fitMock, prefersReducedMotion } from '../scripts/fit-mock';
+	import { revealCards } from '../scripts/reveal';
 
 	gsap.registerPlugin(ScrollTrigger);
 	const root = document.getElementById('diseno-a-medida');
@@ -251,6 +252,8 @@ const layers = ['Encabezado', 'Indicadores', 'Gráfico', 'Lista de pedidos', 'Bo
 	const mock = root?.querySelector<HTMLElement>('[data-dm-mock]');
 	if (root && wrap && mock) {
 		fitMock(wrap, mock, 900, 560);
+		// Tarjetas de características: una a una al entrar al viewport.
+		revealCards(root.querySelectorAll<HTMLElement>('[data-dm-feature]'));
 		if (!prefersReducedMotion()) {
 			const q = (s: string) => Array.from(root.querySelectorAll<HTMLElement>(s));
 			const ui = root.querySelector<HTMLElement>('.dm-layer-ui')!;
@@ -258,7 +261,6 @@ const layers = ['Encabezado', 'Indicadores', 'Gráfico', 'Lista de pedidos', 'Bo
 			const layers = q('[data-dm-layer]');
 			gsap.set(ui, { clipPath: 'inset(0 100% 0 0)' });
 			gsap.set(['[data-dm-select]', '[data-dm-cursor]'], { autoAlpha: 0 });
-			gsap.set(q('[data-dm-feature]'), { autoAlpha: 0, y: 18 });
 			layers.forEach((l) => l.classList.remove('is-sel'));
 			const tl = gsap.timeline({ scrollTrigger: { trigger: root, start: 'top 65%', once: true } });
 			tl.from(wrap, { autoAlpha: 0, y: 30, duration: 0.6, ease: 'power3.out' })
@@ -272,8 +274,7 @@ const layers = ['Encabezado', 'Indicadores', 'Gráfico', 'Lista de pedidos', 'Bo
 			tl.call(() => { layers.forEach((x) => x.classList.remove('is-sel')); layers[1]?.classList.add('is-sel'); })
 				.fromTo('[data-dm-cursor]', { autoAlpha: 0, x: 80, y: 60 }, { autoAlpha: 1, x: 0, y: 0, duration: 0.6, ease: 'power2.out' })
 				.fromTo('[data-dm-select]', { autoAlpha: 0, scale: 0.92 }, { autoAlpha: 1, scale: 1, duration: 0.3, ease: 'back.out(2)' }, '-=0.15')
-				.from(q('.dm-swatches span'), { scale: 0, duration: 0.3, stagger: 0.06, ease: 'back.out(2)' }, '-=0.2')
-				.to(q('[data-dm-feature]'), { autoAlpha: 1, y: 0, duration: 0.5, stagger: 0.12, ease: 'power3.out' }, 0.5);
+				.from(q('.dm-swatches span'), { scale: 0, duration: 0.3, stagger: 0.06, ease: 'back.out(2)' }, '-=0.2');
 		}
 	}
 </script>
