@@ -433,3 +433,73 @@ body {
     background: rgba(3, 8, 23, 0.75);
     border: 1px solid rgba(95, 232, 255, 0.3);
 }
+
+/* ==========================================================
+ * v4 — piezas compartidas para Hero, Servicios, Nosotros,
+ * Proceso, Integraciones, Contacto y Footer
+ * ========================================================== */
+.sc-head { text-align: center; max-width: 48rem; margin: 0 auto 3.5rem; }
+.sc-h2 { text-wrap: balance; font-size: clamp(1.9rem, 1.2rem + 2.6vw, 3rem); line-height: 1.12; font-weight: 800; letter-spacing: -0.025em; margin: 1rem 0 1.25rem; color: #fff; }
+.sc-lead { color: rgba(203, 213, 225, 0.82); font-size: 1.075rem; line-height: 1.65; }
+
+.sc-btn {
+    position: relative; display: inline-flex; align-items: center; justify-content: center; gap: 0.6rem;
+    min-height: 3.1rem; padding: 0 1.6rem; border-radius: 999px; font-weight: 700; font-size: 0.95rem;
+    transition: transform 0.25s ease, box-shadow 0.3s ease, background-color 0.3s ease, border-color 0.3s ease;
+    -webkit-tap-highlight-color: transparent;
+}
+.sc-btn .material-symbols-outlined { font-size: 1.2rem; }
+.sc-btn-primary {
+    color: #fff;
+    background: linear-gradient(100deg, #0a7b88 0%, #2150d6 100%);
+    box-shadow: 0 10px 30px -10px rgba(var(--scalia-glow-blue), 0.8), 0 0 0 1px rgba(159, 243, 251, 0.25) inset;
+}
+.sc-btn-primary:hover { transform: translateY(-2px); box-shadow: 0 16px 40px -12px rgba(var(--scalia-glow-blue), 0.95), 0 0 28px rgba(var(--scalia-glow-cyan), 0.45), 0 0 0 1px rgba(159, 243, 251, 0.4) inset; }
+.sc-btn-ghost {
+    color: var(--color-ice);
+    background: rgba(8, 16, 36, 0.55);
+    border: 1px solid rgba(95, 232, 255, 0.28);
+    backdrop-filter: blur(10px);
+}
+.sc-btn-ghost:hover { transform: translateY(-2px); border-color: rgba(95, 232, 255, 0.6); background: rgba(23, 203, 218, 0.1); box-shadow: 0 0 24px rgba(var(--scalia-glow-cyan), 0.25); }
+.sc-btn:focus-visible, .sc-focus:focus-visible { outline: 2px solid var(--color-neon-400); outline-offset: 3px; }
+
+/* Tarjeta de vidrio con foco de luz que sigue al cursor (--mx/--my los pone spotlight.ts) */
+.sc-spot { position: relative; overflow: hidden; isolation: isolate; }
+.sc-spot::after {
+    content: ''; position: absolute; inset: 0; z-index: -1; pointer-events: none; opacity: 0; transition: opacity 0.4s ease;
+    background: radial-gradient(420px circle at var(--mx, 50%) var(--my, 0%), rgba(23, 203, 218, 0.14), transparent 45%);
+}
+.sc-spot:hover::after { opacity: 1; }
+
+@media (prefers-reduced-motion: reduce) {
+    .sc-btn, .sc-btn:hover { transition: none; transform: none; }
+}
+
+/* Modales legales (Privacidad / Términos) */
+.sc-modal { background: rgba(1, 3, 10, 0.72); backdrop-filter: blur(8px); -webkit-backdrop-filter: blur(8px); }
+.sc-modal.flex { animation: sc-modal-fade 0.25s ease-out; }
+.sc-modal.flex .sc-modal-panel { animation: sc-modal-in 0.35s cubic-bezier(0.2, 0.8, 0.2, 1); }
+.sc-modal-panel {
+    position: relative; width: 100%; max-width: 46rem; max-height: 86vh; display: flex; flex-direction: column; overflow: hidden; border-radius: 22px;
+    background: linear-gradient(165deg, rgba(12, 22, 46, 0.97), rgba(4, 9, 24, 0.98));
+    box-shadow: 0 0 0 1px rgba(95, 232, 255, 0.22), 0 30px 80px -20px rgba(0, 0, 0, 0.9), 0 0 60px -20px rgba(var(--scalia-glow-cyan), 0.45);
+}
+.sc-modal-head { display: flex; align-items: center; justify-content: space-between; gap: 1rem; padding: 1.2rem 1.4rem; border-bottom: 1px solid rgba(159, 243, 251, 0.1); background: radial-gradient(500px circle at 0% 0%, rgba(23, 203, 218, 0.14), transparent 60%); }
+.sc-modal-title { display: flex; align-items: center; gap: 0.8rem; font-size: 1.3rem; font-weight: 800; color: #fff; letter-spacing: -0.01em; }
+.sc-modal-close { width: 2.4rem; height: 2.4rem; display: grid; place-items: center; border-radius: 12px; color: #a8b5c8; border: 1px solid rgba(159, 243, 251, 0.12); transition: color 0.2s, background 0.2s, border-color 0.2s; }
+.sc-modal-close:hover { color: #fff; background: rgba(23, 203, 218, 0.1); border-color: rgba(95, 232, 255, 0.45); }
+.sc-modal-close:focus-visible { outline: 2px solid var(--color-neon-400); outline-offset: 2px; }
+.sc-modal-body { overflow-y: auto; padding: 1.4rem 1.6rem 1.6rem; }
+.sc-modal-content { display: grid; gap: 1.4rem; color: #cbd5e1; font-size: 0.95rem; line-height: 1.7; }
+.sc-modal-h3 { font-size: 1.05rem; font-weight: 700; color: var(--color-neon-300); margin-bottom: 0.5rem; }
+.sc-modal-content ul { list-style: none; margin: 0.4rem 0 0; padding: 0; display: grid; gap: 0.4rem; }
+.sc-modal-content li { position: relative; padding-left: 1.2rem; }
+.sc-modal-content li::before { content: ''; position: absolute; left: 0.2rem; top: 0.68em; width: 6px; height: 6px; border-radius: 50%; background: var(--scalia-gradient); box-shadow: 0 0 8px rgba(var(--scalia-glow-cyan), 0.7); }
+.sc-modal-a { color: var(--color-neon-300); text-decoration: underline; text-underline-offset: 3px; }
+.sc-modal-a:hover { color: #fff; }
+.sc-modal-foot { padding-top: 1rem; border-top: 1px solid rgba(159, 243, 251, 0.1); font-size: 0.85rem; color: #8b98ab; }
+.sc-modal-foot p { color: #8b98ab !important; }
+@keyframes sc-modal-fade { from { opacity: 0; } }
+@keyframes sc-modal-in { from { opacity: 0; transform: translateY(16px) scale(0.98); } }
+@media (prefers-reduced-motion: reduce) { .sc-modal.flex, .sc-modal.flex .sc-modal-panel { animation: none; } }
