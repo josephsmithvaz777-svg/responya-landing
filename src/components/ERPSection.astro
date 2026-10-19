@@ -241,8 +241,10 @@ const bars = [42, 55, 48, 63, 58, 71, 66, 80, 74, 86];
 		const lines = Array.from({ length: N }, (_, i) => root.querySelector<SVGPathElement>(`[data-erp-line="${i + 1}"]`)!);
 		const dots = Array.from({ length: N }, (_, i) => get('data-erp-dot', i + 1));
 		const reduce = prefersReducedMotion();
-		// Líneas ya dibujadas (con reduced motion: todas desde el inicio).
-		const drawn = new Set<number>(reduce ? [0, 1, 2, 3, 4, 5] : []);
+		// Líneas ya dibujadas (se dibujan al aparecer cada tarjeta, en ambos modos).
+		const drawn = new Set<number>();
+		// Movimiento reducido: misma secuencia, más lenta y con desplazamientos mínimos.
+		const m = reduce ? 0.25 : 1;
 
 		function layout() {
 			const sr = stage!.getBoundingClientRect();
@@ -269,19 +271,20 @@ const bars = [42, 55, 48, 63, 58, 71, 66, 80, 74, 86];
 		fitMock(wrap, mock, 1000, 620, layout);
 		window.addEventListener('resize', () => requestAnimationFrame(layout));
 
-		if (!prefersReducedMotion()) {
+		{
 			const bars = Array.from(root.querySelectorAll<HTMLElement>('[data-erp-bar]'));
 			const donut = root.querySelector<HTMLElement>('[data-erp-donut]')!;
 			const prox = { p: 0 };
-			gsap.set(dots, { autoAlpha: 0, scale: 0.3 });
+			gsap.set(dots, { autoAlpha: 0, scale: reduce ? 1 : 0.3 });
 			donut.style.setProperty('--p', '0');
 			const tl = gsap.timeline({ scrollTrigger: { trigger: wrap, start: 'top 85%', once: true } });
-			tl.from('[data-erp-dash]', { autoAlpha: 0, y: 40, scale: 0.97, duration: 0.7, ease: 'power3.out' })
-				.from(root.querySelectorAll('.e-kpi'), { autoAlpha: 0, y: 12, duration: 0.35, stagger: 0.07 }, '-=0.3')
+			if (reduce) tl.timeScale(0.75);
+			tl.from('[data-erp-dash]', { autoAlpha: 0, y: 40 * m, scale: reduce ? 1 : 0.97, duration: 0.7, ease: 'power3.out' })
+				.from(root.querySelectorAll('.e-kpi'), { autoAlpha: 0, y: 12 * m, duration: 0.35, stagger: 0.07 }, '-=0.3')
 				.from(bars, { scaleY: 0, duration: 0.6, stagger: 0.05, ease: 'power3.out' }, '-=0.15')
 				.to(prox, { p: 1, duration: 0.9, ease: 'power2.out', onUpdate: () => donut.style.setProperty('--p', String(prox.p)) }, '<')
-				.from('[data-erp-invoice]', { autoAlpha: 0, x: 60, rotate: 4, duration: 0.6, ease: 'power3.out' }, '-=0.5')
-				.from('[data-erp-stamp]', { autoAlpha: 0, scale: 1.8, rotate: -12, duration: 0.4, ease: 'back.out(2.2)' });
+				.from('[data-erp-invoice]', { autoAlpha: 0, x: 60 * m, rotate: 4 * m, duration: 0.6, ease: 'power3.out' }, '-=0.5')
+				.from('[data-erp-stamp]', { autoAlpha: 0, scale: reduce ? 1.15 : 1.8, rotate: -12 * m, duration: 0.4, ease: reduce ? 'power2.out' : 'back.out(2.2)' });
 
 		}
 
@@ -291,12 +294,11 @@ const bars = [42, 55, 48, 63, 58, 71, 66, 80, 74, 86];
 		revealCards(cards, {
 			from: { x: (_: number, el: HTMLElement) => (isDesk() ? (Number(el.dataset.erpCard) <= 3 ? -24 : 24) : 0) },
 			onReveal: (c, delay) => {
-				if (reduce) return;
 				const i = cards.indexOf(c);
 				const t = gsap.timeline({ delay: delay + 0.35 });
-				t.to(dots[i], { autoAlpha: 1, scale: 1, duration: 0.25, ease: 'back.out(2.5)' })
+				t.to(dots[i], { autoAlpha: 1, scale: 1, duration: reduce ? 0.4 : 0.25, ease: reduce ? 'power1.out' : 'back.out(2.5)' })
 					.call(() => { targets[i].classList.add('is-lit'); setTimeout(() => targets[i].classList.remove('is-lit'), 1200); }, [], '<');
-				if (isDesk()) t.fromTo(lines[i], { strokeDashoffset: () => Number(lines[i].dataset.len) }, { strokeDashoffset: 0, duration: 0.5, ease: 'power2.inOut', onComplete: () => { drawn.add(i); lines[i].style.strokeDasharray = '3 4'; } }, '<');
+				if (isDesk()) t.fromTo(lines[i], { strokeDashoffset: () => Number(lines[i].dataset.len) }, { strokeDashoffset: 0, duration: reduce ? 0.8 : 0.5, ease: 'power2.inOut', onComplete: () => { drawn.add(i); lines[i].style.strokeDasharray = '3 4'; } }, '<');
 				else drawn.add(i);
 			},
 		});

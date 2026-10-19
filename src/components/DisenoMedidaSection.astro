@@ -254,7 +254,10 @@ const layers = ['Encabezado', 'Indicadores', 'Gráfico', 'Lista de pedidos', 'Bo
 		fitMock(wrap, mock, 900, 560);
 		// Tarjetas de características: una a una al entrar al viewport.
 		revealCards(root.querySelectorAll<HTMLElement>('[data-dm-feature]'));
-		if (!prefersReducedMotion()) {
+		{
+			// Movimiento reducido: la misma secuencia (barrido incluido), más lenta y con desplazamientos mínimos.
+			const reduce = prefersReducedMotion();
+			const m = reduce ? 0.25 : 1;
 			const q = (s: string) => Array.from(root.querySelectorAll<HTMLElement>(s));
 			const ui = root.querySelector<HTMLElement>('.dm-layer-ui')!;
 			const scan = root.querySelector<HTMLElement>('.dm-scan')!;
@@ -263,8 +266,9 @@ const layers = ['Encabezado', 'Indicadores', 'Gráfico', 'Lista de pedidos', 'Bo
 			gsap.set(['[data-dm-select]', '[data-dm-cursor]'], { autoAlpha: 0 });
 			layers.forEach((l) => l.classList.remove('is-sel'));
 			const tl = gsap.timeline({ scrollTrigger: { trigger: root, start: 'top 65%', once: true } });
-			tl.from(wrap, { autoAlpha: 0, y: 30, duration: 0.6, ease: 'power3.out' })
-				.from(q('.dm-layer-wire > *, .w-kpis > *, .w-rows > *'), { autoAlpha: 0, scale: 0.85, transformOrigin: '0 50%', duration: 0.35, stagger: 0.05, ease: 'power2.out' }, '-=0.2')
+			if (reduce) tl.timeScale(0.7);
+			tl.from(wrap, { autoAlpha: 0, y: 30 * m, duration: 0.6, ease: 'power3.out' })
+				.from(q('.dm-layer-wire > *, .w-kpis > *, .w-rows > *'), { autoAlpha: 0, scale: reduce ? 1 : 0.85, transformOrigin: '0 50%', duration: 0.35, stagger: 0.05, ease: 'power2.out' }, '-=0.2')
 				.addLabel('scan')
 				.to(scan, { autoAlpha: 1, duration: 0.1 })
 				.to(ui, { clipPath: 'inset(0 0% 0 0)', duration: 1.3, ease: 'power2.inOut' }, '<')
@@ -272,9 +276,9 @@ const layers = ['Encabezado', 'Indicadores', 'Gráfico', 'Lista de pedidos', 'Bo
 				.to(scan, { autoAlpha: 0, duration: 0.2 });
 			layers.forEach((l, i) => tl.call(() => { layers.forEach((x) => x.classList.remove('is-sel')); l.classList.add('is-sel'); }, [], `scan+=${0.1 + i * 0.25}`));
 			tl.call(() => { layers.forEach((x) => x.classList.remove('is-sel')); layers[1]?.classList.add('is-sel'); })
-				.fromTo('[data-dm-cursor]', { autoAlpha: 0, x: 80, y: 60 }, { autoAlpha: 1, x: 0, y: 0, duration: 0.6, ease: 'power2.out' })
-				.fromTo('[data-dm-select]', { autoAlpha: 0, scale: 0.92 }, { autoAlpha: 1, scale: 1, duration: 0.3, ease: 'back.out(2)' }, '-=0.15')
-				.from(q('.dm-swatches span'), { scale: 0, duration: 0.3, stagger: 0.06, ease: 'back.out(2)' }, '-=0.2');
+				.fromTo('[data-dm-cursor]', { autoAlpha: 0, x: 80 * m, y: 60 * m }, { autoAlpha: 1, x: 0, y: 0, duration: 0.6, ease: 'power2.out' })
+				.fromTo('[data-dm-select]', { autoAlpha: 0, scale: reduce ? 1 : 0.92 }, { autoAlpha: 1, scale: 1, duration: 0.3, ease: reduce ? 'power1.out' : 'back.out(2)' }, '-=0.15')
+				.from(q('.dm-swatches span'), reduce ? { autoAlpha: 0 } : { scale: 0, duration: 0.3, stagger: 0.06, ease: 'back.out(2)' }, '-=0.2');
 		}
 	}
 </script>
