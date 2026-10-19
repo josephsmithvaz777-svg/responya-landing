@@ -1,7 +1,9 @@
 // Revelado de tarjetas al hacer scroll: cada tarjeta aparece cuando entra al viewport (~85 %),
 // en cascada si entran varias a la vez, y solo una vez (sin revertir al subir).
 // El estado oculto lo pone este script: si el JS falla, todo el contenido queda visible.
-// Con prefers-reduced-motion no se oculta nada.
+// Con prefers-reduced-motion se usa una versión suave: solo fundido de opacidad, sin desplazamiento,
+// escala ni desenfoque (muchos equipos con Windows tienen "Efectos de animación" desactivados).
+// Si el JS falla no se oculta nada.
 import { gsap } from 'gsap';
 import { ScrollTrigger } from 'gsap/ScrollTrigger';
 import { prefersReducedMotion } from './fit-mock';
@@ -23,12 +25,9 @@ export const REVEAL_FROM: gsap.TweenVars = { autoAlpha: 0, y: 34, scale: 0.96, f
 export function revealCards(targets: ArrayLike<HTMLElement> | string, opts: RevealOptions = {}) {
 	const els = gsap.utils.toArray<HTMLElement>(targets);
 	if (!els.length) return;
-	if (prefersReducedMotion()) {
-		els.forEach((el) => opts.onReveal?.(el, 0));
-		return;
-	}
-	const from = { ...REVEAL_FROM, ...opts.from };
-	const stagger = opts.stagger ?? 0.15;
+	const reduce = prefersReducedMotion();
+	const from = reduce ? { autoAlpha: 0 } : { ...REVEAL_FROM, ...opts.from };
+	const stagger = opts.stagger ?? (reduce ? 0.12 : 0.15);
 	gsap.set(els, from);
 	els.forEach((el) => el.classList.add('is-reveal-pending'));
 	ScrollTrigger.batch(els, {
@@ -43,7 +42,7 @@ export function revealCards(targets: ArrayLike<HTMLElement> | string, opts: Reve
 			});
 			gsap.to(list, {
 				autoAlpha: 1, x: 0, y: 0, scale: 1, rotate: 0, rotateX: 0, filter: 'blur(0px)',
-				duration: opts.duration ?? 0.8, stagger, ease: 'power3.out', overwrite: 'auto',
+				duration: reduce ? 0.6 : (opts.duration ?? 0.8), stagger, ease: reduce ? 'power1.out' : 'power3.out', overwrite: 'auto',
 				clearProps: 'transform,filter,visibility,opacity',
 			});
 		},

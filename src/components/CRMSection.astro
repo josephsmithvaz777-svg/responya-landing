@@ -958,20 +958,7 @@ const convs = [
 
 		const typedEls = (i: number) => Array.from(cards[i].querySelectorAll<HTMLElement>('.crm-typed'));
 
-		function showAllStatic() {
-			for (let i = 0; i < N; i++) {
-				revealed.add(i);
-				gsap.set([cards[i], dots[i], ends[i]], { autoAlpha: 1 });
-				typedEls(i).forEach((el) => (el.textContent = el.dataset.text || ''));
-			}
-			layout();
-		}
-
-		if (reduce) {
-			showAllStatic();
-			window.addEventListener('resize', layout);
-			document.fonts?.ready.then(layout);
-		} else {
+		{
 			// Estado inicial
 			for (let i = 0; i < N; i++) {
 				gsap.set([cards[i], dots[i], ends[i]], { autoAlpha: 0 });
@@ -1012,8 +999,9 @@ const convs = [
 				current = i;
 				revealed.add(i);
 				// 1) la tarjeta aparece (fade + subida + escala + desenfoque)
-				const from: gsap.TweenVars = { autoAlpha: 0, y: 26, scale: 0.95, filter: 'blur(8px)' };
-				if (m === 'desktop') {
+				// Con movimiento reducido: solo fundido (la línea y el texto escrito se mantienen).
+				const from: gsap.TweenVars = reduce ? { autoAlpha: 0 } : { autoAlpha: 0, y: 26, scale: 0.95, filter: 'blur(8px)' };
+				if (m === 'desktop' && !reduce) {
 					const leftSide = cards[i].getBoundingClientRect().left < window.innerWidth / 2;
 					from.x = leftSide ? -14 : 14;
 				}
@@ -1058,7 +1046,7 @@ const convs = [
 			}
 
 			const mm = gsap.matchMedia();
-			mm.add('(min-width: 640px)', () => {
+			mm.add('(min-width: 640px) and (prefers-reduced-motion: no-preference)', () => {
 				// Escenario fijo: se revela una función por tramo de scroll
 				const st = ScrollTrigger.create({
 					trigger: stage,
@@ -1074,7 +1062,8 @@ const convs = [
 				});
 				return () => st.kill();
 			});
-			mm.add('(max-width: 639px)', () => {
+			// Móvil, o movimiento reducido en cualquier ancho: sin escenario fijo, una tarjeta por vez al entrar.
+			mm.add('(max-width: 639px), (prefers-reduced-motion: reduce)', () => {
 				const sts = cards.map((card, i) =>
 					ScrollTrigger.create({
 						trigger: card,

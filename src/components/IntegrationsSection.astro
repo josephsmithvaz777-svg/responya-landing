@@ -72,6 +72,13 @@ const ringB = place(outer, 50, -67.5);
 
 	gsap.registerPlugin(ScrollTrigger);
 	const root = document.getElementById('integrations');
+	if (root && prefersReducedMotion()) {
+		// Movimiento reducido: el núcleo, las órbitas y los iconos aparecen con fundidos, sin escalas.
+		gsap.timeline({ scrollTrigger: { trigger: '[data-orb]', start: 'top 85%', once: true } })
+			.from('[data-orb-core]', { autoAlpha: 0, duration: 0.6 })
+			.from(root.querySelectorAll('[data-orb-ring]'), { autoAlpha: 0, duration: 0.6, stagger: 0.15 }, '-=0.3')
+			.from(root.querySelectorAll('.orb-chip'), { autoAlpha: 0, duration: 0.4, stagger: { each: 0.04, from: 'random' } }, '-=0.3');
+	}
 	if (root && !prefersReducedMotion()) {
 		// Las órbitas se expanden desde el centro y los iconos "aterrizan" en ellas.
 		const tl = gsap.timeline({ scrollTrigger: { trigger: '[data-orb]', start: 'top 78%', once: true } });

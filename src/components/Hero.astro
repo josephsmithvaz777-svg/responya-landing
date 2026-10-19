@@ -132,6 +132,17 @@ const chips = [
 
 	gsap.registerPlugin(ScrollTrigger);
 	const hero = document.getElementById('hero');
+	// Movimiento reducido: entrada solo con fundidos (sin escalas, giros ni parallax).
+	if (hero && prefersReducedMotion()) {
+		const q = (s: string) => Array.from(hero.querySelectorAll<HTMLElement>(s));
+		gsap.timeline({ defaults: { ease: 'power1.out' } })
+			.from('[data-hero-logo]', { autoAlpha: 0, duration: 0.8 })
+			.from('[data-hero-tag]', { autoAlpha: 0, duration: 0.5 }, '-=0.4')
+			.from(q('[data-hero-word]'), { autoAlpha: 0, duration: 0.5, stagger: 0.06 }, '-=0.2')
+			.from(q('[data-hero-fade]'), { autoAlpha: 0, duration: 0.5, stagger: 0.1 }, '-=0.3')
+			.from(q('.hero-chip'), { autoAlpha: 0, duration: 0.4, stagger: 0.04 }, '-=0.3')
+			.from('[data-hero-cue]', { autoAlpha: 0, duration: 0.5 }, '-=0.2');
+	}
 	if (hero && !prefersReducedMotion()) {
 		const q = (s: string) => Array.from(hero.querySelectorAll<HTMLElement>(s));
 		// Entrada (al cargar): el logo "se enciende" como en la intro y luego aparece el texto.
