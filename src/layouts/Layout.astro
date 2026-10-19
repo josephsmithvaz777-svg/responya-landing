@@ -167,11 +167,6 @@ const {
 				// Observar todos los elementos con la clase animate-on-scroll
 				const elements =
 					document.querySelectorAll(".animate-on-scroll");
-				console.log(
-					"Observing " +
-						elements.length +
-						" elements with animate-on-scroll",
-				);
 				elements.forEach(function (el) {
 					observer.observe(el);
 				});

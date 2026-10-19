@@ -1,0 +1,91 @@
+---
+// Proceso: línea de tiempo cuya línea se dibuja con el scroll; cada paso se enciende al llegar la línea.
+const steps = [
+	{ n: '01', icon: 'chat', title: 'Contacto Inicial', desc: 'Conversamos sobre tu proyecto, objetivos y desafíos para entender completamente tus necesidades.' },
+	{ n: '02', icon: 'troubleshoot', title: 'Diagnóstico', desc: 'Analizamos a profundidad tu situación actual, identificamos oportunidades y diseñamos la solución óptima.' },
+	{ n: '03', icon: 'description', title: 'Propuesta', desc: 'Presentamos un plan detallado con alcance, tiempos, inversión y los resultados esperados del proyecto.' },
+	{ n: '04', icon: 'deployed_code', title: 'Ejecución', desc: 'Desarrollamos la solución con metodologías ágiles, validación continua y comunicación transparente.' },
+	{ n: '05', icon: 'autorenew', title: 'Mantenimiento', desc: 'Monitoreamos, optimizamos y actualizamos tu solución mensualmente para garantizar el máximo rendimiento.' },
+];
+---
+
+<section id="process" class="pr w-full py-24 md:py-28 px-4 relative overflow-x-clip" translate="no">
+	<div class="max-w-5xl mx-auto relative z-10">
+		<div class="sc-head">
+			<div class="sc-eyebrow">Nuestro proceso</div>
+			<h2 class="sc-h2">De la <span class="text-gradient">idea</span> a la <span class="text-gradient">realidad</span></h2>
+			<p class="sc-lead">Un enfoque metódico y transparente para transformar tus ideas en soluciones tecnológicas efectivas.</p>
+		</div>
+
+		<div class="pr-line" data-pr-line>
+			<span class="pr-rail" aria-hidden="true"><span class="pr-fill" data-pr-fill><i class="pr-head"></i></span></span>
+			<ol class="pr-list">
+			{steps.map((s, i) => (
+				<li class:list={['pr-step', i % 2 ? 'is-right' : 'is-left']} data-pr-step>
+					<span class="pr-node" aria-hidden="true"><span class="material-symbols-outlined">{s.icon}</span></span>
+					<div class="pr-card sc-glass">
+						<span class="pr-n">Paso {s.n}</span>
+						<h3 class="pr-title">{s.title}</h3>
+						<p class="pr-desc">{s.desc}</p>
+					</div>
+				</li>
+			))}
+			</ol>
+		</div>
+	</div>
+</section>
+
+<style>
+	.pr-line { position: relative; --rail-x: 24px; }
+	.pr-list { list-style: none; margin: 0; padding: 0; }
+	@media (min-width: 768px) { .pr-line { --rail-x: 50%; } }
+	.pr-rail { position: absolute; top: 8px; bottom: 8px; left: var(--rail-x); width: 2px; margin-left: -1px; border-radius: 2px; background: rgba(159, 243, 251, 0.1); }
+	.pr-fill { position: absolute; inset: 0; border-radius: 2px; background: linear-gradient(180deg, #5fe8ff, #17cbda 30%, #4f8dff 65%, #6a5cf0); box-shadow: 0 0 14px rgba(var(--scalia-glow-cyan), 0.6); transform-origin: 50% 0; }
+	.pr-head { position: absolute; left: 50%; bottom: -5px; width: 10px; height: 10px; margin-left: -5px; border-radius: 50%; background: #dffbff; box-shadow: 0 0 12px 3px rgba(95, 232, 255, 0.9); }
+	.pr-step { position: relative; padding-left: calc(var(--rail-x) + 34px); }
+	.pr-step + .pr-step { margin-top: 1.6rem; }
+	.pr-node { position: absolute; left: var(--rail-x); top: 18px; width: 44px; height: 44px; margin-left: -22px; display: grid; place-items: center; border-radius: 14px; color: #8ea3bf; background: #08122a; border: 1px solid rgba(159, 243, 251, 0.16); transition: color 0.4s, border-color 0.4s, box-shadow 0.4s, background 0.4s; z-index: 2; }
+	.pr-node .material-symbols-outlined { font-size: 1.3rem; }
+	.pr-step.is-on .pr-node { color: #fff; border-color: rgba(95, 232, 255, 0.7); background: linear-gradient(135deg, #0a7b88, #2150d6); box-shadow: 0 0 0 5px rgba(23, 203, 218, 0.1), 0 0 26px rgba(var(--scalia-glow-cyan), 0.55); }
+	.pr-card { padding: 1.3rem 1.4rem 1.4rem; border-radius: 18px; }
+	.pr-n { font-size: 0.72rem; font-weight: 700; letter-spacing: 0.18em; text-transform: uppercase; color: var(--color-neon-400); }
+	.pr-title { margin: 0.35rem 0 0.4rem; font-size: 1.2rem; font-weight: 700; color: #fff; }
+	.pr-desc { font-size: 0.93rem; line-height: 1.6; color: rgba(203, 213, 225, 0.85); }
+	@media (min-width: 768px) {
+		.pr-step { padding-left: 0; width: 50%; }
+		.pr-step + .pr-step { margin-top: -1.4rem; }
+		.pr-step.is-left { padding-right: 56px; }
+		.pr-step.is-right { margin-left: 50%; padding-left: 56px; }
+		.pr-step.is-left .pr-card { text-align: right; }
+		.pr-node { left: auto; right: -22px; margin-left: 0; }
+		.pr-step.is-right .pr-node { right: auto; left: -22px; }
+	}
+	@media (prefers-reduced-motion: reduce) { .pr-node { transition: none; } }
+</style>
+
+<script>
+	import { gsap } from 'gsap';
+	import { ScrollTrigger } from 'gsap/ScrollTrigger';
+	import { prefersReducedMotion } from '../scripts/fit-mock';
+
+	gsap.registerPlugin(ScrollTrigger);
+	const root = document.getElementById('process');
+	const line = root?.querySelector<HTMLElement>('[data-pr-line]');
+	if (root && line) {
+		const steps = Array.from(root.querySelectorAll<HTMLElement>('[data-pr-step]'));
+		if (prefersReducedMotion()) {
+			steps.forEach((s) => s.classList.add('is-on'));
+		} else {
+			// La línea crece ligada al scroll (scrub) desde el primer paso hasta el último.
+			gsap.fromTo('[data-pr-fill]', { scaleY: 0 }, { scaleY: 1, ease: 'none', scrollTrigger: { trigger: line, start: 'top 62%', end: 'bottom 62%', scrub: 0.4 } });
+			steps.forEach((s, i) => {
+				const card = s.querySelector('.pr-card');
+				const desktop = window.matchMedia('(min-width: 768px)').matches;
+				const fromX = desktop ? (i % 2 ? 50 : -50) : 30;
+				ScrollTrigger.create({ trigger: s.querySelector('.pr-node'), start: 'top 62%', onEnter: () => s.classList.add('is-on'), onLeaveBack: () => s.classList.remove('is-on') });
+				gsap.from(card, { autoAlpha: 0, x: fromX, filter: 'blur(6px)', duration: 0.8, ease: 'power3.out', clearProps: 'filter', scrollTrigger: { trigger: s, start: 'top 80%', once: true } });
+				gsap.from(s.querySelector('.pr-node'), { scale: 0.3, autoAlpha: 0, duration: 0.5, ease: 'back.out(2.5)', scrollTrigger: { trigger: s, start: 'top 80%', once: true } });
+			});
+		}
+	}
+</script>
