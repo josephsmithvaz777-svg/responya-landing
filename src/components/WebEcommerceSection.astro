@@ -16,6 +16,12 @@ const sites = [
 	{ id: 'cevicheria', url: 'olamorena.demo', label: 'Cevichería',
 		alt: 'Página de Ola Morena, cevichería de demostración en Chorrillos: carta con ceviche, arroz con mariscos y chicharrón, y reservas o pedidos por WhatsApp.',
 		altM: 'Versión para celular de la cevichería de demostración Ola Morena con formulario de reserva por WhatsApp.' },
+	{ id: 'inmobiliaria', url: 'nidora.demo', label: 'Inmobiliaria',
+		alt: 'Página de Nidora, inmobiliaria de demostración en Lima: buscador por distrito, tipo, dormitorios y precio en soles o dólares, departamentos destacados con m², dormitorios y baños, y botón Agenda tu visita.',
+		altM: 'Versión para celular de la inmobiliaria de demostración Nidora con el buscador de inmuebles.' },
+	{ id: 'nikkei', url: 'hanagi.demo', label: 'Restaurante',
+		alt: 'Página de Hanagi, restaurante de cocina nikkei de demostración en Barranco: diseño oscuro y elegante, menú degustación y reserva online con fecha, hora y personas.',
+		altM: 'Versión para celular del restaurante nikkei de demostración Hanagi con el formulario de reserva online.' },
 	{ id: 'clinica', url: 'clinicanuvia.demo', label: 'Clínica',
 		alt: 'Página de Clínica Nuvia, centro médico de demostración: reserva de citas online con especialidad, sede, fecha y horarios disponibles.',
 		altM: 'Versión para celular de Clínica Nuvia con el formulario para agendar una cita médica.' },
@@ -47,6 +53,7 @@ const sites = [
 				))}
 			</ul>
 
+			<div class="we-stage">
 			<div class="we-mock-wrap" data-we-wrap>
 				<span class="sc-demo-chip" style="top:-12px;left:16px">Ejemplo</span>
 				<div class="we-mock" data-we-mock>
@@ -58,7 +65,7 @@ const sites = [
 						</div>
 						<div class="we-view">
 							{sites.map((site, i) => (
-								<img class:list={['we-slide', { 'is-on': i === 0 }]} data-we-slide src={`${base}/portfolio/${site.id}-desktop.webp`} width="1280" height="800" loading="lazy" decoding="async" alt={site.alt} />
+								<img class:list={['we-slide', { 'is-on': i === 0 }]} data-we-slide data-url={site.url} src={`${base}/portfolio/${site.id}-desktop.webp`} width="1280" height="800" loading="lazy" decoding="async" alt={site.alt} />
 							))}
 						</div>
 					</div>
@@ -73,32 +80,34 @@ const sites = [
 						</div>
 					</div>
 
-					<!-- Indicador de sitio -->
-					<div class="we-tabs" aria-hidden="true">
-						{sites.map((site, i) => (
-							<span class:list={['we-tab', { 'is-on': i === 0 }]} data-we-tab><i></i>{site.label}</span>
-						))}
-					</div>
+				</div>
+			</div>
+				<!-- Indicador de sitio -->
+				<div class="we-tabs" aria-hidden="true">
+					{sites.map((site, i) => (
+						<span class:list={['we-tab', { 'is-on': i === 0 }]} data-we-tab><i></i><b>{site.label}</b></span>
+					))}
 				</div>
 			</div>
 		</div>
-		<p class="we-note">Capturas de sitios de demostración para negocios ficticios. Fotos libres de dominio público y CC0.</p>
+		<p class="we-note">Capturas de 5 sitios de demostración para negocios ficticios. Fotos libres de dominio público y CC0.</p>
 	</div>
 </section>
 
 <style>
 	.we-grid { display: grid; gap: 28px; }
-	.we-mock-wrap { position: relative; width: 100%; order: -1; }
+	.we-stage { min-width: 0; order: -1; }
+	.we-mock-wrap { position: relative; width: 100%; }
 	@media (min-width: 1024px) {
 		.we-grid { grid-template-columns: minmax(0, 1fr) minmax(0, 1.55fr); gap: 44px; align-items: center; }
-		.we-mock-wrap { order: 0; }
+		.we-stage { order: 0; }
 	}
 	.we-features { list-style: none; margin: 0; padding: 0; display: grid; gap: 6px; }
 	@media (min-width: 640px) and (max-width: 1023px) { .we-features { grid-template-columns: 1fr 1fr; column-gap: 20px; } }
 	.we-feature { display: flex; gap: 14px; padding: 12px 6px; border-bottom: 1px solid rgba(95, 232, 255, 0.1); }
 
 	/* ---- Mockup (1000 × 600) ---- */
-	.we-mock { position: absolute; left: 0; top: 0; width: 1000px; height: 600px; transform-origin: 0 0; font: 500 11px/1.35 Inter, system-ui, sans-serif; color: #e8eef7; }
+	.we-mock { position: absolute; left: 0; top: 0; width: 1000px; height: 566px; transform-origin: 0 0; font: 500 11px/1.35 Inter, system-ui, sans-serif; color: #e8eef7; }
 	.we-mock .material-symbols-outlined { font-size: 14px; font-variation-settings: 'wght' 300; line-height: 1; }
 	.we-browser { position: absolute; left: 0; top: 14px; width: 790px; height: 528px; border-radius: 14px; overflow: hidden; background: #0a1428; box-shadow: 0 0 0 1px rgba(255,255,255,.08), 0 30px 80px -20px rgba(36,94,245,.45), 0 0 60px -10px rgba(23,203,218,.2); }
 	.we-chrome { height: 34px; display: flex; align-items: center; gap: 14px; padding: 0 14px; background: #0e1628; border-bottom: 1px solid #1d2a44; }
@@ -113,8 +122,11 @@ const sites = [
 	.we-notch { position: absolute; left: 50%; top: 16px; width: 64px; height: 16px; margin-left: -32px; border-radius: 99px; background: #000; z-index: 3; }
 	.we-screen { position: relative; height: 100%; border-radius: 27px; overflow: hidden; background: #fff; }
 	/* Indicador */
-	.we-tabs { position: absolute; left: 0; top: 556px; width: 790px; display: flex; justify-content: center; gap: 10px; }
-	.we-tab { display: inline-flex; align-items: center; gap: 7px; padding: 6px 13px; border-radius: 99px; font-size: 12px; color: #8ea0bd; background: rgba(10,20,40,.6); border: 1px solid rgba(95,232,255,.12); transition: color .4s, border-color .4s, background .4s; }
+	.we-tabs { margin-top: 14px; display: flex; flex-wrap: wrap; justify-content: center; gap: 8px; }
+	@media (min-width: 1024px) { .we-tabs { margin-right: 21%; } }
+	.we-tab b { font-weight: 500; }
+	@media (max-width: 639px) { .we-tab:not(.is-on) { padding: 6px 7px; gap: 0; } .we-tab:not(.is-on) b { display: none; } }
+	.we-tab { display: inline-flex; align-items: center; gap: 7px; padding: 6px 13px; border-radius: 99px; font: 500 12px/1.2 Inter, system-ui, sans-serif; color: #8ea0bd; background: rgba(10,20,40,.6); border: 1px solid rgba(95,232,255,.12); transition: color .4s, border-color .4s, background .4s; }
 	.we-tab i { width: 7px; height: 7px; border-radius: 99px; background: #2a3a5c; transition: background .4s, box-shadow .4s; }
 	.we-tab.is-on { color: #dffbff; border-color: rgba(95,232,255,.45); background: rgba(23,203,218,.1); }
 	.we-tab.is-on i { background: #5fe8ff; box-shadow: 0 0 8px #5fe8ff; }
@@ -132,13 +144,13 @@ const sites = [
 	const wrap = root?.querySelector<HTMLElement>('[data-we-wrap]');
 	const mock = root?.querySelector<HTMLElement>('[data-we-mock]');
 	if (root && wrap && mock) {
-		fitMock(wrap, mock, 1000, 600);
+		fitMock(wrap, mock, 1000, 566);
 		const q = (sel: string) => Array.from(root.querySelectorAll<HTMLElement>(sel));
 		const slides = q('[data-we-slide]');
 		const mslides = q('[data-we-mslide]');
 		const tabs = q('[data-we-tab]');
 		const urlEl = root.querySelector<HTMLElement>('[data-we-url]');
-		const urls = ['lumara.demo', 'olamorena.demo', 'clinicanuvia.demo'];
+		const urls = slides.map((sl) => sl.dataset.url ?? '');
 		if (!prefersReducedMotion()) {
 			gsap.set(q('[data-we-feature]'), { autoAlpha: 0, x: -20 });
 			let idx = 0;
